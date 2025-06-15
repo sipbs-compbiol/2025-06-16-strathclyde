@@ -1,0 +1,1511 @@
+<h1 id="data-structures-and-data-frames">Data Structures and Data
+Frames</h1>
+<h2 id="preflight">Preflight</h2>
+<ol type="1">
+<li>Ensure that <code>RStudio</code>/<code>R</code> is open with the
+appropriate packages installed (<code>tidyverse</code>)</li>
+</ol>
+<hr />
+<h2 id="learning-questions">Learning Questions</h2>
+<ul>
+<li><p>This lesson might sound like it’s going to be a bit dry: “Why
+should I care about data types and structures?”</p></li>
+<li><p><strong>IF YOU UNDERSTAND YOUR DATA, AND YOU UNDERSTAND HOW
+<code>R</code> SEES YOUR DATA, YOUR ANALYSIS WILL BE MUCH EASIER AND
+MORE EFFECTIVE</strong></p></li>
+<li><p>Some questions you might have had before this session may include
+those on the slide:</p>
+<ul>
+<li>How can I read data in <code>R</code>?</li>
+<li>What are the basic data types in <code>R</code>?</li>
+<li>How do I represent categorical information in <code>R</code>?</li>
+</ul></li>
+<li><p>This session aims to help you answer those</p></li>
+</ul>
+<hr />
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ul>
+<li>In this section, you’ll be learning about the data types in
+<code>R</code>:
+<ul>
+<li><strong>WHAT DATA IS</strong></li>
+</ul></li>
+<li>You’ll be learning about data <em>structures</em>:
+<ul>
+<li><strong>WHAT DATA IS BUILT INTO - HOW IT IS ARRANGED</strong></li>
+</ul></li>
+<li>You’ll also learn how to find out what type/structure a particular
+piece of data has
+<ul>
+<li>Putting it together, you’ll see how <code>R</code>’s data types and
+structures relate to the types of data that you work with,
+yourself.</li>
+<li>This will help you work much more fluently in <code>R</code></li>
+</ul></li>
+<li>In particular, we’ll be working with <strong>DATA FRAMES</strong> -
+this is the workhorse data structure in <code>R</code> and, when you use
+<code>R</code>, you will see a <em>lot</em> of them.</li>
+</ul>
+<hr />
+<h2 id="data-types-and-structures-in-r">Data Types and Structures in
+<code>R</code></h2>
+<ul>
+<li><p><code>R</code> is <strong>MOSTLY USED FOR DATA
+ANALYSIS</strong></p></li>
+<li><p><code>R</code> is set up with key, core data types designed to
+help you work with your own data</p></li>
+<li><p>A lot of the time, <code>R</code> focuses on tabular
+data.</p></li>
+<li><p><strong><code>R</code> is very powerful when dealing with tabular
+data</strong></p></li>
+<li><p><strong>INTERACTIVE DEMO</strong></p></li>
+<li><p><strong>SWITCH TO THE CONSOLE</strong></p></li>
+<li><p>Let’s start by making a toy dataset.</p></li>
+<li><p>We’ll eventually save this in your <code>data/</code> directory,
+with the name <code>feline-data.csv</code></p></li>
+<li><p>Use the console in <code>RStudio</code></p></li>
+<li><p>We’ll create a new variable called <code>cats</code></p>
+<ul>
+<li>This holds a <code>data.frame</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cats <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">coat =</span> <span class="fu">c</span>(<span class="st">&quot;calico&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;tabby&quot;</span>),</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">weight =</span> <span class="fu">c</span>(<span class="fl">2.1</span>, <span class="fl">5.0</span>, <span class="fl">3.2</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">likes_catnip =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div>
+<ul>
+<li>We can now save the content of the variable <code>cats</code> as a
+CSV (comma-separated variable) file.
+<ul>
+<li>We use the <code>write.csv()</code> function</li>
+<li>It is useful to call argument names explicitly so that the code is
+more readable</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(cats, <span class="at">file =</span> <span class="st">&quot;data/feline-data.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<ul>
+<li><p>We’re writing the <code>cats</code> data out to file</p>
+<ul>
+<li><code>file</code> specifies the filename we’re writing to</li>
+<li><code>row.names</code> tells <code>R</code> not to give the rows in
+the table a name</li>
+</ul></li>
+<li><p><strong>USE THE FILES TAB/VIEW FILES TO VIEW THE CONTENTS OF THE
+NEW FILE</strong></p></li>
+<li><p>This is a plain text file, and you could have created it using a
+text editor like Nano or Notepad.</p>
+<ul>
+<li>The first row is the header row</li>
+<li>Each individual cat gets its own row</li>
+<li>Each column is a different kind of data</li>
+<li>Each column is separated by a comma</li>
+</ul></li>
+<li><p>We can load the data from a CSV file in a similar way to how we
+write it</p>
+<ul>
+<li>We can use the <code>read.csv()</code> function</li>
+<li>Inspect the dataset by using the variable name</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cats <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;data/feline-data.csv&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cats</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    coat weight likes_catnip</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> calico    <span class="fl">2.1</span>            <span class="dv">1</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  black    <span class="fl">5.0</span>            <span class="dv">0</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  tabby    <span class="fl">3.2</span>            <span class="dv">1</span></span></code></pre></div>
+<ul>
+<li><strong>THINK ABOUT THE DATA TYPES</strong> Are they all the same?
+<ul>
+<li><strong>NO</strong> <code>coat</code> is text; <code>weight</code>
+is some real value (in kg or pounds, maybe), and
+<code>likes_string</code> looks like it should be
+<code>TRUE</code>/<code>FALSE</code> but is represented as 1s and
+0s</li>
+<li><strong>DOES IT MAKE SENSE TO WORK WITH EACH OF THESE ELEMENTS OF
+DATA AS IF THEY’RE THE SAME THING?</strong> (No)</li>
+</ul></li>
+<li>Let’s explore our dataset</li>
+<li><strong>EXTRACT A COLUMN FROM A TABLE</strong>
+<ul>
+<li>Use <code>$</code> notation in the console</li>
+<li><strong>NOTE THE AUTOCOMPLETION</strong></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats<span class="sc">$</span>weight</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.1</span> <span class="fl">5.0</span> <span class="fl">3.2</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats<span class="sc">$</span>coat</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;calico&quot;</span> <span class="st">&quot;black&quot;</span>  <span class="st">&quot;tabby&quot;</span> </span></code></pre></div>
+<ul>
+<li><strong>WHAT DID <code>R</code> RETURN?</strong></li>
+<li>A <em>vector</em> (1D ordered collection) of numbers or character
+strings</li>
+<li><strong>WE CAN OPERATE ON THESE <em>VECTORS</em></strong>
+<ul>
+<li><em>Vectors</em> are an important concept, and <code>R</code> is
+largely built so that operations on vectors are central to data
+analysis.</li>
+</ul></li>
+<li>Suppose that we discover the scales used to weigh the cats is
+miscalibrated
+<ul>
+<li>Every cat weight is underestimated by 2kg</li>
+<li>We can correct all the weights at once</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats<span class="sc">$</span>weight <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">4.1</span> <span class="fl">7.0</span> <span class="fl">5.2</span></span></code></pre></div>
+<ul>
+<li>Suppose we want to make a string out of each of the coat types:</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">paste</span>(<span class="st">&quot;My cat is&quot;</span>, cats<span class="sc">$</span>coat)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;My cat is calico&quot;</span> <span class="st">&quot;My cat is black&quot;</span>  <span class="st">&quot;My cat is tabby&quot;</span> </span></code></pre></div>
+<ul>
+<li><strong>What if we try to combine these columns?</strong></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats<span class="sc">$</span>weight <span class="sc">+</span> cats<span class="sc">$</span>coat</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> cats<span class="sc">$</span>weight <span class="sc">+</span> cats<span class="sc">$</span>coat <span class="sc">:</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  non<span class="sc">-</span>numeric argument to binary operator</span></code></pre></div>
+<ul>
+<li><strong>WE HIT AN ERROR</strong>
+<ul>
+<li>You probably already realised that wasn’t going to work, because
+adding “calico” to “2.1” is nonsense.
+<ul>
+<li><strong>You already have intuition about this</strong></li>
+</ul></li>
+<li><strong>THESE DATA TYPES ARE NOT COMPATIBLE</strong> for
+addition</li>
+<li><code>R</code>’s data types reflect the ways in which data is
+expected to interact</li>
+</ul></li>
+<li><strong>UNDERSTANDING HOW YOUR OWN DATA MAP TO <code>R</code>’s DATA
+TYPES IS KEY</strong>
+<ul>
+<li>It’s very important to understand how <code>R</code> sees your data
+(<strong>you want <code>R</code> to see your data the same way you
+do</strong>)</li>
+<li>Many problems in <code>R</code> come down to incompatibilities
+between data and data types.</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="what-data-types-do-you-expect">What Data Types Do You
+Expect?</h2>
+<ul>
+<li><strong>ASK THE STUDENTS</strong>
+<ul>
+<li>What data types would you expect to see?</li>
+<li>What data types do you think you would <strong>WANT OR
+NEED</strong>, from your own experience?</li>
+</ul></li>
+<li><strong>SPEND A COUPLE OF MINUTES ON THIS</strong>
+<ul>
+<li>The difference between a <em>data type</em> and a <em>data
+structure</em></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="data-types-in-r">Data Types in <code>R</code></h2>
+<ul>
+<li><p><code>R</code>’s data <em>types</em> are <em>atomic</em>: they
+are <strong>FUNDAMENTAL AND EVERYTHING ELSE IS BUILT UP FROM
+THEM</strong>, the same way matter is built up from atoms</p>
+<ul>
+<li>In particular, all the data <em>structures</em> are built up from
+data <em>types</em></li>
+</ul></li>
+<li><p>There are only <strong>FIVE DATA TYPES</strong> in <code>R</code>
+(though one is split into two…) - three that matter here and two we
+won’t deal with</p>
+<ul>
+<li><strong>logical</strong>: Boolean, True/False (also
+<code>1</code>/<code>0</code>)</li>
+<li><strong>numeric</strong>: anything that’s a number on the number
+line; two types of number are supported: <code>integer</code> and
+<code>double</code> (real)</li>
+<li><strong>character</strong>: text data - readable symbols</li>
+</ul></li>
+<li><p>The other two are less relevant to you and we’ll not deal with
+them much today</p>
+<ul>
+<li><strong>complex</strong>: complex numbers, defined on the 2D
+plane</li>
+<li><strong>raw</strong>: binary data</li>
+</ul></li>
+<li><p><strong>LET’S LEARN A BIT MORE ABOUT THEM IN THE
+DEMO</strong></p></li>
+<li><p>We can ask what type of data something is with the
+<code>typeof()</code> function</p></li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(cats<span class="sc">$</span>weight)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;logical&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(<span class="fl">3.14</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(<span class="dv">1</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span></span></code></pre></div>
+<ul>
+<li>This might seem unintuitive: <code>1</code> is an integer
+<ul>
+<li>But <code>R</code> treats all numbers as <code>double</code>s
+(i.e. “Real” numbers) by default</li>
+<li>To force <code>R</code> to see a value as an integer, we need to add
+an <code>L</code> suffix</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(<span class="dv">1</span><span class="dt">L</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;integer&quot;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(cats<span class="sc">$</span>coat)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;character&quot;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(<span class="st">&quot;Irn Bru&quot;</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;character&quot;</span></span></code></pre></div>
+<ul>
+<li>No matter how complicated your analysis gets, <em>all</em> data in
+<code>R</code> is interpreted as one of these basic data types.
+<ul>
+<li><code>R</code> - like most computer languages - is strict about data
+types, and this has important consequences.</li>
+</ul></li>
+<li><strong>SUPPOSE OUR FRIEND WANTS TO ADD DETAILS OF THEIR OWN CAT TO
+OUR DATASET</strong>
+<ul>
+<li>We can create a new dataframe to hold this data</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> additional_cat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">coat =</span> <span class="st">&quot;tabby&quot;</span>, <span class="at">weight =</span> <span class="st">&quot;2.3 or 2.4&quot;</span>, <span class="at">likes_catnip =</span> <span class="dv">1</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> additional_cat</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>   coat     weight likes_catnip</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> tabby <span class="fl">2.3</span> or <span class="fl">2.4</span>   </span></code></pre></div>
+<ul>
+<li><strong>We can “stack” dataframes using the function
+<code>rbind</code></strong></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats2 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(cats, additional_cat)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats2</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    coat     weight likes_catnip</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> calico        <span class="fl">2.1</span>            <span class="dv">1</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  black          <span class="dv">5</span>            <span class="dv">0</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  tabby        <span class="fl">3.2</span>            <span class="dv">1</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>  tabby <span class="fl">2.3</span> or <span class="fl">2.4</span>            <span class="dv">1</span></span></code></pre></div>
+<ul>
+<li>Initially, everything looks OK - but we’ve silently caused some
+problems.
+<ul>
+<li>Let’s look at the data type of <code>cats$weight</code> in the two
+dataframes</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(cats<span class="sc">$</span>weight)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(cats2<span class="sc">$</span>weight)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;character&quot;</span></span></code></pre></div>
+<ul>
+<li>Our friend gave us a different data type in the <code>weight</code>
+column, and this means we can no longer do the same weight adjustment
+(adding on 2kg) that we did before:</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats2<span class="sc">$</span>weight <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> cats2<span class="sc">$</span>weight <span class="sc">+</span> <span class="dv">2</span> <span class="sc">:</span> non<span class="sc">-</span>numeric argument to binary operator</span></code></pre></div>
+<hr />
+<p>## A Quick Note About Dataframes</p>
+<ul>
+<li><p>Any column in a dataframe can contain only one datatype.</p></li>
+<li><p>Initially, the datatype of <code>cats$weight</code> was
+<code>double</code></p></li>
+<li><p>When we added the new cat, the data in that column was
+<code>character</code> - i.e. a string</p></li>
+<li><p>Because we can always represent a number as a string, but we
+can’t always represent a string as a number, <code>R</code> chose to
+<em>coerce</em> the datatype from <code>double</code> to
+<code>character</code> for that column.</p></li>
+<li><p><strong>INTERACTIVE DEMO</strong></p></li>
+<li><p>We can look at the structure of a dataframe using the
+<code>str()</code> function</p></li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(cats)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span>   <span class="dv">3</span> obs. of  <span class="dv">3</span> variables<span class="sc">:</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a> <span class="er">$</span> coat        <span class="sc">:</span> chr  <span class="st">&quot;calico&quot;</span> <span class="st">&quot;black&quot;</span> <span class="st">&quot;tabby&quot;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> weight      <span class="sc">:</span> num  <span class="fl">2.1</span> <span class="dv">5</span> <span class="fl">3.2</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> likes_catnip<span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(cats2)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span>   <span class="dv">4</span> obs. of  <span class="dv">3</span> variables<span class="sc">:</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a> <span class="er">$</span> coat        <span class="sc">:</span> chr  <span class="st">&quot;calico&quot;</span> <span class="st">&quot;black&quot;</span> <span class="st">&quot;tabby&quot;</span> <span class="st">&quot;tabby&quot;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> weight      <span class="sc">:</span> chr  <span class="st">&quot;2.1&quot;</span> <span class="st">&quot;5&quot;</span> <span class="st">&quot;3.2&quot;</span> <span class="st">&quot;2.3 or 2.4&quot;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> likes_catnip<span class="sc">:</span> num  <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span></span></code></pre></div>
+<ul>
+<li>Here the <code>str()</code> function tells us that <code>cats</code>
+and <code>cats2</code> are both <code>data.frame</code>s - a very common
+kind of data structure in <code>R</code>
+<ul>
+<li>All data frames are composed of rows and columns.</li>
+<li>Every column has the same number of rows</li>
+<li>Every column has one and only one data type</li>
+<li>Each column can be a different data type</li>
+</ul></li>
+<li>To understand <code>data.frame</code>s, a bit better, let’s meet a
+different data structure called a <em>vector</em></li>
+</ul>
+<hr />
+<h2 id="vectors">Vectors</h2>
+<ul>
+<li><p>These are the <strong>MOST COMMON DATA STRUCTURE</strong></p>
+<ul>
+<li>Vectors are an ordered collection of data values</li>
+<li>Vectors can contain <strong>ONLY A SINGLE DATA TYPE</strong>
+(<em>atomic vectors</em>)</li>
+</ul></li>
+<li><p><strong>INTERACTIVE DEMO</strong></p></li>
+<li><p>Let’s define an <strong>ATOMIC VECTOR OF NUMBERS</strong></p>
+<ul>
+<li>To create a vector <strong>USE THE <code>c()</code>
+FUNCTION</strong> (<code>c()</code> is <code>combine</code>; use
+<code>?c</code>)</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">45</span>, <span class="dv">33</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">10</span> <span class="dv">12</span> <span class="dv">45</span> <span class="dv">33</span></span></code></pre></div>
+<ul>
+<li>Let’s check the data type, and what kind of structure we have</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(x)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(x)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(x)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="dv">10</span> <span class="dv">12</span> <span class="dv">45</span> <span class="dv">33</span></span></code></pre></div>
+<ul>
+<li>This is a little cryptic as output
+<ul>
+<li>We can see from <code>typeof()</code> that the vector contains the
+<code>double</code> type</li>
+<li>The output of <code>str()</code> tells us:
+<ul>
+<li>it’s a <code>numeric</code> (<code>num</code>) vector - which
+includes <code>double</code> and <code>integer</code> datatypes</li>
+<li>there are four elements <code>[1:4]</code> in the vector</li>
+<li>the first few datapoint in the vector</li>
+</ul></li>
+</ul></li>
+<li><code>str()</code> tells us that the <code>cats$coat</code> column
+is a vector, too:</li>
+</ul>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(cats<span class="sc">$</span>coat)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="st">&quot;calico&quot;</span> <span class="st">&quot;black&quot;</span> <span class="st">&quot;tabby&quot;</span></span></code></pre></div>
+<hr />
+<p>## Coercion</p>
+<ul>
+<li><p><strong>INTERACTIVE DEMO</strong></p></li>
+<li><p>Given what we’ve done so far, what do you think the following
+will produce when we use <code>typeof()</code>?</p>
+<ul>
+<li><strong>PAUSE FOR STUDENT SUGGESTIONS</strong></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> quiz_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>,<span class="st">&#39;3&#39;</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(quiz_vector)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;character&quot;</span></span></code></pre></div>
+<ul>
+<li><p>Here, <code>R</code> has enforced that the type of the vector is
+<code>character</code> (string), because we can always represent numbers
+as strings, but we can’t always represent strings as numbers</p></li>
+<li><p><strong>NEXT CALLOUTS</strong></p></li>
+<li><p>This is called <em>type coercion</em> and can cause surprises in
+your code</p>
+<ul>
+<li>It is a key reason why you need to be aware of the basic data types
+and how <code>R</code> interprets them.</li>
+</ul></li>
+<li><p><strong>INTERACTIVE DEMO</strong></p></li>
+<li><p>Consider these two vectors</p></li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> coercion_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;a&#39;</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> coercion_vector</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span>    <span class="st">&quot;TRUE&quot;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> another_coercion_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> another_coercion_vector</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">1</span></span></code></pre></div>
+<ul>
+<li>What do you expect their datatypes to be?</li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(coercion_vector)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;character&quot;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(another_coercion_vector)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span></span></code></pre></div>
+<hr />
+<h2 id="coercion">Coercion</h2>
+<ul>
+<li><em>Coercion</em> is what happens when you <strong>CONVERT ONE DATA
+TYPE INTO ANOTHER</strong></li>
+<li>If <code>R</code> thinks it needs to, it will <strong>COERCE DATA
+IMPLICITLY</strong> without telling you</li>
+<li>There is a set order for coercion
+<ul>
+<li><code>logical</code> can be coerced to <code>integer</code>, but
+<code>integer</code> cannot be coerced to <code>logical</code></li>
+<li>That’s because <code>integer</code> can describe all
+<code>logical</code> values, but not <em>vice versa</em></li>
+<li>Everything can be represented as a <code>character</code>, so that’s
+the fallback position for <code>R</code></li>
+</ul></li>
+<li><strong>IF THERE’S A FORMATTING PROBLEM IN YOUR DATA, <code>R</code>
+MIGHT CONVERT THE TYPE TO COPE</strong>
+<ul>
+<li><code>R</code> will choose the simplest data type that can represent
+all items in the vector</li>
+</ul></li>
+<li><strong>INTERACTIVE DEMO IN CONSOLE</strong> More useful things to
+do with vectors</li>
+<li>You can (usually) <strong>COERCE VECTORS MANUALLY</strong> with
+<code>as.&lt;type&gt;()</code></li>
+</ul>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">10</span> <span class="dv">12</span> <span class="dv">45</span> <span class="dv">33</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.character</span>(x)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;10&quot;</span> <span class="st">&quot;12&quot;</span> <span class="st">&quot;45&quot;</span> <span class="st">&quot;33&quot;</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.complex</span>(x)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">10</span><span class="sc">+</span><span class="dv">0</span><span class="dt">i</span> <span class="dv">12</span><span class="sc">+</span><span class="dv">0</span><span class="dt">i</span> <span class="dv">45</span><span class="sc">+</span><span class="dv">0</span><span class="dt">i</span> <span class="dv">33</span><span class="sc">+</span><span class="dv">0</span><span class="dt">i</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as.logical</span>(x)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span> <span class="cn">TRUE</span> <span class="cn">TRUE</span> <span class="cn">TRUE</span></span></code></pre></div>
+<ul>
+<li>Surprising things can happen when <code>R</code> forces one data
+type into another.</li>
+<li><strong>If your data doesn’t look how you expect it to, <em>type
+coercion</em> may be to blame</strong>
+<ul>
+<li>Check your data formatting (is there an accidental
+string/character?)</li>
+</ul></li>
+<li>Let’s look at our <code>cats</code> dataframe again</li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    coat weight likes_catnip</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> calico    <span class="fl">2.1</span>            <span class="dv">1</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  black    <span class="fl">5.0</span>            <span class="dv">0</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  tabby    <span class="fl">3.2</span>            <span class="dv">1</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(cats<span class="sc">$</span>likes_catnip)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;integer&quot;</span></span></code></pre></div>
+<ul>
+<li>The type of the <code>likes_catnip</code> column is recorded as an
+integer, but we want <code>logical</code>
+<code>TRUE</code>/<code>FALSE</code> values.
+<ul>
+<li>We can use the <code>as.logical()</code> function to change
+this</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats<span class="sc">$</span>likes_catnip <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(cats<span class="sc">$</span>likes_catnip)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    coat weight likes_catnip</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> calico    <span class="fl">2.1</span>         <span class="cn">TRUE</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  black    <span class="fl">5.0</span>        <span class="cn">FALSE</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  tabby    <span class="fl">3.2</span>         <span class="cn">TRUE</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(cats)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span>   <span class="dv">3</span> obs. of  <span class="dv">3</span> variables<span class="sc">:</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a> <span class="er">$</span> coat        <span class="sc">:</span> chr  <span class="st">&quot;calico&quot;</span> <span class="st">&quot;black&quot;</span> <span class="st">&quot;tabby&quot;</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> weight      <span class="sc">:</span> num  <span class="fl">2.1</span> <span class="dv">5</span> <span class="fl">3.2</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> likes_catnip<span class="sc">:</span> logi  <span class="cn">TRUE</span> <span class="cn">FALSE</span> <span class="cn">TRUE</span></span></code></pre></div>
+<hr />
+<h2 id="lists">Lists</h2>
+<ul>
+<li><code>list</code>s are data structures like <em>vectors</em>,
+<strong>EXCEPT THEY CAN HOLD ANY DATA TYPE</strong>
+<ul>
+<li>They are not constrained to atomic types</li>
+<li>They do not coerce their contents’ datatypes</li>
+</ul></li>
+<li>Let’s create a new list using the <code>list()</code> function</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> l <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="st">&#39;a&#39;</span>, <span class="cn">TRUE</span>, <span class="fu">seq</span>(<span class="dv">2</span>, <span class="dv">5</span>))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(l)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> l</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">3</span>]]</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">TRUE</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">4</span>]]</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></span></code></pre></div>
+<ul>
+<li>Individual elements in the list are identified with <strong>DOUBLE
+SQUARE BRACKETS</strong>
+<ul>
+<li>There are four elements</li>
+<li><code>[[1]]</code> is the number <code>1</code></li>
+<li><code>[[2]]</code> is the character <code>"a"</code></li>
+<li><code>[[3]]</code> is the logical value <code>TRUE</code></li>
+<li><code>[[4]]</code> is the vector of values from 2 to 5</li>
+</ul></li>
+<li>We can extract a single element from the list with the double square
+bracket notation</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> l[[<span class="dv">1</span>]]</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> l[[<span class="dv">4</span>]]</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></span></code></pre></div>
+<ul>
+<li>Using the <code>str()</code> function we can see the datatypes of
+all the elements in the list</li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(l)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>List of <span class="dv">4</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> <span class="er">:</span> num <span class="dv">1</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> <span class="er">:</span> chr <span class="st">&quot;a&quot;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> <span class="er">:</span> logi <span class="cn">TRUE</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> <span class="er">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></span></code></pre></div>
+<ul>
+<li><strong>The elements of a list can also have names</strong>
+<ul>
+<li>We specify the name when we create the list</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> l_named <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="st">&quot;SWC&quot;</span>, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> l_named</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>a</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;SWC&quot;</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>b</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span></span></code></pre></div>
+<ul>
+<li>We can use the name of each element to retrieve it, with the
+<code>$</code> notation:</li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> l_named<span class="sc">$</span>a</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;SWC&quot;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> l_named<span class="sc">$</span>b</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span></span></code></pre></div>
+<ul>
+<li>But it’s still a list like any other, and we can use the double
+square bracket notation.</li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> l_named[[<span class="dv">1</span>]]</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;SWC&quot;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> l_named[[<span class="dv">2</span>]]</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(l_named)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>List of <span class="dv">2</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> a<span class="sc">:</span> chr <span class="st">&quot;SWC&quot;</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> b<span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span></span></code></pre></div>
+<hr />
+<h2 id="lets-look-at-a-data-frame">Let’s Look At A Data Frame</h2>
+<ul>
+<li>We didn’t go into detail about the <code>cats</code> dataframe we
+created at the start of this episode.
+<ul>
+<li>But let’s look at it more closely</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    coat weight likes_catnip</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> calico    <span class="fl">2.1</span>         <span class="cn">TRUE</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  black    <span class="fl">5.0</span>        <span class="cn">FALSE</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  tabby    <span class="fl">3.2</span>         <span class="cn">TRUE</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(cats)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;list&quot;</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats[[<span class="dv">2</span>]]</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.1</span> <span class="fl">5.0</span> <span class="fl">3.2</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(cats<span class="sc">$</span>weight)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span></span></code></pre></div>
+<ul>
+<li>So <code>cats</code> is a <code>list</code>, and each element in the
+list is a vector</li>
+<li>But <code>cats</code> is a <strong>special kind of list</strong> - a
+<code>data.frame</code> - where all the vectors have the same length.
+<ul>
+<li>We can see that this is a special kind of list by using the
+<code>class()</code> function</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(cats)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;data.frame&quot;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(l)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;list&quot;</span></span></code></pre></div>
+<ul>
+<li>The class <code>data.frame</code> represents a standard way of
+organising data:
+<ul>
+<li>Each <em>row</em> is an observation</li>
+<li>Each <em>column</em> is a variable</li>
+<li>The data frame represents a series of observations</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="load-episode-data">Load Episode Data</h2>
+<ul>
+<li><strong>DEMO IN SCRIPT</strong></li>
+<li><strong>DOWNLOAD DATA</strong>
+<ul>
+<li>Use the link from the Etherpad document</li>
+<li>Place the file in <code>data/</code></li>
+</ul></li>
+<li><strong>CREATE A NEW SCRIPT</strong>
+<ul>
+<li>Call it <code>gapminder</code></li>
+<li>Add the code</li>
+<li>Use <code>read.table</code></li>
+<li>The data is in CSV format</li>
+<li>We need to provide a data source (<strong>here, a file</strong>),
+the separator character, and whether there’s a header row</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load gapminder data from a local file</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>gapminder <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;data/gapminder_data.csv&quot;</span>, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<ul>
+<li><strong>RUN THE SCRIPT</strong> (use <code>Source</code>)</li>
+<li><strong>CHECK THE DATA IN THE <code>Environment</code> TAB</strong>
+<ul>
+<li>Click on <code>gapminder</code> in <code>Evironment</code> tab.</li>
+<li><strong>NOTE COLUMNS</strong></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="investigating-gapminder">Investigating
+<code>gapminder</code></h2>
+<ul>
+<li>Now we’ve loaded our data, let’s take a look at it</li>
+<li><strong>DEMO IN CONSOLE</strong>
+<ul>
+<li>1704 rows, 6 columns</li>
+<li>Investigate types of columns</li>
+<li><strong>POINT OUT THAT THE TYPE OF A COLUMN IS INTEGER IF IT’S A
+FACTOR</strong></li>
+<li><strong>LENGTH OF A DATAFRAME IS THE NUMBER OF COLUMNS</strong></li>
+</ul></li>
+<li>It’s always useful to get an initial understanding of your data with
+the <code>str()</code> function.</li>
+</ul>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(gapminder)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span>   <span class="dv">1704</span> obs. of  <span class="dv">6</span> variables<span class="sc">:</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a> <span class="er">$</span> country  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">142</span> levels <span class="st">&quot;Afghanistan&quot;</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> year     <span class="sc">:</span> int  <span class="dv">1952</span> <span class="dv">1957</span> <span class="dv">1962</span> <span class="dv">1967</span> <span class="dv">1972</span> <span class="dv">1977</span> <span class="dv">1982</span> <span class="dv">1987</span> <span class="dv">1992</span> <span class="dv">1997</span> ...</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop      <span class="sc">:</span> num  <span class="dv">8425333</span> <span class="dv">9240934</span> <span class="dv">10267083</span> <span class="dv">11537966</span> <span class="dv">13079460</span> ...</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> continent<span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">5</span> levels <span class="st">&quot;Africa&quot;</span>,<span class="st">&quot;Americas&quot;</span>,..<span class="sc">:</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> ...</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp  <span class="sc">:</span> num  <span class="fl">28.8</span> <span class="fl">30.3</span> <span class="dv">32</span> <span class="dv">34</span> <span class="fl">36.1</span> ...</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap<span class="sc">:</span> num  <span class="dv">779</span> <span class="dv">821</span> <span class="dv">853</span> <span class="dv">836</span> <span class="dv">740</span> ...</span></code></pre></div>
+<ul>
+<li>The <code>summary()</code> function can also be useful
+<ul>
+<li>With dataframes, this gives a numeric, tabular, or descriptive
+summary of each column.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">summary</span>(gapminder)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>        country          year           pop               continent      lifeExp</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a> Afghanistan<span class="sc">:</span>  <span class="dv">12</span>   Min.   <span class="sc">:</span><span class="dv">1952</span>   Min.   <span class="sc">:</span><span class="fl">6.001e+04</span>   Africa  <span class="sc">:</span><span class="dv">624</span>   Min.   <span class="sc">:</span><span class="fl">23.60</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a> Albania    <span class="sc">:</span>  <span class="dv">12</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="dv">1966</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">2.794e+06</span>   Americas<span class="sc">:</span><span class="dv">300</span>   <span class="dv">1</span>st Qu.<span class="sc">:</span><span class="fl">48.20</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a> Algeria    <span class="sc">:</span>  <span class="dv">12</span>   Median <span class="sc">:</span><span class="dv">1980</span>   Median <span class="sc">:</span><span class="fl">7.024e+06</span>   Asia    <span class="sc">:</span><span class="dv">396</span>   Median <span class="sc">:</span><span class="fl">60.71</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a> Angola     <span class="sc">:</span>  <span class="dv">12</span>   Mean   <span class="sc">:</span><span class="dv">1980</span>   Mean   <span class="sc">:</span><span class="fl">2.960e+07</span>   Europe  <span class="sc">:</span><span class="dv">360</span>   Mean   <span class="sc">:</span><span class="fl">59.47</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a> Argentina  <span class="sc">:</span>  <span class="dv">12</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="dv">1993</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">1.959e+07</span>   Oceania <span class="sc">:</span> <span class="dv">24</span>   <span class="dv">3</span>rd Qu.<span class="sc">:</span><span class="fl">70.85</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a> Australia  <span class="sc">:</span>  <span class="dv">12</span>   Max.   <span class="sc">:</span><span class="dv">2007</span>   Max.   <span class="sc">:</span><span class="fl">1.319e+09</span>                  Max.   <span class="sc">:</span><span class="fl">82.60</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a> (Other)    <span class="sc">:</span><span class="dv">1632</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>   gdpPercap</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a> Min.   <span class="sc">:</span>   <span class="fl">241.2</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span>st Qu.<span class="sc">:</span>  <span class="fl">1202.1</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a> Median <span class="sc">:</span>  <span class="fl">3531.8</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a> Mean   <span class="sc">:</span>  <span class="fl">7215.3</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span>rd Qu.<span class="sc">:</span>  <span class="fl">9325.5</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a> Max.   <span class="sc">:</span><span class="fl">113523.1</span></span></code></pre></div>
+<ul>
+<li>We can also inspect individual columns of the data.</li>
+</ul>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(gapminder<span class="sc">$</span>year)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;integer&quot;</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(gapminder<span class="sc">$</span>country)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;integer&quot;</span></span></code></pre></div>
+<ul>
+<li>This looks a little weird: why should the country be an integer?
+<ul>
+<li>Let’s investigate further with <code>str()</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(gapminder<span class="sc">$</span>country)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a> Factor w<span class="sc">/</span> <span class="dv">142</span> levels <span class="st">&quot;Afghanistan&quot;</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span></code></pre></div>
+<ul>
+<li>The <code>country</code> column has been read in as a
+<code>factor</code>
+<ul>
+<li>A <code>factor</code> is a data structure that represents
+<em>categorical</em> data.</li>
+<li>We can see this in the <code>str()</code> output we got, as well:
+both <code>country</code> and <code>continent</code> were read in as
+factors.</li>
+<li>This is fine, and is what we actually want.</li>
+</ul></li>
+<li>We can ask about the dimensions of the dataframe with
+<code>dim()</code></li>
+</ul>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dim</span>(gapminder)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1704</span>    <span class="dv">6</span></span></code></pre></div>
+<ul>
+<li>So there are 1704 rows and 6 columns</li>
+<li>What does <code>length()</code> produce:</li>
+</ul>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">length</span>(gapminder)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">6</span></span></code></pre></div>
+<ul>
+<li>Remember that a dataframe is a <code>list</code> of
+<code>vector</code> columns, so its length is the number of elements in
+the list.
+<ul>
+<li>There are six columns, so the length of the dataframe is 6.</li>
+</ul></li>
+<li>We can ask specifically for the number of rows and columns, and for
+other information.</li>
+<li>We can also use <code>head()</code> to summarise the dataframe.</li>
+</ul>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nrow</span>(gapminder)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1704</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">ncol</span>(gapminder)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">6</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">colnames</span>(gapminder)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;country&quot;</span>   <span class="st">&quot;year&quot;</span>      <span class="st">&quot;pop&quot;</span>       <span class="st">&quot;continent&quot;</span> <span class="st">&quot;lifeExp&quot;</span>   <span class="st">&quot;gdpPercap&quot;</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(gapminder)</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>      country year      pop continent lifeExp gdpPercap</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> Afghanistan <span class="dv">1952</span>  <span class="dv">8425333</span>      Asia  <span class="fl">28.801</span>  <span class="fl">779.4453</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> Afghanistan <span class="dv">1957</span>  <span class="dv">9240934</span>      Asia  <span class="fl">30.332</span>  <span class="fl">820.8530</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> Afghanistan <span class="dv">1962</span> <span class="dv">10267083</span>      Asia  <span class="fl">31.997</span>  <span class="fl">853.1007</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> Afghanistan <span class="dv">1967</span> <span class="dv">11537966</span>      Asia  <span class="fl">34.020</span>  <span class="fl">836.1971</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> Afghanistan <span class="dv">1972</span> <span class="dv">13079460</span>      Asia  <span class="fl">36.088</span>  <span class="fl">739.9811</span></span></code></pre></div>
+<hr />
+<h2 id="data-frame-manipulation-with-dplyr">Data Frame Manipulation With
+<code>dplyr</code></h2>
+<hr />
+<h2 id="learning-objectives-1">Learning Objectives</h2>
+<ul>
+<li><p>You’re going to <strong>learn to manipulate
+<code>data.frame</code>s with the six <em>verbs</em> of
+<code>dplyr</code></strong></p></li>
+<li><p><code>select()</code></p></li>
+<li><p><code>filter()</code></p></li>
+<li><p><code>group_by()</code></p></li>
+<li><p><code>summarize()</code></p></li>
+<li><p><code>mutate()</code></p></li>
+<li><p><code>%&gt;%</code> (pipe)</p></li>
+</ul>
+<hr />
+<h2 id="what-and-why-is-dplyr">What and Why is <code>dplyr</code>?</h2>
+<ul>
+<li><code>dplyr</code> is a package in the <strong>TIDYVERSE</strong>;
+it exists to enable <strong>rapid analysis of data by groups</strong>
+<ul>
+<li>For example, if we wanted numerical (rather than graphical) analysis
+of the <code>gapminder</code> data by continent, we’d use
+<code>dplyr</code></li>
+<li>It enables group-level analyses without using repetitive code</li>
+</ul></li>
+<li><strong>AVOIDING REPETITION IMPROVES YOUR CODE</strong>
+<ul>
+<li>More <strong>robust</strong></li>
+<li>More <strong>readable</strong></li>
+<li>More <strong>reproducible</strong></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="split-apply-combine">Split-Apply-Combine</h2>
+<ul>
+<li><p>The <strong>general principle</strong> <code>dplyr</code>
+supports is called <strong>SPLIT-APPLY-COMBINE</strong></p></li>
+<li><p>We have a <strong>dataset with several groups in a
+variable</strong> (column <code>x</code>)</p>
+<ul>
+<li>For example, each patient in our messy data might be a “group”</li>
+</ul></li>
+<li><p>We <strong>want to perform the same operation on each group,
+independently</strong> - take a mean of <code>y</code> for each group,
+for example</p>
+<ul>
+<li>So we <strong>SPLIT</strong> the data into groups, on
+<code>x</code></li>
+<li>Then we <strong>APPLY</strong> the operation (take the mean for each
+group)</li>
+<li>Then we <strong>COMBINE</strong> the results into a new table</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="select---interactive-demo"><code>select()</code> - Interactive
+Demo**</h2>
+<ul>
+<li><strong>DEMO IN CONSOLE</strong>
+<ul>
+<li>Import <code>dplyr</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(dplyr)</span></code></pre></div>
+<ul>
+<li>The <code>select()</code> <em>verb</em> <strong>SELECTS
+COLUMNS</strong>
+<ul>
+<li><strong>DEMO IN CONSOLE</strong></li>
+<li>If we wanted to select only year, country and GDP data from
+<code>gapminder</code></li>
+<li>Specify: <strong>data, then columns</strong></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(<span class="fu">select</span>(gapminder, year, country, gdpPercap))</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  year     country gdpPercap</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">1952</span> Afghanistan  <span class="fl">779.4453</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">1957</span> Afghanistan  <span class="fl">820.8530</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">1962</span> Afghanistan  <span class="fl">853.1007</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">1967</span> Afghanistan  <span class="fl">836.1971</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="dv">1972</span> Afghanistan  <span class="fl">739.9811</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="dv">1977</span> Afghanistan  <span class="fl">786.1134</span></span></code></pre></div>
+<ul>
+<li>Here, we <strong>applied a function</strong>, but we can also
+<strong>‘PIPE’ DATA FROM ONE VERB TO ANOTHER</strong>
+<ul>
+<li>These work <strong>like pipes in the shell</strong></li>
+<li><strong>SPECIAL PIPE SYMBOL: <code>%&gt;%</code></strong></li>
+<li>Specify <strong>only columns</strong></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> gapminder <span class="sc">%&gt;%</span> <span class="fu">select</span>(year, country, gdpPercap) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  year     country gdpPercap</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">1952</span> Afghanistan  <span class="fl">779.4453</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">1957</span> Afghanistan  <span class="fl">820.8530</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">1962</span> Afghanistan  <span class="fl">853.1007</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">1967</span> Afghanistan  <span class="fl">836.1971</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="dv">1972</span> Afghanistan  <span class="fl">739.9811</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="dv">1977</span> Afghanistan  <span class="fl">786.1134</span></span></code></pre></div>
+<hr />
+<h2 id="filter"><code>filter()</code></h2>
+<ul>
+<li><code>filter()</code> selects rows on the basis of some condition,
+or combination of conditions
+<ul>
+<li>We can <strong>use it as a function, with
+<em>pipes</em></strong></li>
+</ul></li>
+<li><strong>DEMO IN CONSOLE</strong></li>
+</ul>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(<span class="fu">filter</span>(gapminder, continent<span class="sc">==</span><span class="st">&quot;Europe&quot;</span>))</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  country year     pop continent lifeExp gdpPercap</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> Albania <span class="dv">1952</span> <span class="dv">1282697</span>    Europe   <span class="fl">55.23</span>  <span class="fl">1601.056</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> Albania <span class="dv">1957</span> <span class="dv">1476505</span>    Europe   <span class="fl">59.28</span>  <span class="fl">1942.284</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> Albania <span class="dv">1962</span> <span class="dv">1728137</span>    Europe   <span class="fl">64.82</span>  <span class="fl">2312.889</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> Albania <span class="dv">1967</span> <span class="dv">1984060</span>    Europe   <span class="fl">66.22</span>  <span class="fl">2760.197</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> Albania <span class="dv">1972</span> <span class="dv">2263554</span>    Europe   <span class="fl">67.69</span>  <span class="fl">3313.422</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> Albania <span class="dv">1977</span> <span class="dv">2509048</span>    Europe   <span class="fl">68.93</span>  <span class="fl">3533.004</span></span></code></pre></div>
+<ul>
+<li><strong>DEMO IN SCRIPT</strong> (<code>gapminder.R</code>)
+<ul>
+<li>One <strong>advantage of pipes</strong> is that they make chaining
+<em>verbs</em> together <strong>MORE READABLE</strong></li>
+<li><strong>END THE LINES WITH THE PIPE SYMBOL</strong> so
+<code>R</code> knows that there’s a continuation</li>
+<li><code>Run</code> the lines and <strong>check the output</strong> in
+<code>Environment</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select gdpPercap by country and year, only for Europe</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>eurodata <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Europe&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">select</span>(year, country, gdpPercap)</span></code></pre></div>
+<hr />
+<h2 id="challenge">Challenge</h2>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select life expectancy by country and year, only for Africa</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> afrodata <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">&quot;Africa&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, country, lifeExp)</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">nrow</span>(afrodata)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">624</span></span></code></pre></div>
+<figure>
+<img src="images/red_green_sticky.png"
+alt="images/red_green_sticky.png" />
+<figcaption aria-hidden="true">images/red_green_sticky.png</figcaption>
+</figure>
+<hr />
+<h2 id="group_by"><code>group_by()</code></h2>
+<ul>
+<li>The <code>group_by()</code> <em>verb</em> <strong>SPLITS
+<code>data.frame</code>s INTO GROUPS ON A VARIABLE/COLUMN
+PROPERTY</strong></li>
+<li><strong>DEMO IN CONSOLE</strong>
+<ul>
+<li>It returns a <strong><code>tibble</code></strong> - a table with
+extra metadata describing the groups in the table</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">group_by</span>(gapminder, continent)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1,704 x 6</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Groups:   continent [5]</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>       country  year      pop continent lifeExp gdpPercap</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>        <span class="sc">&lt;</span>fctr<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>    <span class="er">&lt;</span>fctr<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> Afghanistan  <span class="dv">1952</span>  <span class="dv">8425333</span>      Asia  <span class="fl">28.801</span>  <span class="fl">779.4453</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> Afghanistan  <span class="dv">1957</span>  <span class="dv">9240934</span>      Asia  <span class="fl">30.332</span>  <span class="fl">820.8530</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> Afghanistan  <span class="dv">1962</span> <span class="dv">10267083</span>      Asia  <span class="fl">31.997</span>  <span class="fl">853.1007</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> Afghanistan  <span class="dv">1967</span> <span class="dv">11537966</span>      Asia  <span class="fl">34.020</span>  <span class="fl">836.1971</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> Afghanistan  <span class="dv">1972</span> <span class="dv">13079460</span>      Asia  <span class="fl">36.088</span>  <span class="fl">739.9811</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> Afghanistan  <span class="dv">1977</span> <span class="dv">14880372</span>      Asia  <span class="fl">38.438</span>  <span class="fl">786.1134</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> Afghanistan  <span class="dv">1982</span> <span class="dv">12881816</span>      Asia  <span class="fl">39.854</span>  <span class="fl">978.0114</span></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> Afghanistan  <span class="dv">1987</span> <span class="dv">13867957</span>      Asia  <span class="fl">40.822</span>  <span class="fl">852.3959</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> Afghanistan  <span class="dv">1992</span> <span class="dv">16317921</span>      Asia  <span class="fl">41.674</span>  <span class="fl">649.3414</span></span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> Afghanistan  <span class="dv">1997</span> <span class="dv">22227415</span>      Asia  <span class="fl">41.763</span>  <span class="fl">635.3414</span></span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ... with 1,694 more rows</span></span></code></pre></div>
+<hr />
+<h2 id="summarize"><code>summarize()</code></h2>
+<ul>
+<li><p>The <strong>combination of <code>group_by()</code> and
+<code>summarize()</code> is very powerful</strong></p>
+<ul>
+<li>We can <strong>CREATE NEW VARIABLES</strong> using functions that
+repeat for each group</li>
+</ul></li>
+<li><p>Here, we’ve split the original table into three groups, and now
+<strong>CREATE A NEW VARIABLE <code>mean_b</code> THAT IS FILLED BY
+CALCULATING THE MEAN OF <code>b</code></strong></p></li>
+<li><p><strong>DEMO IN SCRIPT</strong></p>
+<ul>
+<li>We use the same principle to <strong>calculate mean GDP per
+continent</strong></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># Produce table of mean GDP by continent</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>     <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>     <span class="fu">summarize</span>(<span class="at">meangdpPercap=</span><span class="fu">mean</span>(gdpPercap))</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 5 x 2</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  continent meangdpPercap</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>     <span class="sc">&lt;</span>fctr<span class="sc">&gt;</span>         <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>    Africa      <span class="fl">2193.755</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  Americas      <span class="fl">7136.110</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>      Asia      <span class="fl">7902.150</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>    Europe     <span class="fl">14469.476</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>   Oceania     <span class="fl">18621.609</span></span></code></pre></div>
+<hr />
+<h2 id="challenge-13">Challenge 13</h2>
+<ul>
+<li><strong>IN THE SCRIPT</strong></li>
+</ul>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find average life expectancy by nation</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>avg_lifexp_country <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">meanlifeExp=</span><span class="fu">mean</span>(lifeExp))</span></code></pre></div>
+<ul>
+<li><strong>IN THE CONSOLE</strong></li>
+</ul>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> avg_lifexp_country <span class="sc">%&gt;%</span> <span class="fu">filter</span>(meanlifeExp <span class="sc">==</span> <span class="fu">min</span>(meanlifeExp))</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1 × 2</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  country      meanlifeExp</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>              <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> Sierra Leone        <span class="fl">36.8</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> avg_lifexp_country <span class="sc">%&gt;%</span> <span class="fu">filter</span>(meanlifeExp <span class="sc">==</span> <span class="fu">max</span>(meanlifeExp))</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1 × 2</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  country meanlifeExp</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>         <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> Iceland        <span class="fl">76.5</span></span></code></pre></div>
+<figure>
+<img src="images/red_green_sticky.png"
+alt="images/red_green_sticky.png" />
+<figcaption aria-hidden="true">images/red_green_sticky.png</figcaption>
+</figure>
+<hr />
+<h2 id="count-and-n"><code>count()</code> and <code>n()</code></h2>
+<ul>
+<li><p>Two other useful functions are related to
+<code>summarize()</code></p>
+<ul>
+<li><strong><code>count()</code> reports a new table of counts by
+group</strong></li>
+<li><strong><code>n()</code> is used to represent the count of rows,
+when calculating new values in <code>summarize()</code></strong></li>
+</ul></li>
+<li><p><strong>DEMO IN CONSOLE</strong></p></li>
+<li><p><strong>NOTE:</strong> standard error is (std
+dev)/sqrt(n)</p></li>
+</ul>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2002</span>) <span class="sc">%&gt;%</span> <span class="fu">count</span>(continent, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 5 x 2</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  continent     n</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>     <span class="sc">&lt;</span>fctr<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>    Africa    <span class="dv">52</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>      Asia    <span class="dv">33</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>    Europe    <span class="dv">30</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>  Americas    <span class="dv">25</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>   Oceania     <span class="dv">2</span></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> gapminder <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="at">se_lifeExp =</span> <span class="fu">sd</span>(lifeExp)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>()))</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 5 x 2</span></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>  continent se_lifeExp</span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>     <span class="sc">&lt;</span>fctr<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>    Africa  <span class="fl">0.3663016</span></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  Americas  <span class="fl">0.5395389</span></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>      Asia  <span class="fl">0.5962151</span></span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>    Europe  <span class="fl">0.2863536</span></span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>   Oceania  <span class="fl">0.7747759</span></span></code></pre></div>
+<hr />
+<h2 id="mutate"><code>mutate()</code></h2>
+<ul>
+<li><strong><code>mutate()</code> CALCULATES NEW VARIABLES (COLUMNS) ON
+THE BASIS OF EXISTING COLUMNS</strong></li>
+<li><strong>DEMO IN SCRIPT</strong>
+<ul>
+<li>Say we want to calculate the <strong>total GDP of each nation, each
+year, in $bn</strong></li>
+<li>We’d multiply the GDP per capita by the total population, and divide
+by 1bn</li>
+</ul></li>
+<li><strong>INSPECT THE OUTPUT</strong>
+<ul>
+<li>We have a new data table, which is the <code>gapminder</code> data,
+plus an extra column</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate GDP in $billion</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>gdp_bill <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp_billion =</span> gdpPercap <span class="sc">*</span> pop <span class="sc">/</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">9</span>)</span></code></pre></div>
+<ul>
+<li><strong>WE CAN CHAIN ALL THESE OPERATIONS TOGETHER WITH
+PIPES</strong></li>
+<li><strong>We can calculate several summaries in a single
+<code>summarize()</code> command</strong></li>
+<li>We can use the output of <code>mutate()</code> in the
+<code>summarize()</code> command</li>
+<li><strong>DEMO IN SCRIPT</strong>
+<ul>
+<li>We’re going to calculate the <strong>total (and standard deviation)
+of GDP per continent, per year</strong></li>
+<li>Calculate total GDP first</li>
+<li>Group by continent and year</li>
+<li>Summarise mean and sd of GDP per capita, and total GDP</li>
+</ul></li>
+<li><strong>INSPECT THE OUTPUT</strong></li>
+</ul>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total/sd of GDP by continent and year</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>gdp_bycontinents_byyear <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp_billion=</span>gdpPercap<span class="sc">*</span>pop<span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent,year) <span class="sc">%&gt;%</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_gdpPercap=</span><span class="fu">mean</span>(gdpPercap),</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_gdpPercap=</span><span class="fu">sd</span>(gdpPercap),</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_gdp_billion=</span><span class="fu">mean</span>(gdp_billion),</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_gdp_billion=</span><span class="fu">sd</span>(gdp_billion))</span></code></pre></div>
+<hr />
+<p>## <code>ifelse()</code></p>
+<ul>
+<li><strong><code>ifelse()</code> IS A FILTER THAT CAN BE USED WITH
+MUTATE TO CALCULATES NEW VARIABLES (COLUMNS) ON THE BASIS OF EXISTING
+COLUMNS ONLY IF SOME CONDITION IS MET</strong></li>
+<li><strong>DEMO IN SCRIPT</strong>
+<ul>
+<li>Say we want to calculate the total GDP of each nation, each year, in
+$bn <strong>BUT ONLY FOR COUNTRIES OVER 10mn PEOPLE</strong></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>gdp_billion_large_countries <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp_billion_large =</span> <span class="fu">ifelse</span>(pop <span class="sc">&gt;</span> <span class="fl">10e6</span>, </span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>                                    gdpPercap <span class="sc">*</span> pop <span class="sc">/</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">9</span>,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="cn">NA</span>))</span></code></pre></div>
+<ul>
+<li><strong>INSPECT THE OUTPUT</strong>
+<ul>
+<li>We have a new data table, which is the <code>gapminder</code> data,
+plus an extra column</li>
+</ul></li>
+<li>Similarly, we can scale GDP only in those cases where life
+expectancy for a nation is over 40</li>
+</ul>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>gdp_future_bycontinents_byyear_high_lifeExp <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">gdp_futureExpectation =</span> <span class="fu">ifelse</span>(lifeExp <span class="sc">&gt;</span> <span class="dv">40</span>, gdpPercap <span class="sc">*</span> <span class="fl">1.5</span>, gdpPercap)) <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(continent, year) <span class="sc">%&gt;%</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">mean_gdpPercap =</span> <span class="fu">mean</span>(gdpPercap),</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean_gdpPercap_expected =</span> <span class="fu">mean</span>(gdp_futureExpectation))</span></code></pre></div>
+<hr />
+<p>## Tidy Data</p>
+<hr />
+<p>## Why Tidy Data?</p>
+<ul>
+<li><p>Data cleaning/processing is <strong>not just a first
+step</strong> - it must be repeated many time over the course of an
+analysis</p>
+<ul>
+<li>new data, new ideas, etc. turn up as you’re working</li>
+</ul></li>
+<li><p>About <strong>80% of the effort of data analysis</strong> is
+cleaning and preparing data for analysis</p></li>
+<li><p>The principles of <strong>tidy data</strong> provide a standard
+way to organise data values within a dataset</p>
+<ul>
+<li>“Tidy datasets are all alike, but every messy dataset is messy in
+its own way”</li>
+</ul></li>
+</ul>
+<hr />
+<p>## An Untidy Dataset (1)</p>
+<ul>
+<li><p>Here’s a dataset like you might receive it from a
+colleague</p></li>
+<li><p>It’s a <strong>RECTANGULAR TABLE</strong></p>
+<ul>
+<li>Made up of <strong>ROWS</strong> and <strong>COLUMNS</strong>, just
+like the data you’ve been working with</li>
+</ul></li>
+<li><p>Each row describes a treatment</p></li>
+<li><p>Each column gives the results for a different individual, for
+each treatment</p></li>
+<li><p>Thinking about how our dataframes are structured, there should be
+one row per observation.</p>
+<ul>
+<li>But here the observations are the people</li>
+<li>So maybe we could transpose the rows and columns so that the people
+are the rows?</li>
+</ul></li>
+</ul>
+<hr />
+<p>## An Untidy Dataset (2)</p>
+<ul>
+<li><p>So we’ve transposed the rows and columns of the table</p></li>
+<li><p>The <strong>data is the same</strong></p></li>
+<li><p>The <strong>layout is different</strong></p></li>
+<li><p>Now we have one row per observation, and we have one column per
+variable (treatments A and B), and that’s what we want, isn’t
+it?</p></li>
+<li><p>But the data doesn’t have to be structured this way.</p>
+<ul>
+<li>In fact, this isn’t a very good way to structure data for many
+analyses.</li>
+</ul></li>
+<li><p>To understand what this means, <strong>AND WHY IT IS UNTIDY
+DATA</strong>, we need to consider some data semantics.</p></li>
+</ul>
+<hr />
+<p>## Data Semantics</p>
+<ul>
+<li><p>We need to define three terms</p></li>
+<li><p>A dataset, like the one shown, is a collection of
+<strong>VALUES</strong></p></li>
+<li><p>Each value belongs to a variable, and to an observation</p></li>
+<li><p>A <strong>VARIABLE</strong> is something that <em>can change or
+vary</em></p>
+<ul>
+<li>They may be values that measure the same underlying attribute, such
+as height, temperature, or some kind of output result</li>
+<li>They may be experimental conditions under a researcher’s control,
+such as a treatment, how long that treatment is applied, or other
+experimental settings</li>
+</ul></li>
+<li><p>An <strong>OBSERVATION</strong> is a collection of
+<strong>values</strong> measured across all <strong>variables</strong>
+for the same individual or unit</p>
+<ul>
+<li>The unit is often a person, a collective group like a religion or
+company, or a physical item like a reactor vessel</li>
+</ul></li>
+</ul>
+<hr />
+<p>## Challenge (2min)</p>
+<ul>
+<li>So for our first messy dataset, how would you describe the rows and
+columns of the table?
+<ul>
+<li>Are they observations, or variables, or neither?</li>
+</ul></li>
+<li><strong>THE ROWS AND COLUMNS IN THE MESSY DATA ARE NEITHER
+OBSERVATIONS NOR VARIABLES</strong></li>
+</ul>
+<hr />
+<p>## A Tidy Dataset (1)</p>
+<ul>
+<li>The dataset contains 18 values:
+<ul>
+<li>six observations of three variables</li>
+</ul></li>
+<li>The variables are:
+<ul>
+<li><strong>PERSON</strong>: John, Mary and Jane</li>
+<li><strong>TREATMENT</strong>: A or B</li>
+<li><strong>RESULT</strong>: <code>NA</code>, 16, 3, 2, 11, 1</li>
+</ul></li>
+<li>Each <strong>OBSERVATION</strong> includes values for all three
+variables</li>
+</ul>
+<hr />
+<h2 id="a-tidy-dataset-2">A Tidy Dataset (2)</h2>
+<ul>
+<li><p>Here is the dataset represented in tidy form</p></li>
+<li><p>You can see each variable has its own column</p></li>
+<li><p>Each observation has one value per column</p>
+<ul>
+<li><strong>Note: Missing data counts as a value</strong></li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="tidy-data">Tidy Data</h2>
+<ul>
+<li>Tidy data is a <strong>STANDARD</strong> way of structuring a
+dataset, but it is not the only way, or always the best way
+<ul>
+<li>It does make it easy to extract the variables you need</li>
+<li>It is also very well suited to <code>R</code> because it supports
+vectorisation (which you saw earlier)</li>
+</ul></li>
+<li>In Tidy Data:
+<ul>
+<li>Each variable forms a column</li>
+<li>Each observation forms a row</li>
+</ul></li>
+<li>Most of the data you receive is unlikely to be Tidy, so you’ll
+probably need to clean it</li>
+<li>And <strong>MESSY DATA CAN BE USEFUL</strong>
+<ul>
+<li>If your design is completely crossed: e.g. every individual tries
+every medicine
+<ul>
+<li>Messy Data (rows=patients, columns=medicines) is compact
+<ul>
+<li>Also useful if matrix operations are appropriate</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><strong>INTERACTIVE DEMO</strong>
+<ul>
+<li>Show that the <code>gapminder</code> data is in an intermediate
+format</li>
+<li>Three ID variables (continent, country, year)</li>
+<li>Three observation variables (pop, lifeExp, gdpPercap)</li>
+<li>This intermediate form can be preferable; there is no advantage to
+having a single “observation” column, here</li>
+</ul></li>
+<li><strong>IN THE CONSOLE</strong>
+<ul>
+<li>Each column in the <code>gapminder</code> dataset is a variable</li>
+<li>Each row is a set of values: one per variable, comprising a single
+observation for a combination of country and year</li>
+</ul></li>
+<li><strong>WE CAN USE DPLYR DATA METHODS ON THIS DATASET</strong></li>
+</ul>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(gapminder)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>      country year      pop continent lifeExp gdpPercap</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> Afghanistan <span class="dv">1952</span>  <span class="dv">8425333</span>      Asia  <span class="fl">28.801</span>  <span class="fl">779.4453</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> Afghanistan <span class="dv">1957</span>  <span class="dv">9240934</span>      Asia  <span class="fl">30.332</span>  <span class="fl">820.8530</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> Afghanistan <span class="dv">1962</span> <span class="dv">10267083</span>      Asia  <span class="fl">31.997</span>  <span class="fl">853.1007</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> Afghanistan <span class="dv">1967</span> <span class="dv">11537966</span>      Asia  <span class="fl">34.020</span>  <span class="fl">836.1971</span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> Afghanistan <span class="dv">1972</span> <span class="dv">13079460</span>      Asia  <span class="fl">36.088</span>  <span class="fl">739.9811</span></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> Afghanistan <span class="dv">1977</span> <span class="dv">14880372</span>      Asia  <span class="fl">38.438</span>  <span class="fl">786.1134</span></span></code></pre></div>
+<hr />
+<p>## Long v Wide</p>
+<ul>
+<li><p>We often refer to datasets as being “long” or “wide”</p></li>
+<li><p><strong>LONG datasets have one row per observation, and one
+column per variable</strong></p></li>
+<li><p><strong>WIDE datasets might have multiple
+arrangements</strong></p></li>
+<li><p>Wide datasets tend to be easier for humans to read</p>
+<ul>
+<li>Quite a lot of the time, we tend to record and share datasets in
+wide format.</li>
+</ul></li>
+<li><p><strong>BUT MANY R FUNCTIONS ARE DESIGNED TO WORK WITH LONG
+DATA</strong></p>
+<ul>
+<li>Some plotting functions work better with wide data, though</li>
+<li>The purely long format can require additional grouping operations
+(like <code>group_by()</code>), and it can be more convenient to have an
+intermediate form like the <code>gapminder</code> data.</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="gapminder-wide-dataset"><code>gapminder</code> Wide Dataset</h2>
+<ul>
+<li>We’ve been using the nicely-formatted <code>gapminder</code> data to
+make our lives easier.</li>
+<li><strong>THE DATA YOU RECEIVE IN A RESEARCH CONTEXT WILL NOT USUALLY
+BE SO NICELY-FORMATTED</strong></li>
+<li>Let’s load in the wide-format <code>gapminder</code> data and take a
+look at it.</li>
+</ul>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> gap_wide <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/gapminder_wide.csv&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(gap_wide)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span>   <span class="dv">142</span> obs. of  <span class="dv">38</span> variables<span class="sc">:</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a> <span class="er">$</span> continent     <span class="sc">:</span> chr  <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> ...</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> country       <span class="sc">:</span> chr  <span class="st">&quot;Algeria&quot;</span> <span class="st">&quot;Angola&quot;</span> <span class="st">&quot;Benin&quot;</span> <span class="st">&quot;Botswana&quot;</span> ...</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap_1952<span class="sc">:</span> num  <span class="dv">2449</span> <span class="dv">3521</span> <span class="dv">1063</span> <span class="dv">851</span> <span class="dv">543</span> ...</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap_1957<span class="sc">:</span> num  <span class="dv">3014</span> <span class="dv">3828</span> <span class="dv">960</span> <span class="dv">918</span> <span class="dv">617</span> ...</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap_1962<span class="sc">:</span> num  <span class="dv">2551</span> <span class="dv">4269</span> <span class="dv">949</span> <span class="dv">984</span> <span class="dv">723</span> ...</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap_1967<span class="sc">:</span> num  <span class="dv">3247</span> <span class="dv">5523</span> <span class="dv">1036</span> <span class="dv">1215</span> <span class="dv">795</span> ...</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap_1972<span class="sc">:</span> num  <span class="dv">4183</span> <span class="dv">5473</span> <span class="dv">1086</span> <span class="dv">2264</span> <span class="dv">855</span> ...</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap_1977<span class="sc">:</span> num  <span class="dv">4910</span> <span class="dv">3009</span> <span class="dv">1029</span> <span class="dv">3215</span> <span class="dv">743</span> ...</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap_1982<span class="sc">:</span> num  <span class="dv">5745</span> <span class="dv">2757</span> <span class="dv">1278</span> <span class="dv">4551</span> <span class="dv">807</span> ...</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap_1987<span class="sc">:</span> num  <span class="dv">5681</span> <span class="dv">2430</span> <span class="dv">1226</span> <span class="dv">6206</span> <span class="dv">912</span> ...</span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap_1992<span class="sc">:</span> num  <span class="dv">5023</span> <span class="dv">2628</span> <span class="dv">1191</span> <span class="dv">7954</span> <span class="dv">932</span> ...</span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap_1997<span class="sc">:</span> num  <span class="dv">4797</span> <span class="dv">2277</span> <span class="dv">1233</span> <span class="dv">8647</span> <span class="dv">946</span> ...</span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap_2002<span class="sc">:</span> num  <span class="dv">5288</span> <span class="dv">2773</span> <span class="dv">1373</span> <span class="dv">11004</span> <span class="dv">1038</span> ...</span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap_2007<span class="sc">:</span> num  <span class="dv">6223</span> <span class="dv">4797</span> <span class="dv">1441</span> <span class="dv">12570</span> <span class="dv">1217</span> ...</span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp_1952  <span class="sc">:</span> num  <span class="fl">43.1</span> <span class="dv">30</span> <span class="fl">38.2</span> <span class="fl">47.6</span> <span class="dv">32</span> ...</span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp_1957  <span class="sc">:</span> num  <span class="fl">45.7</span> <span class="dv">32</span> <span class="fl">40.4</span> <span class="fl">49.6</span> <span class="fl">34.9</span> ...</span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp_1962  <span class="sc">:</span> num  <span class="fl">48.3</span> <span class="dv">34</span> <span class="fl">42.6</span> <span class="fl">51.5</span> <span class="fl">37.8</span> ...</span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp_1967  <span class="sc">:</span> num  <span class="fl">51.4</span> <span class="dv">36</span> <span class="fl">44.9</span> <span class="fl">53.3</span> <span class="fl">40.7</span> ...</span>
+<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp_1972  <span class="sc">:</span> num  <span class="fl">54.5</span> <span class="fl">37.9</span> <span class="dv">47</span> <span class="dv">56</span> <span class="fl">43.6</span> ...</span>
+<span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp_1977  <span class="sc">:</span> num  <span class="dv">58</span> <span class="fl">39.5</span> <span class="fl">49.2</span> <span class="fl">59.3</span> <span class="fl">46.1</span> ...</span>
+<span id="cb56-24"><a href="#cb56-24" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp_1982  <span class="sc">:</span> num  <span class="fl">61.4</span> <span class="fl">39.9</span> <span class="fl">50.9</span> <span class="fl">61.5</span> <span class="fl">48.1</span> ...</span>
+<span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp_1987  <span class="sc">:</span> num  <span class="fl">65.8</span> <span class="fl">39.9</span> <span class="fl">52.3</span> <span class="fl">63.6</span> <span class="fl">49.6</span> ...</span>
+<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp_1992  <span class="sc">:</span> num  <span class="fl">67.7</span> <span class="fl">40.6</span> <span class="fl">53.9</span> <span class="fl">62.7</span> <span class="fl">50.3</span> ...</span>
+<span id="cb56-27"><a href="#cb56-27" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp_1997  <span class="sc">:</span> num  <span class="fl">69.2</span> <span class="dv">41</span> <span class="fl">54.8</span> <span class="fl">52.6</span> <span class="fl">50.3</span> ...</span>
+<span id="cb56-28"><a href="#cb56-28" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp_2002  <span class="sc">:</span> num  <span class="dv">71</span> <span class="dv">41</span> <span class="fl">54.4</span> <span class="fl">46.6</span> <span class="fl">50.6</span> ...</span>
+<span id="cb56-29"><a href="#cb56-29" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp_2007  <span class="sc">:</span> num  <span class="fl">72.3</span> <span class="fl">42.7</span> <span class="fl">56.7</span> <span class="fl">50.7</span> <span class="fl">52.3</span> ...</span>
+<span id="cb56-30"><a href="#cb56-30" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop_1952      <span class="sc">:</span> num  <span class="dv">9279525</span> <span class="dv">4232095</span> <span class="dv">1738315</span> <span class="dv">442308</span> <span class="dv">4469979</span> ...</span>
+<span id="cb56-31"><a href="#cb56-31" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop_1957      <span class="sc">:</span> num  <span class="dv">10270856</span> <span class="dv">4561361</span> <span class="dv">1925173</span> <span class="dv">474639</span> <span class="dv">4713416</span> ...</span>
+<span id="cb56-32"><a href="#cb56-32" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop_1962      <span class="sc">:</span> num  <span class="dv">11000948</span> <span class="dv">4826015</span> <span class="dv">2151895</span> <span class="dv">512764</span> <span class="dv">4919632</span> ...</span>
+<span id="cb56-33"><a href="#cb56-33" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop_1967      <span class="sc">:</span> num  <span class="dv">12760499</span> <span class="dv">5247469</span> <span class="dv">2427334</span> <span class="dv">553541</span> <span class="dv">5127935</span> ...</span>
+<span id="cb56-34"><a href="#cb56-34" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop_1972      <span class="sc">:</span> num  <span class="dv">14760787</span> <span class="dv">5894858</span> <span class="dv">2761407</span> <span class="dv">619351</span> <span class="dv">5433886</span> ...</span>
+<span id="cb56-35"><a href="#cb56-35" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop_1977      <span class="sc">:</span> num  <span class="dv">17152804</span> <span class="dv">6162675</span> <span class="dv">3168267</span> <span class="dv">781472</span> <span class="dv">5889574</span> ...</span>
+<span id="cb56-36"><a href="#cb56-36" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop_1982      <span class="sc">:</span> num  <span class="dv">20033753</span> <span class="dv">7016384</span> <span class="dv">3641603</span> <span class="dv">970347</span> <span class="dv">6634596</span> ...</span>
+<span id="cb56-37"><a href="#cb56-37" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop_1987      <span class="sc">:</span> num  <span class="dv">23254956</span> <span class="dv">7874230</span> <span class="dv">4243788</span> <span class="dv">1151184</span> <span class="dv">7586551</span> ...</span>
+<span id="cb56-38"><a href="#cb56-38" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop_1992      <span class="sc">:</span> num  <span class="dv">26298373</span> <span class="dv">8735988</span> <span class="dv">4981671</span> <span class="dv">1342614</span> <span class="dv">8878303</span> ...</span>
+<span id="cb56-39"><a href="#cb56-39" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop_1997      <span class="sc">:</span> num  <span class="dv">29072015</span> <span class="dv">9875024</span> <span class="dv">6066080</span> <span class="dv">1536536</span> <span class="dv">10352843</span> ...</span>
+<span id="cb56-40"><a href="#cb56-40" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop_2002      <span class="sc">:</span> int  <span class="dv">31287142</span> <span class="dv">10866106</span> <span class="dv">7026113</span> <span class="dv">1630347</span> <span class="dv">12251209</span> <span class="dv">7021078</span> <span class="dv">15929988</span> <span class="dv">4048013</span> <span class="dv">8835739</span> <span class="dv">614382</span> ...</span>
+<span id="cb56-41"><a href="#cb56-41" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop_2007      <span class="sc">:</span> int  <span class="dv">33333216</span> <span class="dv">12420476</span> <span class="dv">8078314</span> <span class="dv">1639131</span> <span class="dv">14326203</span> <span class="dv">8390505</span> <span class="dv">17696293</span> <span class="dv">4369038</span> <span class="dv">10238807</span> <span class="dv">710960</span> ...</span></code></pre></div>
+<ul>
+<li><strong>ALSO VIEW IN RSTUDIO</strong></li>
+<li>This is very wide data and it looks like it would be a bit of a
+nightmare to do the kinds of analyses we have been doing, with the data
+in this format.</li>
+</ul>
+<hr />
+<h2 id="pivot-wide-to-long">Pivot: Wide to Long</h2>
+<ul>
+<li>We want to convert this wide format that’s difficult to work with to
+our nice, longer, intermediate layout.</li>
+<li><strong>TO DO THIS WE USE THE <code>pivot_longer()</code> FUNCTION
+FROM <code>dplyr</code>/<code>tidyverse</code></strong>
+<ul>
+<li>This makes datasets longer by increasing the number of rows and
+decreasing the number of columns</li>
+<li>You may be familiar with “pivot tables” from Excel, which are
+similar.</li>
+</ul></li>
+<li>It works like the image shows
+<ul>
+<li>We define the dataset we want to pivot</li>
+<li>We say which columns we want to convert from wide to long format in
+the <code>cols</code> variable
+<ul>
+<li>The <code>pivot_longer()</code> function effectively splits the
+table by these columns</li>
+<li>The column name then gets converted to its own, new column, but the
+values are kept</li>
+</ul></li>
+<li>We specify the names of the new “name” and “value” columns wiht
+<code>names_to</code> and <code>values_to</code>.</li>
+</ul></li>
+<li>For the <code>gapminder</code> data, we want to pivot all columns
+that start with <code>pop</code>, <code>lifeExp</code> or
+<code>gdpPercent</code>
+<ul>
+<li>We’ll put the column names into a column called
+<code>obstype_year</code></li>
+<li>We’ll put the values into a column called
+<code>obs_values</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> gap_long <span class="ot">&lt;-</span> gap_wide <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>     <span class="fu">pivot_longer</span>(</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="at">cols =</span> <span class="fu">c</span>(<span class="fu">starts_with</span>(<span class="st">&#39;pop&#39;</span>), <span class="fu">starts_with</span>(<span class="st">&#39;lifeExp&#39;</span>), <span class="fu">starts_with</span>(<span class="st">&#39;gdpPercap&#39;</span>)),</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>         <span class="at">names_to =</span> <span class="st">&quot;obstype_year&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;obs_values&quot;</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>     )</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(gap_long)</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>tibble [<span class="dv">5</span>,<span class="dv">112</span> × <span class="dv">4</span>] (S3<span class="sc">:</span> tbl_df<span class="sc">/</span>tbl<span class="sc">/</span>data.frame)</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> continent   <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">5112</span>] <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> ...</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> country     <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">5112</span>] <span class="st">&quot;Algeria&quot;</span> <span class="st">&quot;Algeria&quot;</span> <span class="st">&quot;Algeria&quot;</span> <span class="st">&quot;Algeria&quot;</span> ...</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> obstype_year<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">5112</span>] <span class="st">&quot;pop_1952&quot;</span> <span class="st">&quot;pop_1957&quot;</span> <span class="st">&quot;pop_1962&quot;</span> <span class="st">&quot;pop_1967&quot;</span> ...</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> obs_values  <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">5112</span>] <span class="dv">9279525</span> <span class="dv">10270856</span> <span class="dv">11000948</span> <span class="dv">12760499</span> <span class="dv">14760787</span> ...</span></code></pre></div>
+<ul>
+<li>This gives us a long format table with four columns</li>
+<li><strong>BUT IT’S NOT QUITE WHAT WE WANT, BECAUSE WE HAVE TWO KINDS
+OF DATA COMBINED IN THE <code>obstype_year</code> COLUMN</strong>
+<ul>
+<li>We want to split <code>year</code> into its own column.</li>
+</ul></li>
+</ul>
+<h2 id="separate"><code>separate()</code></h2>
+<ul>
+<li><strong>THE <code>separate()</code> FUNCTION SPLITS THE CONTENTS OF
+A SINGLE COLUMN INTO MULTIPLE NEW COLUMNS</strong>
+<ul>
+<li>We want to split the year information from every cell in the
+<code>obstype_year</code> column into its own new column.</li>
+</ul></li>
+<li>The <code>separate()</code> function needs to know:
+<ul>
+<li>dataframe it’s working on</li>
+<li>the column it’s splitting</li>
+<li>the names of the new columns it’s making</li>
+<li>the character it’s splitting the cell content on</li>
+</ul></li>
+<li>We split the <code>obstype_year</code> column into two columns
+called <code>obs_type</code> and <code>year</code>, on the underscore
+separator <code>"_"</code>.</li>
+</ul>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> gap_long <span class="ot">&lt;-</span> gap_long <span class="sc">%&gt;%</span> <span class="fu">separate</span>(obstype_year, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&#39;obs_type&#39;</span>, <span class="st">&#39;year&#39;</span>), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span></code></pre></div>
+<ul>
+<li>As the year at this point is still a character string, we change the
+datatype with <code>as.integer</code> and take a look at the new
+dataframe.</li>
+</ul>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> gap_long<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(gap_long<span class="sc">$</span>year)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(gap_long)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>tibble [<span class="dv">5</span>,<span class="dv">112</span> × <span class="dv">5</span>] (S3<span class="sc">:</span> tbl_df<span class="sc">/</span>tbl<span class="sc">/</span>data.frame)</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> continent <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">5112</span>] <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> ...</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> country   <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">5112</span>] <span class="st">&quot;Algeria&quot;</span> <span class="st">&quot;Algeria&quot;</span> <span class="st">&quot;Algeria&quot;</span> <span class="st">&quot;Algeria&quot;</span> ...</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> obs_type  <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">5112</span>] <span class="st">&quot;pop&quot;</span> <span class="st">&quot;pop&quot;</span> <span class="st">&quot;pop&quot;</span> <span class="st">&quot;pop&quot;</span> ...</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> year      <span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">5112</span>] <span class="dv">1952</span> <span class="dv">1957</span> <span class="dv">1962</span> <span class="dv">1967</span> <span class="dv">1972</span> <span class="dv">1977</span> <span class="dv">1982</span> <span class="dv">1987</span> <span class="dv">1992</span> <span class="dv">1997</span> ...</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> obs_values<span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">5112</span>] <span class="dv">9279525</span> <span class="dv">10270856</span> <span class="dv">11000948</span> <span class="dv">12760499</span> <span class="dv">14760787</span> ...</span></code></pre></div>
+<ul>
+<li><strong>THIS IS STILL NOT QUITE WHERE WE WANT IT</strong>
+<ul>
+<li>There are three types of observation combined in
+<code>obs_type</code> and <code>obs_values</code> and it would be
+convenient to split them into new columns</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="pivot-long-to-wide">Pivot: Long to Wide</h2>
+<ul>
+<li>We want to convert this long format into a slightly wider
+intermediate layout, for convenience.</li>
+<li>There is a companion function to <code>pivot_longer()</code> called
+<code>pivot_wider()</code> that we use for this.
+<ul>
+<li>It’s essentially the reverse of <code>pivot_longer()</code></li>
+</ul></li>
+<li><strong>THE <code>pivot_wider()</code> FUNCTION SPLITS THE TABLE UP
+BY VALUES IN THE COLUMN OF “NAMES”</strong>
+<ul>
+<li>It then changes the name of the “VALUES” column to reflect the value
+in the “NAMES” column for each split.</li>
+<li>Finally, it recombines the columns into a single table on the basis
+of the ID columns</li>
+</ul></li>
+<li>We want to do this with the <code>gapminder</code> data by using the
+<code>obs_type</code> column for the names, and the
+<code>obs_values</code> column for the values.</li>
+</ul>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> gap_normal <span class="ot">&lt;-</span> gap_long <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> obs_type, <span class="at">values_from =</span> obs_values)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(gap_normal)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>tibble [<span class="dv">1</span>,<span class="dv">704</span> × <span class="dv">6</span>] (S3<span class="sc">:</span> tbl_df<span class="sc">/</span>tbl<span class="sc">/</span>data.frame)</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> continent<span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">1704</span>] <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> ...</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> country  <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">1704</span>] <span class="st">&quot;Algeria&quot;</span> <span class="st">&quot;Algeria&quot;</span> <span class="st">&quot;Algeria&quot;</span> <span class="st">&quot;Algeria&quot;</span> ...</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> year     <span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">1704</span>] <span class="dv">1952</span> <span class="dv">1957</span> <span class="dv">1962</span> <span class="dv">1967</span> <span class="dv">1972</span> <span class="dv">1977</span> <span class="dv">1982</span> <span class="dv">1987</span> <span class="dv">1992</span> <span class="dv">1997</span> ...</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop      <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">1704</span>] <span class="dv">9279525</span> <span class="dv">10270856</span> <span class="dv">11000948</span> <span class="dv">12760499</span> <span class="dv">14760787</span> ...</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lifeExp  <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">1704</span>] <span class="fl">43.1</span> <span class="fl">45.7</span> <span class="fl">48.3</span> <span class="fl">51.4</span> <span class="fl">54.5</span> ...</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap<span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">1704</span>] <span class="dv">2449</span> <span class="dv">3014</span> <span class="dv">2551</span> <span class="dv">3247</span> <span class="dv">4183</span> ...</span></code></pre></div>
+<ul>
+<li>And we can see that this has restored the intermediate form of the
+data that was so useful to us earlier.</li>
+</ul>
+<hr />
+<h2 id="challenge-5min">Challenge (5min)</h2>
+<ul>
+<li>Using gap_long, calculate the mean life expectancy, population, and
+gdpPercap for each continent. Hint: use the group_by() and summarize()
+functions we learned in the dplyr lesson</li>
+</ul>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>gap_long <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(continent, obs_type) <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarize</span>(<span class="at">means=</span><span class="fu">mean</span>(obs_values))</span></code></pre></div>
+<figure>
+<img src="images/red_green_sticky.png"
+alt="images/red_green_sticky.png" />
+<figcaption aria-hidden="true">images/red_green_sticky.png</figcaption>
+</figure>
