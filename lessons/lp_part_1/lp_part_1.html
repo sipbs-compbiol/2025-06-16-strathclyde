@@ -27,6 +27,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="lp_part_1_files/libs/revealjs/dist/theme/quarto-00ac2f6af1389919a18f42df5b7c0002.css">
   <link href="lp_part_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -505,7 +571,934 @@
 </div>
 </div>
 </div>
+</div>
+</section>
+<section id="load-episode-data" class="slide level2">
+<h2>Load Episode Data</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
 
+</div>
+</div>
+</div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Where to find the data</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><a href="https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv">https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv</a></li>
+<li>Link available on the Etherpad (<a href="https://pad.carpentries.org/2025-06-16-strathclyde">https://pad.carpentries.org/2025-06-16-strathclyde</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Where to save the data</strong></p>
+</div>
+<div class="callout-content">
+<p>Save the data to the <code>data</code> subfolder (where you put <code>feline-data.csv</code>)</p>
+</div>
+</div>
+</div>
+</section>
+<section id="investigating-gapminder" class="slide level2">
+<h2>Investigating <code>gapminder</code></h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">str</span>(gapminder)              <span class="co"># structure of the data.frame</span></span>
+<span id="cb1-2"><a href=""></a><span class="fu">typeof</span>(gapminder<span class="sc">$</span>year)      <span class="co"># data type of a column</span></span>
+<span id="cb1-3"><a href=""></a><span class="fu">length</span>(gapminder)           <span class="co"># length of the data.frame</span></span>
+<span id="cb1-4"><a href=""></a><span class="fu">nrow</span>(gapminder)             <span class="co"># number of rows in data.frame</span></span>
+<span id="cb1-5"><a href=""></a><span class="fu">ncol</span>(gapminder)             <span class="co"># number of columns in data.frame</span></span>
+<span id="cb1-6"><a href=""></a><span class="fu">dim</span>(gapminder)              <span class="co"># number of rows and columns in data.frame</span></span>
+<span id="cb1-7"><a href=""></a><span class="fu">colnames</span>(gapminder)         <span class="co"># column names from data.frame</span></span>
+<span id="cb1-8"><a href=""></a><span class="fu">head</span>(gapminder)             <span class="co"># first few rows of dataframe</span></span>
+<span id="cb1-9"><a href=""></a><span class="fu">summary</span>(gapminder)          <span class="co"># summary of data in data.frame columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section>
+<section>
+<section id="data-frame-manipulation-with-dplyr" class="title-slide slide level1 center">
+<h1>4. Data Frame Manipulation With <code>dplyr</code></h1>
+
+</section>
+<section id="learning-objectives-1" class="slide level2">
+<h2>Learning Objectives</h2>
+<ul>
+<li>How to manipulate <code>data.frame</code>s with the six <em>verbs</em> of <code>dplyr</code>
+<ul>
+<li>a ‘grammar of data manipulation’</li>
+</ul></li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><code>select()</code></li>
+<li><code>filter()</code></li>
+<li><code>group_by()</code></li>
+<li><code>summarize()</code></li>
+<li><code>mutate()</code></li>
+<li><code>%&gt;%</code> (pipe)</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="what-and-why-is-dplyr" class="slide level2">
+<h2>What and Why is <code>dplyr</code>?</h2>
+<ul>
+<li><code>dplyr</code> is another package in the <em>Tidyverse</em></li>
+<li>Facilitates analysis by <em>groups</em> in Tidy Data
+<ul>
+<li>Helps avoid repetition</li>
+</ul></li>
+</ul>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Avoiding repetition (though automation) makes code</p>
+<ul>
+<li><strong>robust</strong></li>
+<li><strong>reproducible</strong></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="split-apply-combine" class="slide level2">
+<h2>Split-Apply-Combine</h2>
+
+<img data-src="images/splitapplycombine.png" class="r-stretch"></section>
+<section id="select" class="slide level2">
+<h2><code>select()</code></h2>
+
+<img data-src="images/dplyr_select.png" class="quarto-figure quarto-figure-center r-stretch"><div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+</section>
+<section id="filter" class="slide level2">
+<h2><code>filter()</code></h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong><code>filter()</code> selects rows on the basis of some condition</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">filter</span>(gapminder, continent<span class="sc">==</span><span class="st">"Europe"</span>)</span>
+<span id="cb2-2"><a href=""></a></span>
+<span id="cb2-3"><a href=""></a><span class="co"># Select gdpPercap by country and year, only for Europe</span></span>
+<span id="cb2-4"><a href=""></a>eurodata <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href=""></a>              <span class="fu">filter</span>(continent <span class="sc">==</span> <span class="st">"Europe"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href=""></a>              <span class="fu">select</span>(year, country, gdpPercap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="challenge-5min" class="slide level2">
+<h2>Challenge (5min)</h2>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Challenge</strong></p>
+</div>
+<div class="callout-content">
+<p>Can you write a single line (which may span multiple lines in your script by including pipes) to produce a dataframe from <code>gapminder</code> containing:</p>
+<ul>
+<li><p>life expectancy, country, and year data</p></li>
+<li><p>only for African nations</p></li>
+<li><p>How many rows does the dataframe have?</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="group_by" class="slide level2">
+<h2><code>group_by()</code></h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+
+<img data-src="images/dplyr_group_by.png" class="quarto-figure quarto-figure-center r-stretch"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">group_by</span>(gapminder, continent)</span>
+<span id="cb3-2"><a href=""></a>gapminder <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(continent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="summarize" class="slide level2">
+<h2><code>summarize()</code></h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+
+<img data-src="images/dplyr_summarize.png" class="quarto-figure quarto-figure-center r-stretch"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># Produce table of mean GDP by continent</span></span>
+<span id="cb4-2"><a href=""></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href=""></a>    <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href=""></a>    <span class="fu">summarize</span>(<span class="at">meangdpPercap=</span><span class="fu">mean</span>(gdpPercap))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="challenge-5min-1" class="slide level2">
+<h2>Challenge (5min)</h2>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Challenge</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Can you calculate the average life expectancy per <em>country</em> in the <code>gapminder</code> data?</li>
+<li>Which nation has longest life expectancy, and which the shortest?</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="count-and-n" class="slide level2">
+<h2><code>count()</code> and <code>n()</code></h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Two useful functions related to <code>summarize()</code></strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><code>count()</code>/<code>tally()</code>: a function that reports a table of counts by group</li>
+<li><code>n()</code>: a function used <em>within</em> <code>summarize()</code>, <code>filter()</code> or <code>mutate()</code> to represent count by group</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href=""></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2002</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href=""></a>  <span class="fu">count</span>(continent, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-4"><a href=""></a></span>
+<span id="cb5-5"><a href=""></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href=""></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">se_lifeExp =</span> <span class="fu">sd</span>(lifeExp)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="mutate" class="slide level2">
+<h2><code>mutate()</code></h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><code>mutate()</code> is a function allowing creation of new variables</p>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># Calculate GDP in $billion</span></span>
+<span id="cb6-2"><a href=""></a>gdp_bill <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">gdp_billion =</span> gdpPercap <span class="sc">*</span> pop <span class="sc">/</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">9</span>)</span>
+<span id="cb6-4"><a href=""></a></span>
+<span id="cb6-5"><a href=""></a><span class="co"># Calculate total/sd of GDP by continent and year</span></span>
+<span id="cb6-6"><a href=""></a>gdp_bycontinents_byyear <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href=""></a>    <span class="fu">mutate</span>(<span class="at">gdp_billion=</span>gdpPercap<span class="sc">*</span>pop<span class="sc">/</span><span class="dv">10</span><span class="sc">^</span><span class="dv">9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href=""></a>    <span class="fu">group_by</span>(continent,year) <span class="sc">%&gt;%</span></span>
+<span id="cb6-9"><a href=""></a>    <span class="fu">summarize</span>(<span class="at">mean_gdpPercap=</span><span class="fu">mean</span>(gdpPercap),</span>
+<span id="cb6-10"><a href=""></a>              <span class="at">sd_gdpPercap=</span><span class="fu">sd</span>(gdpPercap),</span>
+<span id="cb6-11"><a href=""></a>              <span class="at">mean_gdp_billion=</span><span class="fu">mean</span>(gdp_billion),</span>
+<span id="cb6-12"><a href=""></a>              <span class="at">sd_gdp_billion=</span><span class="fu">sd</span>(gdp_billion))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="ifelse" class="slide level2">
+<h2><code>ifelse()</code></h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><code>ifelse()</code> allows us to restrict apply filtering when we use <code>mutate()</code></p>
+<ul>
+<li><code>ifelse([CONDITION], [VALUE IF TRUE], [VALUE IF FALSE]</code>)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>gdp_billion_large_countries <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">gdp_billion_large =</span> <span class="fu">ifelse</span>(pop <span class="sc">&gt;</span> <span class="fl">10e6</span>, </span>
+<span id="cb7-3"><a href=""></a>                                    gdpPercap <span class="sc">*</span> pop <span class="sc">/</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">9</span>,</span>
+<span id="cb7-4"><a href=""></a>                                    <span class="cn">NA</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section></section>
+<section>
+<section id="tidy-data" class="title-slide slide level1 center">
+<h1>5. Tidy Data</h1>
+
+</section>
+<section id="why-tidy-data" class="slide level2">
+<h2>Why Tidy Data?</h2>
+<blockquote>
+<p>“Tidy datasets are all alike, but every messy dataset is messy in its own way”</p>
+</blockquote>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Data Cleaning is not just a first step</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Cleaning is needed whenever new data turns up, new ideas arrive, etc.</li>
+<li>About 80% of the effort of data analysis is cleaning and preparing data</li>
+</ul>
+<p><strong>Principles of <em>Tidy Data</em> provide a standard way to organise data values within a dataset</strong></p>
+</div>
+</div>
+</div>
+</section>
+<section id="an-untidy-dataset-1" class="slide level2">
+<h2>An Untidy Dataset (1)</h2>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>What’s wrong with this data?</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">John Smith</th>
+<th style="text-align: right;">Jane Doe</th>
+<th style="text-align: right;">Mary Johnson</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">treatment.A</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">treatment.B</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="an-untidy-dataset-2" class="slide level2">
+<h2>An Untidy Dataset (2)</h2>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Is this better?</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">treatment.A</th>
+<th style="text-align: right;">treatment.B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">John Smith</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jane Doe</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mary Johnson</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>We need to talk about data semantics</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-semantics" class="slide level2">
+<h2>Data Semantics</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>A dataset is a collection of <strong>VALUES</strong></strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">John Smith</th>
+<th style="text-align: right;">Jane Doe</th>
+<th style="text-align: right;">Mary Johnson</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">treatment.A</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">treatment.B</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Each <strong>value</strong> belongs to a <strong>variable</strong> and an <strong>observation</strong></strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><strong>VARIABLES</strong> (can <em>change</em> or <em>vary</em>): values that are <em>measured</em> or <em>decided</em> by a researcher: height, temperature, duration, treatment, etc.</li>
+<li><strong>OBSERVATIONS</strong>: values measured across all variables for the same individual/unit/group: person, reactor, religion, company, etc.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="challenge-2min" class="slide level2">
+<h2>Challenge (2min)</h2>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>In the table below, what are the rows and columns?</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">John Smith</th>
+<th style="text-align: right;">Jane Doe</th>
+<th style="text-align: right;">Mary Johnson</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">treatment.A</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">treatment.B</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Rows=OBERVATIONS, Columns=VARIABLES</li>
+<li>Rows=OBERVATIONS, Columns=NEITHER</li>
+<li>Rows=NEITHER, Columns=VARIABLES</li>
+<li>Rows=NEITHER, Columns=NEITHER</li>
+</ul>
+<p><strong>USE CHALLENGE SECTION ON ETHERPAD</strong></p>
+</div>
+</div>
+</div>
+</section>
+<section id="a-tidy-dataset-1" class="slide level2">
+<h2>A Tidy Dataset (1)</h2>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The dataset contains 18 values</strong></p>
+</div>
+<div class="callout-content">
+<p>There are three variables and six observations</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>VARIABLES</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>person (three people: John, Mary, Jane)</li>
+<li>treatment (two treatments: a and b)</li>
+<li>result (six measurements: <code>NA</code>, 16, 3, 2, 11, 1)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Each <strong>OBSERVATION</strong> includes all three variables</p>
+</div>
+</div>
+</div>
+</section>
+<section id="a-tidy-dataset-2" class="slide level2">
+<h2>A Tidy Dataset (2)</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>This is the dataset in tidy form</strong></p>
+</div>
+<div class="callout-content">
+<p>(aka <em>long form</em>)</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">treatment</th>
+<th style="text-align: right;">result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">John Smith</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jane Doe</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mary Johnson</td>
+<td style="text-align: left;">a</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">John Smith</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Jane Doe</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mary Johnson</td>
+<td style="text-align: left;">b</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="tidy-data-1" class="slide level2">
+<h2>Tidy Data</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tidy data is a standard way of structuring a dataset</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>makes it easy to extract needed varaibles</li>
+<li>well suited to <code>R</code> (supports vectorisation)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Caution</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>Each <strong>VARIABLE</strong> forms a column</li>
+<li>Each <strong>OBSERVATION</strong> forms a row</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+</section>
+<section id="long-v-wide" class="slide level2">
+<h2>Long v Wide</h2>
+
+<img data-src="images/tidyr_long_wide.png" class="quarto-figure quarto-figure-center r-stretch"><div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Many <code>R</code> functions are designed to expect long data</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Long data: each column is a variable, each row is an observation</li>
+<li>Wide data: each row might be a subject, each column an observation variable</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="gapminder-wide-dataset" class="slide level2">
+<h2><code>gapminder</code> Wide Dataset</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>gap_wide <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/gapminder_wide.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb8-2"><a href=""></a><span class="fu">str</span>(gap_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="pivot-wide-to-long" class="slide level2">
+<h2>Pivot: Wide to Long</h2>
+
+<img data-src="images/tidyr-pivot-longer.png" class="quarto-figure quarto-figure-center r-stretch"><div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>gap_long <span class="ot">&lt;-</span> gap_wide <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href=""></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb9-3"><a href=""></a>    <span class="at">cols =</span> <span class="fu">c</span>(<span class="fu">starts_with</span>(<span class="st">'pop'</span>), <span class="fu">starts_with</span>(<span class="st">'lifeExp'</span>),</span>
+<span id="cb9-4"><a href=""></a>             <span class="fu">starts_with</span>(<span class="st">'gdpPercap'</span>)),</span>
+<span id="cb9-5"><a href=""></a>    <span class="at">names_to =</span> <span class="st">"obstype_year"</span>, <span class="at">values_to =</span> <span class="st">"obs_values"</span></span>
+<span id="cb9-6"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="separate" class="slide level2">
+<h2><code>separate()</code></h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><code>separate()</code> allows us to split the contents of one column into several columns</p>
+<ul>
+<li><code>separate([COLUMN], into=[NEW_COLUMN_NAMES], sep=[SEPARATOR])</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>gap_long <span class="sc">%&gt;%</span> <span class="fu">separate</span>(obstype_year,</span>
+<span id="cb10-2"><a href=""></a>                      <span class="at">into =</span> <span class="fu">c</span>(<span class="st">'obs_type'</span>, <span class="st">'year'</span>),</span>
+<span id="cb10-3"><a href=""></a>                      <span class="at">sep =</span> <span class="st">"_"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="pivot-long-to-wide" class="slide level2">
+<h2>Pivot: Long to Wide</h2>
+
+<img data-src="images/tidyr-pivot-wider.png" class="quarto-figure quarto-figure-center r-stretch"><div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>gap_normal <span class="ot">&lt;-</span> gap_long <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href=""></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> obs_type,</span>
+<span id="cb11-3"><a href=""></a>              <span class="at">values_from =</span> obs_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="challenge-5min-2" class="slide level2">
+<h2>Challenge (5min)</h2>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Challenge</strong></p>
+</div>
+<div class="callout-content">
+<p>Using the <code>gap_long</code> dataset, calculate the mean life expectancy, population, and GDP per capita for each continent.</p>
+<p>Hint: use the <code>group_by()</code> and <code>summarize()</code> functions we learned in the <code>dplyr</code> episode. ```</p>
+
+</div>
+</div>
 </div>
 </section></section>
     </div>
@@ -723,6 +1716,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

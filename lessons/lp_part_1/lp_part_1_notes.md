@@ -546,3 +546,762 @@ List of 2
   - Each _row_ is an observation
   - Each _column_ is a variable
   - The data frame represents a series of observations
+
+----------
+
+## Load Episode Data
+
+- **DEMO IN SCRIPT**
+- **DOWNLOAD DATA**
+    - Use the link from the Etherpad document
+    - Place the file in `data/`
+- **CREATE A NEW SCRIPT**
+    - Call it `gapminder`
+    - Add the code
+    - Use `read.table`
+    - The data is in CSV format
+    - We need to provide a data source (**here, a file**), the separator character, and whether there's a header row
+
+```R
+# Load gapminder data from a local file
+gapminder <- read.table("data/gapminder_data.csv", sep=",", header=TRUE)
+```
+
+- **RUN THE SCRIPT** (use `Source`)
+- **CHECK THE DATA IN THE `Environment` TAB**
+    - Click on `gapminder` in `Evironment` tab.
+    - **NOTE COLUMNS**
+
+----------
+
+## Investigating `gapminder`
+
+- Now we've loaded our data, let's take a look at it
+- **DEMO IN CONSOLE**
+    - 1704 rows, 6 columns
+    - Investigate types of columns
+    - **POINT OUT THAT THE TYPE OF A COLUMN IS INTEGER IF IT'S A FACTOR**
+    - **LENGTH OF A DATAFRAME IS THE NUMBER OF COLUMNS**
+
+- It's always useful to get an initial understanding of your data with the `str()` function.
+
+```R
+> str(gapminder)
+'data.frame':	1704 obs. of  6 variables:
+ $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+ $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+ $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
+ $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+ $ gdpPercap: num  779 821 853 836 740 ...
+```
+
+- The `summary()` function can also be useful
+  - With dataframes, this gives a numeric, tabular, or descriptive summary of each column.
+
+```R
+> summary(gapminder)
+        country          year           pop               continent      lifeExp
+ Afghanistan:  12   Min.   :1952   Min.   :6.001e+04   Africa  :624   Min.   :23.60
+ Albania    :  12   1st Qu.:1966   1st Qu.:2.794e+06   Americas:300   1st Qu.:48.20
+ Algeria    :  12   Median :1980   Median :7.024e+06   Asia    :396   Median :60.71
+ Angola     :  12   Mean   :1980   Mean   :2.960e+07   Europe  :360   Mean   :59.47
+ Argentina  :  12   3rd Qu.:1993   3rd Qu.:1.959e+07   Oceania : 24   3rd Qu.:70.85
+ Australia  :  12   Max.   :2007   Max.   :1.319e+09                  Max.   :82.60
+ (Other)    :1632
+   gdpPercap
+ Min.   :   241.2
+ 1st Qu.:  1202.1
+ Median :  3531.8
+ Mean   :  7215.3
+ 3rd Qu.:  9325.5
+ Max.   :113523.1
+```
+
+- We can also inspect individual columns of the data.
+
+```R
+> typeof(gapminder$year)
+[1] "integer"
+> typeof(gapminder$country)
+[1] "integer"
+```
+
+- This looks a little weird: why should the country be an integer?
+  - Let's investigate further with `str()`
+
+```R
+> str(gapminder$country)
+ Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
+```
+
+- The `country` column has been read in as a `factor`
+  - A `factor` is a data structure that represents _categorical_ data.
+  - We can see this in the `str()` output we got, as well: both `country` and `continent` were read in as factors.
+  - This is fine, and is what we actually want.
+
+- We can ask about the dimensions of the dataframe with `dim()`
+
+```R
+> dim(gapminder)
+[1] 1704    6
+```
+
+- So there are 1704 rows and 6 columns
+- What does `length()` produce:
+
+```R
+> length(gapminder)
+[1] 6
+```
+
+- Remember that a dataframe is a `list` of `vector` columns, so its length is the number of elements in the list.
+  - There are six columns, so the length of the dataframe is 6.
+
+- We can ask specifically for the number of rows and columns, and for other information.
+- We can also use `head()` to summarise the dataframe.
+
+```R
+> nrow(gapminder)
+[1] 1704
+> ncol(gapminder)
+[1] 6
+> colnames(gapminder)
+[1] "country"   "year"      "pop"       "continent" "lifeExp"   "gdpPercap"
+> head(gapminder)
+      country year      pop continent lifeExp gdpPercap
+1 Afghanistan 1952  8425333      Asia  28.801  779.4453
+2 Afghanistan 1957  9240934      Asia  30.332  820.8530
+3 Afghanistan 1962 10267083      Asia  31.997  853.1007
+4 Afghanistan 1967 11537966      Asia  34.020  836.1971
+5 Afghanistan 1972 13079460      Asia  36.088  739.9811
+```
+
+----------
+
+## Data Frame Manipulation With `dplyr`
+
+----------
+
+## Learning Objectives
+
+- You're going to **learn to manipulate `data.frame`s with the six *verbs* of `dplyr`**
+
+- `select()`
+- `filter()`
+- `group_by()`
+- `summarize()`
+- `mutate()`
+- `%>%` (pipe)
+
+----------
+
+## What and Why is `dplyr`?
+
+- `dplyr` is a package in the **TIDYVERSE**; it exists to enable **rapid analysis of data by groups**
+  - For example, if we wanted numerical (rather than graphical) analysis of the `gapminder` data by continent, we'd use `dplyr`
+  - It enables group-level analyses without using repetitive code
+
+- **AVOIDING REPETITION IMPROVES YOUR CODE**
+  - More **robust**
+  - More **readable**
+  - More **reproducible**
+
+----------
+
+## Split-Apply-Combine
+
+- The **general principle** `dplyr` supports is called **SPLIT-APPLY-COMBINE**
+
+- We have a **dataset with several groups in a variable** (column `x`)
+  - For example, each patient in our messy data might be a "group"
+- We **want to perform the same operation on each group, independently** - take a mean of `y` for each group, for example
+    - So we **SPLIT** the data into groups, on `x`
+    - Then we **APPLY** the operation (take the mean for each group)
+    - Then we **COMBINE** the results into a new table
+
+----------
+
+## `select()` - Interactive Demo**
+
+- **DEMO IN CONSOLE**
+    - Import `dplyr`
+
+```R
+> library(dplyr)
+```
+
+- The `select()` *verb* **SELECTS COLUMNS**
+    - **DEMO IN CONSOLE**
+    - If we wanted to select only year, country and GDP data from `gapminder`
+    - Specify: **data, then columns**
+
+```R
+> head(select(gapminder, year, country, gdpPercap))
+  year     country gdpPercap
+1 1952 Afghanistan  779.4453
+2 1957 Afghanistan  820.8530
+3 1962 Afghanistan  853.1007
+4 1967 Afghanistan  836.1971
+5 1972 Afghanistan  739.9811
+6 1977 Afghanistan  786.1134
+```
+
+- Here, we **applied a function**, but we can also **'PIPE' DATA FROM ONE VERB TO ANOTHER**
+    - These work **like pipes in the shell**
+    - **SPECIAL PIPE SYMBOL: `%>%`**
+    - Specify **only columns**
+
+```R
+> gapminder %>% select(year, country, gdpPercap) %>% head()
+  year     country gdpPercap
+1 1952 Afghanistan  779.4453
+2 1957 Afghanistan  820.8530
+3 1962 Afghanistan  853.1007
+4 1967 Afghanistan  836.1971
+5 1972 Afghanistan  739.9811
+6 1977 Afghanistan  786.1134
+```
+
+----------
+
+## `filter()`
+
+- `filter()` selects rows on the basis of some condition, or combination of conditions
+    - We can **use it as a function, with *pipes***
+
+- **DEMO IN CONSOLE**
+
+```R
+> head(filter(gapminder, continent=="Europe"))
+  country year     pop continent lifeExp gdpPercap
+1 Albania 1952 1282697    Europe   55.23  1601.056
+2 Albania 1957 1476505    Europe   59.28  1942.284
+3 Albania 1962 1728137    Europe   64.82  2312.889
+4 Albania 1967 1984060    Europe   66.22  2760.197
+5 Albania 1972 2263554    Europe   67.69  3313.422
+6 Albania 1977 2509048    Europe   68.93  3533.004
+```
+
+- **DEMO IN SCRIPT** (`gapminder.R`)
+    - One **advantage of pipes** is that they make chaining *verbs* together **MORE READABLE**
+    - **END THE LINES WITH THE PIPE SYMBOL** so `R` knows that there's a continuation
+    - `Run` the lines and **check the output** in `Environment`
+
+```R
+# Select gdpPercap by country and year, only for Europe
+eurodata <- gapminder %>%
+              filter(continent == "Europe") %>%
+              select(year, country, gdpPercap)
+```
+----------
+
+## Challenge
+
+```R
+# Select life expectancy by country and year, only for Africa
+> afrodata <- gapminder %>%
+  filter(continent == "Africa") %>%
+  select(year, country, lifeExp)
+> nrow(afrodata)
+[1] 624
+```
+
+![images/red_green_sticky.png](images/red_green_sticky.png)
+
+----------
+
+## `group_by()`
+
+- The `group_by()` *verb* **SPLITS `data.frame`s INTO GROUPS ON A VARIABLE/COLUMN PROPERTY**
+- **DEMO IN CONSOLE**
+  - It returns a **`tibble`** - a table with extra metadata describing the groups in the table
+
+```R
+> group_by(gapminder, continent)
+# A tibble: 1,704 x 6
+# Groups:   continent [5]
+       country  year      pop continent lifeExp gdpPercap
+        <fctr> <int>    <dbl>    <fctr>   <dbl>     <dbl>
+ 1 Afghanistan  1952  8425333      Asia  28.801  779.4453
+ 2 Afghanistan  1957  9240934      Asia  30.332  820.8530
+ 3 Afghanistan  1962 10267083      Asia  31.997  853.1007
+ 4 Afghanistan  1967 11537966      Asia  34.020  836.1971
+ 5 Afghanistan  1972 13079460      Asia  36.088  739.9811
+ 6 Afghanistan  1977 14880372      Asia  38.438  786.1134
+ 7 Afghanistan  1982 12881816      Asia  39.854  978.0114
+ 8 Afghanistan  1987 13867957      Asia  40.822  852.3959
+ 9 Afghanistan  1992 16317921      Asia  41.674  649.3414
+10 Afghanistan  1997 22227415      Asia  41.763  635.3414
+# ... with 1,694 more rows
+```
+
+----------
+
+## `summarize()`
+
+- The **combination of `group_by()` and `summarize()` is very powerful**
+  - We can **CREATE NEW VARIABLES** using functions that repeat for each group
+- Here, we've split the original table into three groups, and now **CREATE A NEW VARIABLE `mean_b` THAT IS FILLED BY CALCULATING THE MEAN OF `b`**
+
+- **DEMO IN SCRIPT**
+    - We use the same principle to **calculate mean GDP per continent**
+
+```R
+> # Produce table of mean GDP by continent
+> gapminder %>%
++     group_by(continent) %>%
++     summarize(meangdpPercap=mean(gdpPercap))
+# A tibble: 5 x 2
+  continent meangdpPercap
+     <fctr>         <dbl>
+1    Africa      2193.755
+2  Americas      7136.110
+3      Asia      7902.150
+4    Europe     14469.476
+5   Oceania     18621.609
+```
+
+----------
+
+## Challenge 13
+
+- **IN THE SCRIPT**
+
+```R
+# Find average life expectancy by nation
+avg_lifexp_country <- gapminder %>%
+  group_by(country) %>%
+  summarize(meanlifeExp=mean(lifeExp))
+```
+
+- **IN THE CONSOLE**
+
+```R
+> avg_lifexp_country %>% filter(meanlifeExp == min(meanlifeExp))
+# A tibble: 1 × 2
+  country      meanlifeExp
+  <chr>              <dbl>
+1 Sierra Leone        36.8
+> avg_lifexp_country %>% filter(meanlifeExp == max(meanlifeExp))
+# A tibble: 1 × 2
+  country meanlifeExp
+  <chr>         <dbl>
+1 Iceland        76.5
+```
+
+![images/red_green_sticky.png](images/red_green_sticky.png)
+
+----------
+
+## `count()` and `n()`
+
+- Two other useful functions are related to `summarize()`
+  - **`count()` reports a new table of counts by group**
+  - **`n()` is used to represent the count of rows, when calculating new values in `summarize()`**
+- **DEMO IN CONSOLE**
+
+- **NOTE:** standard error is (std dev)/sqrt(n)
+
+```R
+> gapminder %>% filter(year == 2002) %>% count(continent, sort = TRUE)
+# A tibble: 5 x 2
+  continent     n
+     <fctr> <int>
+1    Africa    52
+2      Asia    33
+3    Europe    30
+4  Americas    25
+5   Oceania     2
+> gapminder %>% group_by(continent) %>% summarize(se_lifeExp = sd(lifeExp)/sqrt(n()))
+# A tibble: 5 x 2
+  continent se_lifeExp
+     <fctr>      <dbl>
+1    Africa  0.3663016
+2  Americas  0.5395389
+3      Asia  0.5962151
+4    Europe  0.2863536
+5   Oceania  0.7747759
+```
+
+----------
+
+## `mutate()`
+
+- **`mutate()` CALCULATES NEW VARIABLES (COLUMNS) ON THE BASIS OF EXISTING COLUMNS**
+- **DEMO IN SCRIPT**
+  - Say we want to calculate the **total GDP of each nation, each year, in $bn**
+  - We'd multiply the GDP per capita by the total population, and divide by 1bn
+- **INSPECT THE OUTPUT**
+  - We have a new data table, which is the `gapminder` data, plus an extra column
+
+```R
+# Calculate GDP in $billion
+gdp_bill <- gapminder %>%
+  mutate(gdp_billion = gdpPercap * pop / 10^9)
+```
+
+- **WE CAN CHAIN ALL THESE OPERATIONS TOGETHER WITH PIPES**
+- **We can calculate several summaries in a single `summarize()` command**
+- We can use the output of `mutate()` in the `summarize()` command
+- **DEMO IN SCRIPT**
+  - We're going to calculate the **total (and standard deviation) of GDP per continent, per year**
+  - Calculate total GDP first
+  - Group by continent and year
+  - Summarise mean and sd of GDP per capita, and total GDP
+
+- **INSPECT THE OUTPUT**
+
+```R
+# Calculate total/sd of GDP by continent and year
+gdp_bycontinents_byyear <- gapminder %>%
+  mutate(gdp_billion=gdpPercap*pop/10^9) %>%
+  group_by(continent,year) %>%
+  summarize(mean_gdpPercap=mean(gdpPercap),
+            sd_gdpPercap=sd(gdpPercap),
+            mean_gdp_billion=mean(gdp_billion),
+            sd_gdp_billion=sd(gdp_billion))
+```
+
+----------
+
+## `ifelse()`
+
+- **`ifelse()` IS A FILTER THAT CAN BE USED WITH MUTATE TO CALCULATES NEW VARIABLES (COLUMNS) ON THE BASIS OF EXISTING COLUMNS ONLY IF SOME CONDITION IS MET**
+- **DEMO IN SCRIPT**
+  - Say we want to calculate the total GDP of each nation, each year, in $bn **BUT ONLY FOR COUNTRIES OVER 10mn PEOPLE**
+
+```R
+gdp_billion_large_countries <- gapminder %>%
+  mutate(gdp_billion_large = ifelse(pop > 10e6, 
+                                    gdpPercap * pop / 10^9,
+                                    NA))
+```
+
+- **INSPECT THE OUTPUT**
+  - We have a new data table, which is the `gapminder` data, plus an extra column
+
+- Similarly, we can scale GDP only in those cases where life expectancy for a nation is over 40
+
+```R
+gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
+    mutate(gdp_futureExpectation = ifelse(lifeExp > 40, gdpPercap * 1.5, gdpPercap)) %>%
+    group_by(continent, year) %>%
+    summarize(mean_gdpPercap = mean(gdpPercap),
+              mean_gdpPercap_expected = mean(gdp_futureExpectation))
+```
+
+----------
+
+## Tidy Data
+
+----------
+
+## Why Tidy Data?
+
+- Data cleaning/processing is **not just a first step** - it must be repeated many time over the course of an analysis
+  - new data, new ideas, etc. turn up as you're working
+- About **80% of the effort of data analysis** is cleaning and preparing data for analysis
+
+- The principles of **tidy data** provide a standard way to organise data values within a dataset
+  - "Tidy datasets are all alike, but every messy dataset is messy in its own way"
+
+----------
+
+## An Untidy Dataset (1)
+
+- Here's a dataset like you might receive it from a colleague
+
+- It's a **RECTANGULAR TABLE**
+  - Made up of **ROWS** and **COLUMNS**, just like the data you've been working with
+
+- Each row describes a treatment
+- Each column gives the results for a different individual, for each treatment
+
+- Thinking about how our dataframes are structured, there should be one row per observation.
+  - But here the observations are the people
+  - So maybe we could transpose the rows and columns so that the people are the rows?
+
+----------
+
+## An Untidy Dataset (2)
+
+- So we've transposed the rows and columns of the table
+- The **data is the same**
+- The **layout is different**
+
+- Now we have one row per observation, and we have one column per variable (treatments A and B), and that's what we want, isn't it?
+
+- But the data doesn't have to be structured this way.
+  - In fact, this isn't a very good way to structure data for many analyses.
+
+- To understand what this means, **AND WHY IT IS UNTIDY DATA**, we need to consider some data semantics.
+
+----------
+
+## Data Semantics
+
+- We need to define three terms
+
+- A dataset, like the one shown, is a collection of **VALUES**
+
+- Each value belongs to a variable, and to an observation
+- A **VARIABLE** is something that *can change or vary*
+  - They may be values that measure the same underlying attribute, such as height, temperature, or some kind of output result
+  - They may be experimental conditions under a researcher's control, such as a treatment, how long that treatment is applied, or other experimental settings
+- An **OBSERVATION** is a collection of **values** measured across all **variables** for the same individual or unit
+  - The unit is often a person, a collective group like a religion or company, or a physical item like a reactor vessel
+
+----------
+
+## Challenge (2min)
+
+ - So for our first messy dataset, how would you describe the rows and columns of the table?
+   - Are they observations, or variables, or neither?
+
+- **THE ROWS AND COLUMNS IN THE MESSY DATA ARE NEITHER OBSERVATIONS NOR VARIABLES**
+
+----------
+
+## A Tidy Dataset (1)
+
+- The dataset contains 18 values:
+  - six observations of three variables
+
+- The variables are:
+  - **PERSON**: John, Mary and Jane
+  - **TREATMENT**: A or B
+  - **RESULT**: `NA`, 16, 3, 2, 11, 1
+
+- Each **OBSERVATION** includes values for all three variables
+
+----------
+
+## A Tidy Dataset (2)
+
+- Here is the dataset represented in tidy form
+
+- You can see each variable has its own column
+- Each observation has one value per column
+  - **Note: Missing data counts as a value**
+
+----------
+
+## Tidy Data
+
+- Tidy data is a **STANDARD** way of structuring a dataset, but it is not the only way, or always the best way
+  - It does make it easy to extract the variables you need
+  - It is also very well suited to `R` because it supports vectorisation (which you saw earlier)
+
+- In Tidy Data:
+  - Each variable forms a column
+  - Each observation forms a row
+
+- Most of the data you receive is unlikely to be Tidy, so you'll probably need to clean it
+- And **MESSY DATA CAN BE USEFUL**
+  - If your design is completely crossed: e.g. every individual tries every medicine
+    - Messy Data (rows=patients, columns=medicines) is compact
+      - Also useful if matrix operations are appropriate
+
+- **INTERACTIVE DEMO**
+  - Show that the `gapminder` data is in an intermediate format
+  - Three ID variables (continent, country, year)
+  - Three observation variables (pop, lifeExp, gdpPercap)
+  - This intermediate form can be preferable; there is no advantage to having a single "observation" column, here
+  
+- **IN THE CONSOLE**
+    - Each column in the `gapminder` dataset is a variable
+    - Each row is a set of values: one per variable, comprising a single observation for a combination of country and year
+- **WE CAN USE DPLYR DATA METHODS ON THIS DATASET**
+
+```r
+> head(gapminder)
+      country year      pop continent lifeExp gdpPercap
+1 Afghanistan 1952  8425333      Asia  28.801  779.4453
+2 Afghanistan 1957  9240934      Asia  30.332  820.8530
+3 Afghanistan 1962 10267083      Asia  31.997  853.1007
+4 Afghanistan 1967 11537966      Asia  34.020  836.1971
+5 Afghanistan 1972 13079460      Asia  36.088  739.9811
+6 Afghanistan 1977 14880372      Asia  38.438  786.1134
+```
+
+----------
+
+## Long v Wide
+
+- We often refer to datasets as being "long" or "wide"
+- **LONG datasets have one row per observation, and one column per variable**
+- **WIDE datasets might have multiple arrangements**
+
+- Wide datasets tend to be easier for humans to read
+  - Quite a lot of the time, we tend to record and share datasets in wide format.
+- **BUT MANY R FUNCTIONS ARE DESIGNED TO WORK WITH LONG DATA**
+  - Some plotting functions work better with wide data, though
+  - The purely long format can require additional grouping operations (like `group_by()`), and it can be more convenient to have an intermediate form like the `gapminder` data.
+
+----------
+
+## `gapminder` Wide Dataset
+
+- We've been using the nicely-formatted `gapminder` data to make our lives easier.
+- **THE DATA YOU RECEIVE IN A RESEARCH CONTEXT WILL NOT USUALLY BE SO NICELY-FORMATTED**
+- Let's load in the wide-format `gapminder` data and take a look at it.
+
+```R
+> gap_wide <- read.csv("data/gapminder_wide.csv", stringsAsFactors = FALSE)
+> str(gap_wide)
+'data.frame':	142 obs. of  38 variables:
+ $ continent     : chr  "Africa" "Africa" "Africa" "Africa" ...
+ $ country       : chr  "Algeria" "Angola" "Benin" "Botswana" ...
+ $ gdpPercap_1952: num  2449 3521 1063 851 543 ...
+ $ gdpPercap_1957: num  3014 3828 960 918 617 ...
+ $ gdpPercap_1962: num  2551 4269 949 984 723 ...
+ $ gdpPercap_1967: num  3247 5523 1036 1215 795 ...
+ $ gdpPercap_1972: num  4183 5473 1086 2264 855 ...
+ $ gdpPercap_1977: num  4910 3009 1029 3215 743 ...
+ $ gdpPercap_1982: num  5745 2757 1278 4551 807 ...
+ $ gdpPercap_1987: num  5681 2430 1226 6206 912 ...
+ $ gdpPercap_1992: num  5023 2628 1191 7954 932 ...
+ $ gdpPercap_1997: num  4797 2277 1233 8647 946 ...
+ $ gdpPercap_2002: num  5288 2773 1373 11004 1038 ...
+ $ gdpPercap_2007: num  6223 4797 1441 12570 1217 ...
+ $ lifeExp_1952  : num  43.1 30 38.2 47.6 32 ...
+ $ lifeExp_1957  : num  45.7 32 40.4 49.6 34.9 ...
+ $ lifeExp_1962  : num  48.3 34 42.6 51.5 37.8 ...
+ $ lifeExp_1967  : num  51.4 36 44.9 53.3 40.7 ...
+ $ lifeExp_1972  : num  54.5 37.9 47 56 43.6 ...
+ $ lifeExp_1977  : num  58 39.5 49.2 59.3 46.1 ...
+ $ lifeExp_1982  : num  61.4 39.9 50.9 61.5 48.1 ...
+ $ lifeExp_1987  : num  65.8 39.9 52.3 63.6 49.6 ...
+ $ lifeExp_1992  : num  67.7 40.6 53.9 62.7 50.3 ...
+ $ lifeExp_1997  : num  69.2 41 54.8 52.6 50.3 ...
+ $ lifeExp_2002  : num  71 41 54.4 46.6 50.6 ...
+ $ lifeExp_2007  : num  72.3 42.7 56.7 50.7 52.3 ...
+ $ pop_1952      : num  9279525 4232095 1738315 442308 4469979 ...
+ $ pop_1957      : num  10270856 4561361 1925173 474639 4713416 ...
+ $ pop_1962      : num  11000948 4826015 2151895 512764 4919632 ...
+ $ pop_1967      : num  12760499 5247469 2427334 553541 5127935 ...
+ $ pop_1972      : num  14760787 5894858 2761407 619351 5433886 ...
+ $ pop_1977      : num  17152804 6162675 3168267 781472 5889574 ...
+ $ pop_1982      : num  20033753 7016384 3641603 970347 6634596 ...
+ $ pop_1987      : num  23254956 7874230 4243788 1151184 7586551 ...
+ $ pop_1992      : num  26298373 8735988 4981671 1342614 8878303 ...
+ $ pop_1997      : num  29072015 9875024 6066080 1536536 10352843 ...
+ $ pop_2002      : int  31287142 10866106 7026113 1630347 12251209 7021078 15929988 4048013 8835739 614382 ...
+ $ pop_2007      : int  33333216 12420476 8078314 1639131 14326203 8390505 17696293 4369038 10238807 710960 ...
+```
+
+- **ALSO VIEW IN RSTUDIO**
+- This is very wide data and it looks like it would be a bit of a nightmare to do the kinds of analyses we have been doing, with the data in this format.
+
+----------
+
+## Pivot: Wide to Long
+
+- We want to convert this wide format that's difficult to work with to our nice, longer, intermediate layout.
+- **TO DO THIS WE USE THE `pivot_longer()` FUNCTION FROM `dplyr`/`tidyverse`**
+  - This makes datasets longer by increasing the number of rows and decreasing the number of columns
+  - You may be familiar with "pivot tables" from Excel, which are similar.
+
+- It works like the image shows
+  - We define the dataset we want to pivot
+  - We say which columns we want to convert from wide to long format in the `cols` variable
+    - The `pivot_longer()` function effectively splits the table by these columns
+    - The column name then gets converted to its own, new column, but the values are kept
+  - We specify the names of the new "name" and "value" columns wiht `names_to` and `values_to`.
+
+- For the `gapminder` data, we want to pivot all columns that start with `pop`, `lifeExp` or `gdpPercent`
+  - We'll put the column names into a column called `obstype_year`
+  - We'll put the values into a column called `obs_values`
+
+```R
+> gap_long <- gap_wide %>%
++     pivot_longer(
++         cols = c(starts_with('pop'), starts_with('lifeExp'), starts_with('gdpPercap')),
++         names_to = "obstype_year", values_to = "obs_values"
++     )
+> str(gap_long)
+tibble [5,112 × 4] (S3: tbl_df/tbl/data.frame)
+ $ continent   : chr [1:5112] "Africa" "Africa" "Africa" "Africa" ...
+ $ country     : chr [1:5112] "Algeria" "Algeria" "Algeria" "Algeria" ...
+ $ obstype_year: chr [1:5112] "pop_1952" "pop_1957" "pop_1962" "pop_1967" ...
+ $ obs_values  : num [1:5112] 9279525 10270856 11000948 12760499 14760787 ...
+```
+
+- This gives us a long format table with four columns
+- **BUT IT'S NOT QUITE WHAT WE WANT, BECAUSE WE HAVE TWO KINDS OF DATA COMBINED IN THE `obstype_year` COLUMN**
+  - We want to split `year` into its own column.
+
+## `separate()`
+
+- **THE `separate()` FUNCTION SPLITS THE CONTENTS OF A SINGLE COLUMN INTO MULTIPLE NEW COLUMNS**
+  - We want to split the year information from every cell in the `obstype_year` column into its own new column.
+
+- The `separate()` function needs to know:
+  - dataframe it's working on
+  - the column it's splitting
+  - the names of the new columns it's making
+  - the character it's splitting the cell content on
+
+- We split the `obstype_year` column into two columns called `obs_type` and `year`, on the underscore separator `"_"`.
+
+```R
+> gap_long <- gap_long %>% separate(obstype_year, into = c('obs_type', 'year'), sep = "_")
+```
+
+- As the year at this point is still a character string, we change the datatype with `as.integer` and take a look at the new dataframe.
+
+```R
+> gap_long$year <- as.integer(gap_long$year)
+> str(gap_long)
+tibble [5,112 × 5] (S3: tbl_df/tbl/data.frame)
+ $ continent : chr [1:5112] "Africa" "Africa" "Africa" "Africa" ...
+ $ country   : chr [1:5112] "Algeria" "Algeria" "Algeria" "Algeria" ...
+ $ obs_type  : chr [1:5112] "pop" "pop" "pop" "pop" ...
+ $ year      : int [1:5112] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+ $ obs_values: num [1:5112] 9279525 10270856 11000948 12760499 14760787 ...
+```
+
+- **THIS IS STILL NOT QUITE WHERE WE WANT IT**
+  - There are three types of observation combined in `obs_type` and `obs_values` and it would be convenient to split them into new columns
+
+----------
+
+## Pivot: Long to Wide
+
+- We want to convert this long format into a slightly wider intermediate layout, for convenience.
+- There is a companion function to `pivot_longer()` called `pivot_wider()` that we use for this.
+  - It's essentially the reverse of `pivot_longer()`
+
+- **THE `pivot_wider()` FUNCTION SPLITS THE TABLE UP BY VALUES IN THE COLUMN OF "NAMES"**
+  - It then changes the name of the "VALUES" column to reflect the value in the "NAMES" column for each split.
+  - Finally, it recombines the columns into a single table on the basis of the ID columns
+
+- We want to do this with the `gapminder` data by using the `obs_type` column for the names, and the `obs_values` column for the values.
+
+```R
+> gap_normal <- gap_long %>% pivot_wider(names_from = obs_type, values_from = obs_values)
+> str(gap_normal)
+tibble [1,704 × 6] (S3: tbl_df/tbl/data.frame)
+ $ continent: chr [1:1704] "Africa" "Africa" "Africa" "Africa" ...
+ $ country  : chr [1:1704] "Algeria" "Algeria" "Algeria" "Algeria" ...
+ $ year     : int [1:1704] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+ $ pop      : num [1:1704] 9279525 10270856 11000948 12760499 14760787 ...
+ $ lifeExp  : num [1:1704] 43.1 45.7 48.3 51.4 54.5 ...
+ $ gdpPercap: num [1:1704] 2449 3014 2551 3247 4183 ...
+```
+
+- And we can see that this has restored the intermediate form of the data that was so useful to us earlier.
+
+----------
+
+## Challenge (5min)
+
+- Using gap_long, calculate the mean life expectancy, population, and gdpPercap for each continent. Hint: use the group_by() and summarize() functions we learned in the dplyr lesson
+
+```R
+gap_long %>% group_by(continent, obs_type) %>%
+   summarize(means=mean(obs_values))
+```
+
+![images/red_green_sticky.png](images/red_green_sticky.png)
