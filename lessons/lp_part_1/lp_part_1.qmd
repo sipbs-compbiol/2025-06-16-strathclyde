@@ -1,0 +1,90 @@
+---
+title: "Data Structures and Data Frames"
+format: revealjs
+filters:
+  - webr
+---
+
+## Learning Questions
+
+- How can I read data in `R`?
+- What are the basic data types in `R`?
+- How do I represent categorical information in `R`?
+
+## Learning Objectives
+
+- To be able to identify the five (5) main data types in `R`
+- To explore data frames (and see how they are built from `R` data types)
+- To be able to ask `R` about the type and structure of an object
+
+## Data Types and Structures in `R` {.scrollable}
+
+- `R` is mostly used for data analysis
+- `R` has special *types* and *structures* to help you work with data
+- Much of the focus in `R` is on tabular data (*data frames*) 
+
+::: { .callout-important }
+## Interactive Demo
+
+- toy dataset <br />
+- `feline-data.csv`
+:::
+
+::: { .callout-tip }
+**Understanding data types, their uses, and how they relate to your own data is key to successful analysis with `R`**
+:::
+
+## What Data Types Do You Expect?
+
+::: { .callout-warning }
+## What data types would you expect to see?
+
+What examples of data types can you think of from your own experience?
+:::
+
+::: { .callout-note }
+## Please write in the chat
+
+Add your suggestions of data types at:
+
+[https://pad.carpentries.org/2025-06-16-strathclyde](https://pad.carpentries.org/2025-06-16-strathclyde)
+:::
+
+## Data Types in `R`
+
+::: { .callout-caution }
+## Data *types* in `R` are *atomic*
+
+1. **logical**: `TRUE`, `FALSE`
+2. **numeric**:
+    * **integer**: `3`, `2L`, `123456`
+    * **double** (*decimal*): `3.0`, `-23.45`, `pi`
+3. **character** (*text*): `"a"`, `'SWC'`, `"This is not a string"`
+
+(also `complex` and `raw`)
+:::
+
+::: { .callout-important }
+## INTERACTIVE DEMO
+:::
+
+## A Quick Note About Dataframes
+
+::: { .callout-tip }
+## Columns in dataframes
+
+- A column in a dataframe can contain only one data type
+:::
+
+- Adding a character string (`2.3 or 2.4`) to the column of `double`s changed its data type from `double` to `character`.
+
+::: { .callout-note }
+## Coercion: a preview
+
+- We can always represent a number (e.g. `2.1`) as a string (e.g. `"2.1"`)
+- We can't always represent a string (e.g. `"or"`) as a number
+:::
+
+::: { .callout-important }
+## INTERACTIVE DEMO
+:::
