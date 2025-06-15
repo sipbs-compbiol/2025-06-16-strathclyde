@@ -272,4 +272,277 @@ Error in cats2$weight + 2 : non-numeric argument to binary operator
   - Every column has one and only one data type
   - Each column can be a different data type
 
-- To understand `data.frame`s, we first need to know about a different data structure called a _vector_
+- To understand `data.frame`s, a bit better, let's meet a different data structure called a _vector_
+
+----------
+
+## Vectors
+
+- These are the **MOST COMMON DATA STRUCTURE**
+  - Vectors are an ordered collection of data values
+  - Vectors can contain **ONLY A SINGLE DATA TYPE** (*atomic vectors*)
+
+- **INTERACTIVE DEMO**
+
+- Let's define an **ATOMIC VECTOR OF NUMBERS**
+  - To create a vector **USE THE `c()` FUNCTION** (`c()` is `combine`; use `?c`)
+
+```R
+> x <- c(10, 12, 45, 33)
+> x
+[1] 10 12 45 33
+```
+
+- Let's check the data type, and what kind of structure we have
+
+```R
+> typeof(x)
+[1] "double"
+> length(x)
+[1] 4
+> str(x)
+ num [1:4] 10 12 45 33
+```
+
+- This is a little cryptic as output
+  - We can see from `typeof()` that the vector contains the `double` type
+  - The output of `str()` tells us:
+    - it's a `numeric` (`num`) vector - which includes `double` and `integer` datatypes
+    - there are four elements `[1:4]` in the vector
+    - the first few datapoint in the vector
+
+- `str()` tells us that the `cats$coat` column is a vector, too:
+
+```R
+> str(cats$coat)
+ chr [1:3] "calico" "black" "tabby"
+```
+
+----------
+
+## Coercion
+
+- **INTERACTIVE DEMO**
+
+- Given what we've done so far, what do you think the following will produce when we use `typeof()`?
+  - **PAUSE FOR STUDENT SUGGESTIONS**
+
+```R
+> quiz_vector <- c(2,6,'3')
+> typeof(quiz_vector)
+[1] "character"
+```
+
+- Here, `R` has enforced that the type of the vector is `character` (string), because we can always represent numbers as strings, but we can't always represent strings as numbers
+
+- **NEXT CALLOUTS**
+- This is called _type coercion_ and can cause surprises in your code
+  - It is a key reason why you need to be aware of the basic data types and how `R` interprets them.
+
+- **INTERACTIVE DEMO**
+
+- Consider these two vectors
+
+```R
+> coercion_vector <- c('a', TRUE)
+> coercion_vector
+[1] "a"    "TRUE"
+> another_coercion_vector <- c(0, TRUE)
+> another_coercion_vector
+[1] 0 1
+```
+
+- What do you expect their datatypes to be?
+
+```R
+> typeof(coercion_vector)
+[1] "character"
+> typeof(another_coercion_vector)
+[1] "double"
+```
+
+----------
+
+## Coercion
+
+- *Coercion* is what happens when you **CONVERT ONE DATA TYPE INTO ANOTHER**
+- If `R` thinks it needs to, it will **COERCE DATA IMPLICITLY** without telling you
+- There is a set order for coercion
+  - `logical` can be coerced to `integer`, but `integer` cannot be coerced to `logical`
+  - That's because `integer` can describe all `logical` values, but not *vice versa*
+  - Everything can be represented as a `character`, so that's the fallback position for `R`
+- **IF THERE'S A FORMATTING PROBLEM IN YOUR DATA, `R` MIGHT CONVERT THE TYPE TO COPE**
+  - `R` will choose the simplest data type that can represent all items in the vector
+
+- **INTERACTIVE DEMO IN CONSOLE** More useful things to do with vectors
+- You can (usually) **COERCE VECTORS MANUALLY** with `as.<type>()`
+
+```R
+> x
+[1] 10 12 45 33
+> as.character(x)
+[1] "10" "12" "45" "33"
+> as.complex(x)
+[1] 10+0i 12+0i 45+0i 33+0i
+> as.logical(x)
+[1] TRUE TRUE TRUE TRUE
+```
+
+- Surprising things can happen when `R` forces one data type into another.
+- **If your data doesn't look how you expect it to, _type coercion_ may be to blame**
+  - Check your data formatting (is there an accidental string/character?)
+
+- Let's look at our `cats` dataframe again
+  
+```R
+> cats
+    coat weight likes_catnip
+1 calico    2.1            1
+2  black    5.0            0
+3  tabby    3.2            1
+> typeof(cats$likes_catnip)
+[1] "integer"
+```
+
+- The type of the `likes_catnip` column is recorded as an integer, but we want `logical` `TRUE`/`FALSE` values.
+  - We can use the `as.logical()` function to change this
+
+```R
+> cats$likes_catnip <- as.logical(cats$likes_catnip)
+> cats
+    coat weight likes_catnip
+1 calico    2.1         TRUE
+2  black    5.0        FALSE
+3  tabby    3.2         TRUE
+> str(cats)
+'data.frame':	3 obs. of  3 variables:
+ $ coat        : chr  "calico" "black" "tabby"
+ $ weight      : num  2.1 5 3.2
+ $ likes_catnip: logi  TRUE FALSE TRUE
+```
+
+----------
+
+## Lists
+
+- `list`s are data structures like *vectors*, **EXCEPT THEY CAN HOLD ANY DATA TYPE**
+  - They are not constrained to atomic types
+  - They do not coerce their contents' datatypes
+
+- Let's create a new list using the `list()` function
+
+```R
+> l <- list(1, 'a', TRUE, seq(2, 5))
+> length(l)
+[1] 4
+> l
+[[1]]
+[1] 1
+
+[[2]]
+[1] "a"
+
+[[3]]
+[1] TRUE
+
+[[4]]
+[1] 2 3 4 5
+```
+
+- Individual elements in the list are identified with **DOUBLE SQUARE BRACKETS**
+  - There are four elements
+  - `[[1]]` is the number `1`
+  - `[[2]]` is the character `"a"`
+  - `[[3]]` is the logical value `TRUE`
+  - `[[4]]` is the vector of values from 2 to 5
+- We can extract a single element from the list with the double square bracket notation
+
+```R
+> l[[1]]
+[1] 1
+> l[[4]]
+[1] 2 3 4 5
+```
+
+- Using the `str()` function we can see the datatypes of all the elements in the list
+
+```R
+> str(l)
+List of 4
+ $ : num 1
+ $ : chr "a"
+ $ : logi TRUE
+ $ : int [1:4] 2 3 4 5
+```
+
+- **The elements of a list can also have names**
+  - We specify the name when we create the list
+
+```R
+> l_named <- list(a = "SWC", b = 1:4)
+> l_named
+$a
+[1] "SWC"
+
+$b
+[1] 1 2 3 4
+```
+
+- We can use the name of each element to retrieve it, with the `$` notation:
+
+```R
+> l_named$a
+[1] "SWC"
+> l_named$b
+[1] 1 2 3 4
+```
+
+- But it's still a list like any other, and we can use the double square bracket notation.
+
+```R
+> l_named[[1]]
+[1] "SWC"
+> l_named[[2]]
+[1] 1 2 3 4
+> str(l_named)
+List of 2
+ $ a: chr "SWC"
+ $ b: int [1:4] 1 2 3 4
+```
+
+----------
+
+## Let's Look At A Data Frame
+
+- We didn't go into detail about the `cats` dataframe we created at the start of this episode.
+  - But let's look at it more closely
+
+```R
+> cats
+    coat weight likes_catnip
+1 calico    2.1         TRUE
+2  black    5.0        FALSE
+3  tabby    3.2         TRUE
+> typeof(cats)
+[1] "list"
+> cats[[2]]
+[1] 2.1 5.0 3.2
+> typeof(cats$weight)
+[1] "double"
+```
+
+- So `cats` is a `list`, and each element in the list is a vector
+- But `cats` is a **special kind of list** - a `data.frame` - where all the vectors have the same length.
+  - We can see that this is a special kind of list by using the `class()` function
+
+```R
+> class(cats)
+[1] "data.frame"
+> class(l)
+[1] "list"
+```
+
+- The class `data.frame` represents a standard way of organising data:
+  - Each _row_ is an observation
+  - Each _column_ is a variable
+  - The data frame represents a series of observations

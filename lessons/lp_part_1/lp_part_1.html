@@ -185,6 +185,11 @@
 </div>
 </div>
 </section>
+<section>
+<section id="data-types" class="title-slide slide level1 center">
+<h1>1. Data Types</h1>
+
+</section>
 <section id="what-data-types-do-you-expect" class="slide level2">
 <h2>What Data Types Do You Expect?</h2>
 <div class="callout callout-warning callout-titled callout-style-default">
@@ -302,8 +307,207 @@
 </div>
 </div>
 </div>
+</section></section>
+<section>
+<section id="data-structures" class="title-slide slide level1 center">
+<h1>2. Data Structures</h1>
 
 </section>
+<section id="vectors" class="slide level2">
+<h2>Vectors</h2>
+<ul>
+<li>Vectors are the most common data structure in <code>R</code></li>
+<li>An <em>ordered collection</em> of data</li>
+<li>Can contain only a single datatype</li>
+</ul>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Understanding vectors</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="coercion" class="slide level2">
+<h2>Coercion</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Type coercion</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>We need to be aware of datatypes and how <code>R</code> interprets them</li>
+<li>Otherwise we can meet some surprises</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Vector coercion</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="coercion-1" class="slide level2">
+<h2>Coercion</h2>
+<ul>
+<li><code>R</code> will coerce vectors <em>implicitly</em> to make them atomic</li>
+</ul>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Coercion hierarchy</strong></p>
+</div>
+<div class="callout-content">
+<p><code>logical</code> <span class="math inline">\(\rightarrow\)</span> <code>integer</code> <span class="math inline">\(\rightarrow\)</span> <code>double</code> <span class="math inline">\(\rightarrow\)</span> <code>complex</code> <span class="math inline">\(\rightarrow\)</span> <code>character</code></p>
+<ul>
+<li>can coerce manually with <code>as.&lt;type_name&gt;()</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Check your inputs</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>If there are formatting problems with your data, you might not have the type you expect when you import into <code>R</code></strong></p>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+</section>
+<section id="lists" class="slide level2">
+<h2>Lists</h2>
+<ul>
+<li><code>list</code>s are like <em>vectors</em>, but can hold <em>any combination of datatype</em></li>
+</ul>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Working with list data</strong></p>
+</div>
+<div class="callout-content">
+<p><em>elements</em> in a <code>list</code> are denoted by <code>[[]]</code> and individual elements can also be named</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="data-frames" class="title-slide slide level1 center">
+<h1>3. Data Frames</h1>
+
+</section>
+<section id="lets-look-at-a-data-frame" class="slide level2">
+<h2>Let’s Look At A Data Frame</h2>
+<ul>
+<li>The <code>cats</code> data is a <code>data.frame</code></li>
+</ul>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>INTERACTIVE DEMO</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>What is a data frame?</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>A data frame is a special <em>named list</em> of <em>vectors</em> with the same length</strong></p>
+<ul>
+<li>It’s <em>like</em> a spreadsheet, but each column must have a given type, and all columns must be the same length.</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

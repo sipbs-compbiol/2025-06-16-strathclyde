@@ -34,6 +34,8 @@ filters:
 **Understanding data types, their uses, and how they relate to your own data is key to successful analysis with `R`**
 :::
 
+# 1. Data Types
+
 ## What Data Types Do You Expect?
 
 ::: { .callout-warning }
@@ -87,4 +89,95 @@ Add your suggestions of data types at:
 
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+:::
+
+# 2. Data Structures
+
+## Vectors
+
+- Vectors are the most common data structure in `R`
+- An _ordered collection_ of data
+- Can contain only a single datatype
+
+::: { .callout-important }
+## INTERACTIVE DEMO
+
+- Understanding vectors
+:::
+
+## Coercion
+
+::: { .callout-important }
+## INTERACTIVE DEMO
+:::
+
+. . .
+
+::: { .callout-caution }
+## Type coercion
+
+- We need to be aware of datatypes and how `R` interprets them
+- Otherwise we can meet some surprises
+:::
+
+::: { .callout-important }
+## INTERACTIVE DEMO
+
+- Vector coercion
+:::
+
+## Coercion
+
+- `R` will coerce vectors *implicitly* to make them atomic
+
+::: { .callout-tip }
+## Coercion hierarchy
+
+`logical` $\rightarrow$ `integer` $\rightarrow$ `double` $\rightarrow$ `complex` $\rightarrow$ `character`
+
+- can coerce manually with `as.<type_name>()`
+:::
+
+::: { .callout-warning}
+## Check your inputs
+
+**If there are formatting problems with your data, you might not have the type you expect when you import into `R`**
+:::
+
+::: { .callout-important }
+## INTERACTIVE DEMO
+:::
+
+## Lists
+
+- `list`s are like *vectors*, but can hold *any combination of datatype*
+
+::: { .callout-important }
+## INTERACTIVE DEMO
+:::
+
+::: { .callout-tip }
+## Working with list data
+
+*elements* in a `list` are denoted by `[[]]` and individual elements can also be named
+:::
+
+# 3. Data Frames
+
+## Let's Look At A Data Frame
+
+- The `cats` data is a `data.frame`
+
+::: { .callout-important }
+## INTERACTIVE DEMO
+:::
+
+. . . 
+
+::: { .callout-note }
+## What is a data frame?
+
+**A data frame is a special _named list_ of _vectors_ with the same length**
+
+- It's _like_ a spreadsheet, but each column must have a given type, and all columns must be the same length.
 :::
