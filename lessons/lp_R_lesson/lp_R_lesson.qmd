@@ -634,5 +634,5 @@ gap_normal <- gap_long %>%
 Using the `gap_long` dataset, calculate the mean life expectancy, population, and GDP per capita for each continent.
 
 Hint: use the `group_by()` and `summarize()` functions we learned in the `dplyr` episode.
-```
+:::
 
