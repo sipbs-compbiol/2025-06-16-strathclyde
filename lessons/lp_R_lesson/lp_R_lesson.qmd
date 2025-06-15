@@ -1,8 +1,8 @@
 ---
 title: "Data Structures and Data Frames"
-format: revealjs
-filters:
-  - webr
+format:
+  revealjs:
+    embed-resources: true
 ---
 
 ```{r}
