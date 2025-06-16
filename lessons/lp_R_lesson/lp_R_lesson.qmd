@@ -34,6 +34,12 @@ library(tidyverse)
 
 # 1. Data Types
 
+::: footer
+
+[Episode 4: Data Structures Part 1](https://swcarpentry.github.io/r-novice-gapminder/04-data-structures-part1.html)
+
+:::
+
 ## Data Types and Structures in `R`
 
 - `R` is mostly used for data analysis
@@ -108,6 +114,12 @@ Add your suggestions of data types at:
 
 # 2. Data Structures
 
+::: footer
+
+[Episode 4: Data Structures Part 1](https://swcarpentry.github.io/r-novice-gapminder/04-data-structures-part1.html)
+
+:::
+
 ## Vectors
 
 - Vectors are the most common data structure in `R`
@@ -179,6 +191,12 @@ Add your suggestions of data types at:
 
 # 3. Data Frames
 
+::: footer
+
+[Episode 5: Data Structures Part 2](https://swcarpentry.github.io/r-novice-gapminder/05-data-structures-part2.html)
+
+:::
+
 ## Let's Look At A Data Frame
 
 - The `cats` data is a `data.frame`
@@ -247,6 +265,12 @@ summary(gapminder)          # summary of data in data.frame columns
 :::
 
 # 4. Data Frame Manipulation With `dplyr`
+
+::: footer
+
+[Episode 12: Data Frame Manipulation with `dplyr`](https://swcarpentry.github.io/r-novice-gapminder/12-dplyr.html)
+
+:::
 
 ## Learning Objectives
 
@@ -501,6 +525,12 @@ gdp_billion_large_countries <- gapminder %>%
 :::
 
 # 5. Tidy Data
+
+::: footer
+
+[Episode 13: Data Frame Manipulation with `tidyr`](https://swcarpentry.github.io/r-novice-gapminder/13-tidyr.html)
+
+:::
 
 ## Why Tidy Data?
 
