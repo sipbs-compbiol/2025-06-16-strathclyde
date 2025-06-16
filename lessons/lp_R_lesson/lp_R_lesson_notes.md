@@ -335,7 +335,7 @@ Error in cats2$weight + 2 : non-numeric argument to binary operator
 
 - Here, `R` has enforced that the type of the vector is `character` (string), because we can always represent numbers as strings, but we can't always represent strings as numbers
 
-- **NEXT CALLOUTS**
+- **PAUSE: NEXT CALLOUTS**
 - This is called _type coercion_ and can cause surprises in your code
   - It is a key reason why you need to be aware of the basic data types and how `R` interprets them.
 
@@ -532,6 +532,8 @@ List of 2
 ```
 
 - So `cats` is a `list`, and each element in the list is a vector
+
+- **PAUSE: NEXT CALLOUT**
 - But `cats` is a **special kind of list** - a `data.frame` - where all the vectors have the same length.
   - We can see that this is a special kind of list by using the `class()` function
 
@@ -1032,6 +1034,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 
 - Now we have one row per observation, and we have one column per variable (treatments A and B), and that's what we want, isn't it?
 
+- **PAUSE: NEW CALLOUT**
 - But the data doesn't have to be structured this way.
   - In fact, this isn't a very good way to structure data for many analyses.
 

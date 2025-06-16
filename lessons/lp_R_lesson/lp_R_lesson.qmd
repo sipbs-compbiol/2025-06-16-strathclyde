@@ -218,9 +218,19 @@ Save the data to the `data` subfolder (where you put `feline-data.csv`)
 
 ## Investigating `gapminder`
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- What is the structure of the data?
+- How many rows and columns?
+- Summarising the data?
 :::
+
+### Code
 
 ```{.r}
 str(gapminder)              # structure of the data.frame
@@ -234,6 +244,8 @@ head(gapminder)             # first few rows of dataframe
 summary(gapminder)          # summary of data in data.frame columns
 ```
 
+:::
+
 # 4. Data Frame Manipulation With `dplyr`
 
 ## Learning Objectives
@@ -242,6 +254,8 @@ summary(gapminder)          # summary of data in data.frame columns
   - a 'grammar of data manipulation'
 
 ::: { .callout-note }
+## `dplyr` verbs
+
 - `select()`
 - `filter()`
 - `group_by()`
@@ -271,8 +285,23 @@ Avoiding repetition (though automation) makes code
 
 ![](images/dplyr_select.png){fig-align="center"}
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Select specific columns for the whole dataset
+:::
+
+### Code
+
+```{.r}
+head(select(gapminder, year, country, gdpPercap))
+gapminder %>% select(year, country, gdpPercap) %>% head()
+```
+
 :::
 
 ## `filter()`
@@ -281,9 +310,17 @@ Avoiding repetition (though automation) makes code
 ## `filter()` selects rows on the basis of some condition
 :::
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Select specific columns for a subset of rows
 :::
+
+### Code
 
 ```{.r}
 filter(gapminder, continent=="Europe")
@@ -293,6 +330,8 @@ eurodata <- gapminder %>%
               filter(continent == "Europe") %>%
               select(year, country, gdpPercap)
 ```
+
+:::
 
 ## Challenge (5min)
 
@@ -309,33 +348,51 @@ Can you write a single line (which may span multiple lines in your script by inc
 
 ## `group_by()`
 
-::: { .callout-important }
-## INTERACTIVE DEMO
-:::
-
 ![](images/dplyr_group_by.png){fig-align="center"}
 
+
+::: {.panel-tabset}
+
+### Demo
+
+::: { .callout-important }
+## INTERACTIVE DEMO
+
+- Split the dataset into groups on the basis of an ID value
+:::
+
+### Code
 
 ```{.r}
 group_by(gapminder, continent)
 gapminder %>% group_by(continent)
 ```
 
-## `summarize()`
-
-::: { .callout-important }
-## INTERACTIVE DEMO
 :::
+
+## `summarize()`
 
 ![](images/dplyr_summarize.png){fig-align="center"}
 
+::: {.panel-tabset}
+
+### Demo
+
+::: { .callout-important }
+## INTERACTIVE DEMO
+
+- Produce a summary for each group
+:::
+
+### Code
+
 ```{.r}
 # Produce table of mean GDP by continent
-gapminder %>%
-    group_by(continent) %>%
-    summarize(meangdpPercap=mean(gdpPercap))
-
+gapminder %>% group_by(continent) %>%
+              summarize(meangdpPercap=mean(gdpPercap))
 ```
+
+:::
 
 ## Challenge (5min)
 
@@ -355,9 +412,18 @@ gapminder %>%
 - `n()`: a function used *within* `summarize()`, `filter()` or `mutate()` to represent count by group
 :::
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Count number of rows meeting set criteria
+- Calculate new summary statistic for a group
 :::
+
+### Code
 
 ```{.r}
 gapminder %>%
@@ -369,15 +435,25 @@ gapminder %>%
   summarize(se_lifeExp = sd(lifeExp)/sqrt(n()))
 ```
 
+:::
+
 ## `mutate()`
 
 ::: { .callout-tip }
 `mutate()` is a function allowing creation of new variables
 :::
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Generate new columns with processed data
 :::
+
+### Code
 
 ```{.r}
 # Calculate GDP in $billion
@@ -385,14 +461,15 @@ gdp_bill <- gapminder %>%
   mutate(gdp_billion = gdpPercap * pop / 10^9)
 
 # Calculate total/sd of GDP by continent and year
-gdp_bycontinents_byyear <- gapminder %>%
-    mutate(gdp_billion=gdpPercap*pop/10^9) %>%
+gdp_bycontinents_byyear <- gdp_bill %>%
     group_by(continent,year) %>%
     summarize(mean_gdpPercap=mean(gdpPercap),
               sd_gdpPercap=sd(gdpPercap),
               mean_gdp_billion=mean(gdp_billion),
               sd_gdp_billion=sd(gdp_billion))
 ```
+
+:::
 
 ## `ifelse()`
 
@@ -402,9 +479,17 @@ gdp_bycontinents_byyear <- gapminder %>%
 - `ifelse([CONDITION], [VALUE IF TRUE], [VALUE IF FALSE]`)
 :::
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Apply calculations differently to rows that meet specified criteria
 :::
+
+### Code
 
 ```{.r}
 gdp_billion_large_countries <- gapminder %>%
@@ -412,6 +497,8 @@ gdp_billion_large_countries <- gapminder %>%
                                     gdpPercap * pop / 10^9,
                                     NA))
 ```
+
+:::
 
 # 5. Tidy Data
 
@@ -535,22 +622,30 @@ Each **OBSERVATION** includes all three variables
 
 ## A Tidy Dataset (2)
 
+:::: {.columns}
+
+::: {.column width="40%"}
 ::: { .callout-tip }
 ## This is the dataset in tidy form
 
 (aka _long form_)
 :::
+:::
 
+::: {.column width="60%"}
 ```{r, echo=FALSE}
 kable(df3)
 ```
+:::
+
+::::
 
 ## Tidy Data
 
 ::: { .callout-tip }
 ## Tidy data is a standard way of structuring a dataset
 
-- makes it easy to extract needed varaibles
+- makes it easy to extract needed variables
 - well suited to `R` (supports vectorisation)
 :::
 
@@ -565,14 +660,22 @@ kable(df3)
 
 ## Long v Wide
 
-![](images/tidyr_long_wide.png){fig-align="center"}
+:::: {.columns}
 
+::: {.column width="60%"}
 ::: { .callout-warning }
 ## Many `R` functions are designed to expect long data
 
 - Long data: each column is a variable, each row is an observation
 - Wide data: each row might be a subject, each column an observation variable
 :::
+:::
+
+::: {.column width="40%"}
+![](images/tidyr_long_wide.png){fig-align="center"}
+:::
+
+::::
 
 ## `gapminder` Wide Dataset
 
@@ -583,23 +686,40 @@ kable(df3)
 - Link available on the Etherpad ([https://pad.carpentries.org/2025-06-16-strathclyde](https://pad.carpentries.org/2025-06-16-strathclyde))
 :::
 
+::: {.panel-tabset}
+
+### Demo
 
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Load and inspect the data
 :::
+
+### Code
 
 ```{.r}
 gap_wide <- read.csv("data/gapminder_wide.csv", stringsAsFactors = FALSE)
 str(gap_wide)
 ```
 
+:::
+
 ## Pivot: Wide to Long
 
 ![](images/tidyr-pivot-longer.png){fig-align="center"}
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Pivot wide to long
 :::
+
+### Code
 
 ```{.r}
 gap_long <- gap_wide %>%
@@ -610,6 +730,8 @@ gap_long <- gap_wide %>%
   )
 ```
 
+:::
+
 ## `separate()`
 
 ::: { .callout-tip }
@@ -618,9 +740,17 @@ gap_long <- gap_wide %>%
 - `separate([COLUMN], into=[NEW_COLUMN_NAMES], sep=[SEPARATOR])`
 :::
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Split one column into two
 :::
+
+### Code
 
 ```{.r}
 gap_long %>% separate(obstype_year,
@@ -628,19 +758,31 @@ gap_long %>% separate(obstype_year,
                       sep = "_")
 ```
 
+:::
+
 ## Pivot: Long to Wide
 
 ![](images/tidyr-pivot-wider.png){fig-align="center"}
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Pivot wide to long
 :::
+
+### Code
 
 ```{.r}
 gap_normal <- gap_long %>%
   pivot_wider(names_from = obs_type,
               values_from = obs_values)
 ```
+
+:::
 
 ## Challenge (5min)
 
