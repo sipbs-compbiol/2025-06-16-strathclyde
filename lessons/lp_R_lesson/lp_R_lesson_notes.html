@@ -135,9 +135,11 @@ DATA AS IF THEY’RE THE SAME THING?</strong> (No)</li>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats<span class="sc">$</span>coat</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;calico&quot;</span> <span class="st">&quot;black&quot;</span>  <span class="st">&quot;tabby&quot;</span> </span></code></pre></div>
 <ul>
-<li><strong>WHAT DID <code>R</code> RETURN?</strong></li>
+<li><strong>WHAT DID <code>R</code> RETURN?</strong>
+<ul>
 <li>A <em>vector</em> (1D ordered collection) of numbers or character
 strings</li>
+</ul></li>
 <li><strong>WE CAN OPERATE ON THESE <em>VECTORS</em></strong>
 <ul>
 <li><em>Vectors</em> are an important concept, and <code>R</code> is
@@ -307,7 +309,8 @@ column, and this means we can no longer do the same weight adjustment
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cats2<span class="sc">$</span>weight <span class="sc">+</span> <span class="dv">2</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> cats2<span class="sc">$</span>weight <span class="sc">+</span> <span class="dv">2</span> <span class="sc">:</span> non<span class="sc">-</span>numeric argument to binary operator</span></code></pre></div>
 <hr />
-<p>## A Quick Note About Dataframes</p>
+<h2 id="a-quick-note-about-dataframes">A Quick Note About
+Dataframes</h2>
 <ul>
 <li><p>Any column in a dataframe can contain only one datatype.</p></li>
 <li><p>Initially, the datatype of <code>cats$weight</code> was
@@ -323,12 +326,12 @@ can’t always represent a string as a number, <code>R</code> chose to
 <code>str()</code> function</p></li>
 </ul>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(cats)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span>   <span class="dv">3</span> obs. of  <span class="dv">3</span> variables<span class="sc">:</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span> <span class="dv">3</span> obs. of  <span class="dv">3</span> variables<span class="sc">:</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a> <span class="er">$</span> coat        <span class="sc">:</span> chr  <span class="st">&quot;calico&quot;</span> <span class="st">&quot;black&quot;</span> <span class="st">&quot;tabby&quot;</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> weight      <span class="sc">:</span> num  <span class="fl">2.1</span> <span class="dv">5</span> <span class="fl">3.2</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> likes_catnip<span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(cats2)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span>   <span class="dv">4</span> obs. of  <span class="dv">3</span> variables<span class="sc">:</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span> <span class="dv">4</span> obs. of  <span class="dv">3</span> variables<span class="sc">:</span></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a> <span class="er">$</span> coat        <span class="sc">:</span> chr  <span class="st">&quot;calico&quot;</span> <span class="st">&quot;black&quot;</span> <span class="st">&quot;tabby&quot;</span> <span class="st">&quot;tabby&quot;</span></span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> weight      <span class="sc">:</span> chr  <span class="st">&quot;2.1&quot;</span> <span class="st">&quot;5&quot;</span> <span class="st">&quot;3.2&quot;</span> <span class="st">&quot;2.3 or 2.4&quot;</span></span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> likes_catnip<span class="sc">:</span> num  <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span></span></code></pre></div>
@@ -393,7 +396,7 @@ is a vector, too:</li>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(cats<span class="sc">$</span>coat)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="st">&quot;calico&quot;</span> <span class="st">&quot;black&quot;</span> <span class="st">&quot;tabby&quot;</span></span></code></pre></div>
 <hr />
-<p>## Coercion</p>
+<h2 id="coercion-1">Coercion (1)</h2>
 <ul>
 <li><p><strong>INTERACTIVE DEMO</strong></p></li>
 <li><p>Given what we’ve done so far, what do you think the following
@@ -433,7 +436,7 @@ and how <code>R</code> interprets them.</li>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(another_coercion_vector)</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span></span></code></pre></div>
 <hr />
-<h2 id="coercion">Coercion</h2>
+<h2 id="coercion-2">Coercion (2)</h2>
 <ul>
 <li><em>Coercion</em> is what happens when you <strong>CONVERT ONE DATA
 TYPE INTO ANOTHER</strong></li>
@@ -501,7 +504,7 @@ this</li>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  black    <span class="fl">5.0</span>        <span class="cn">FALSE</span></span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  tabby    <span class="fl">3.2</span>         <span class="cn">TRUE</span></span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(cats)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span>   <span class="dv">3</span> obs. of  <span class="dv">3</span> variables<span class="sc">:</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span> <span class="dv">3</span> obs. of  <span class="dv">3</span> variables<span class="sc">:</span></span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a> <span class="er">$</span> coat        <span class="sc">:</span> chr  <span class="st">&quot;calico&quot;</span> <span class="st">&quot;black&quot;</span> <span class="st">&quot;tabby&quot;</span></span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> weight      <span class="sc">:</span> num  <span class="fl">2.1</span> <span class="dv">5</span> <span class="fl">3.2</span></span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> likes_catnip<span class="sc">:</span> logi  <span class="cn">TRUE</span> <span class="cn">FALSE</span> <span class="cn">TRUE</span></span></code></pre></div>
@@ -661,7 +664,8 @@ the separator character, and whether there’s a header row</li>
 <li><strong>RUN THE SCRIPT</strong> (use <code>Source</code>)</li>
 <li><strong>CHECK THE DATA IN THE <code>Environment</code> TAB</strong>
 <ul>
-<li>Click on <code>gapminder</code> in <code>Evironment</code> tab.</li>
+<li>Click on <code>gapminder</code> in <code>Environment</code>
+tab.</li>
 <li><strong>NOTE COLUMNS</strong></li>
 </ul></li>
 </ul>
@@ -682,7 +686,7 @@ FACTOR</strong></li>
 the <code>str()</code> function.</li>
 </ul>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(gapminder)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span>   <span class="dv">1704</span> obs. of  <span class="dv">6</span> variables<span class="sc">:</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span> <span class="dv">1704</span> obs. of  <span class="dv">6</span> variables<span class="sc">:</span></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a> <span class="er">$</span> country  <span class="sc">:</span> Factor w<span class="sc">/</span> <span class="dv">142</span> levels <span class="st">&quot;Afghanistan&quot;</span>,..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> year     <span class="sc">:</span> int  <span class="dv">1952</span> <span class="dv">1957</span> <span class="dv">1962</span> <span class="dv">1967</span> <span class="dv">1972</span> <span class="dv">1977</span> <span class="dv">1982</span> <span class="dv">1987</span> <span class="dv">1992</span> <span class="dv">1997</span> ...</span>
 <span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pop      <span class="sc">:</span> num  <span class="dv">8425333</span> <span class="dv">9240934</span> <span class="dv">10267083</span> <span class="dv">11537966</span> <span class="dv">13079460</span> ...</span>
@@ -777,7 +781,8 @@ other information.</li>
 <h2 id="data-frame-manipulation-with-dplyr">Data Frame Manipulation With
 <code>dplyr</code></h2>
 <hr />
-<h2 id="learning-objectives-1">Learning Objectives</h2>
+<h2 id="learning-objectives-data-frames">Learning Objectives (Data
+Frames)</h2>
 <ul>
 <li><p>You’re going to <strong>learn to manipulate
 <code>data.frame</code>s with the six <em>verbs</em> of
@@ -1085,7 +1090,7 @@ of GDP per continent, per year</strong></li>
 <span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_gdp_billion=</span><span class="fu">mean</span>(gdp_billion),</span>
 <span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd_gdp_billion=</span><span class="fu">sd</span>(gdp_billion))</span></code></pre></div>
 <hr />
-<p>## <code>ifelse()</code></p>
+<h2 id="ifelse"><code>ifelse()</code></h2>
 <ul>
 <li><strong><code>ifelse()</code> IS A FILTER THAT CAN BE USED WITH
 MUTATE TO CALCULATES NEW VARIABLES (COLUMNS) ON THE BASIS OF EXISTING
@@ -1115,9 +1120,9 @@ expectancy for a nation is over 40</li>
 <span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">mean_gdpPercap =</span> <span class="fu">mean</span>(gdpPercap),</span>
 <span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean_gdpPercap_expected =</span> <span class="fu">mean</span>(gdp_futureExpectation))</span></code></pre></div>
 <hr />
-<p>## Tidy Data</p>
+<h2 id="tidy-data">Tidy Data</h2>
 <hr />
-<p>## Why Tidy Data?</p>
+<h2 id="why-tidy-data">Why Tidy Data?</h2>
 <ul>
 <li><p>Data cleaning/processing is <strong>not just a first
 step</strong> - it must be repeated many time over the course of an
@@ -1135,7 +1140,7 @@ its own way”</li>
 </ul></li>
 </ul>
 <hr />
-<p>## An Untidy Dataset (1)</p>
+<h2 id="an-untidy-dataset-1">An Untidy Dataset (1)</h2>
 <ul>
 <li><p>Here’s a dataset like you might receive it from a
 colleague</p></li>
@@ -1156,7 +1161,7 @@ are the rows?</li>
 </ul></li>
 </ul>
 <hr />
-<p>## An Untidy Dataset (2)</p>
+<h2 id="an-untidy-dataset-2">An Untidy Dataset (2)</h2>
 <ul>
 <li><p>So we’ve transposed the rows and columns of the table</p></li>
 <li><p>The <strong>data is the same</strong></p></li>
@@ -1174,7 +1179,7 @@ analyses.</li>
 DATA</strong>, we need to consider some data semantics.</p></li>
 </ul>
 <hr />
-<p>## Data Semantics</p>
+<h2 id="data-semantics">Data Semantics</h2>
 <ul>
 <li><p>We need to define three terms</p></li>
 <li><p>A dataset, like the one shown, is a collection of
@@ -1198,7 +1203,7 @@ company, or a physical item like a reactor vessel</li>
 </ul></li>
 </ul>
 <hr />
-<p>## Challenge (2min)</p>
+<h2 id="challenge-2min">Challenge (2min)</h2>
 <ul>
 <li>So for our first messy dataset, how would you describe the rows and
 columns of the table?
@@ -1209,7 +1214,7 @@ columns of the table?
 OBSERVATIONS NOR VARIABLES</strong></li>
 </ul>
 <hr />
-<p>## A Tidy Dataset (1)</p>
+<h2 id="a-tidy-dataset-1">A Tidy Dataset (1)</h2>
 <ul>
 <li>The dataset contains 18 values:
 <ul>
@@ -1235,7 +1240,7 @@ variables</li>
 </ul></li>
 </ul>
 <hr />
-<h2 id="tidy-data">Tidy Data</h2>
+<h2 id="tidy-data-2">Tidy Data (2)</h2>
 <ul>
 <li>Tidy data is a <strong>STANDARD</strong> way of structuring a
 dataset, but it is not the only way, or always the best way
@@ -1288,7 +1293,7 @@ observation for a combination of country and year</li>
 <span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> Afghanistan <span class="dv">1972</span> <span class="dv">13079460</span>      Asia  <span class="fl">36.088</span>  <span class="fl">739.9811</span></span>
 <span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> Afghanistan <span class="dv">1977</span> <span class="dv">14880372</span>      Asia  <span class="fl">38.438</span>  <span class="fl">786.1134</span></span></code></pre></div>
 <hr />
-<p>## Long v Wide</p>
+<h2 id="long-v-wide">Long v Wide</h2>
 <ul>
 <li><p>We often refer to datasets as being “long” or “wide”</p></li>
 <li><p><strong>LONG datasets have one row per observation, and one
@@ -1321,7 +1326,7 @@ look at it.</li>
 </ul>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> gap_wide <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/gapminder_wide.csv&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">str</span>(gap_wide)</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span>   <span class="dv">142</span> obs. of  <span class="dv">38</span> variables<span class="sc">:</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span> <span class="dv">142</span> obs. of  <span class="dv">38</span> variables<span class="sc">:</span></span>
 <span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a> <span class="er">$</span> continent     <span class="sc">:</span> chr  <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> <span class="st">&quot;Africa&quot;</span> ...</span>
 <span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> country       <span class="sc">:</span> chr  <span class="st">&quot;Algeria&quot;</span> <span class="st">&quot;Angola&quot;</span> <span class="st">&quot;Benin&quot;</span> <span class="st">&quot;Botswana&quot;</span> ...</span>
 <span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> gdpPercap_1952<span class="sc">:</span> num  <span class="dv">2449</span> <span class="dv">3521</span> <span class="dv">1063</span> <span class="dv">851</span> <span class="dv">543</span> ...</span>
