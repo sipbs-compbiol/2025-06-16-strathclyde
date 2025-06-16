@@ -409,7 +409,7 @@ will produce when we use <code>typeof()</code>?</p>
 <li><p>Here, <code>R</code> has enforced that the type of the vector is
 <code>character</code> (string), because we can always represent numbers
 as strings, but we can’t always represent strings as numbers</p></li>
-<li><p><strong>NEXT CALLOUTS</strong></p></li>
+<li><p><strong>PAUSE: NEXT CALLOUTS</strong></p></li>
 <li><p>This is called <em>type coercion</em> and can cause surprises in
 your code</p>
 <ul>
@@ -612,10 +612,12 @@ created at the start of this episode.
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">typeof</span>(cats<span class="sc">$</span>weight)</span>
 <span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span></span></code></pre></div>
 <ul>
-<li>So <code>cats</code> is a <code>list</code>, and each element in the
-list is a vector</li>
-<li>But <code>cats</code> is a <strong>special kind of list</strong> - a
-<code>data.frame</code> - where all the vectors have the same length.
+<li><p>So <code>cats</code> is a <code>list</code>, and each element in
+the list is a vector</p></li>
+<li><p><strong>PAUSE: NEXT CALLOUT</strong></p></li>
+<li><p>But <code>cats</code> is a <strong>special kind of list</strong>
+- a <code>data.frame</code> - where all the vectors have the same
+length.</p>
 <ul>
 <li>We can see that this is a special kind of list by using the
 <code>class()</code> function</li>
@@ -1162,6 +1164,7 @@ are the rows?</li>
 <li><p>Now we have one row per observation, and we have one column per
 variable (treatments A and B), and that’s what we want, isn’t
 it?</p></li>
+<li><p><strong>PAUSE: NEW CALLOUT</strong></p></li>
 <li><p>But the data doesn’t have to be structured this way.</p>
 <ul>
 <li>In fact, this isn’t a very good way to structure data for many
