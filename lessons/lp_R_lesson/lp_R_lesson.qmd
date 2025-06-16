@@ -6,6 +6,7 @@ format:
     preview-links: true
     logo: "images/sipbs_compbio.png"
     footer: "[R for Reproducible Scientific Analysis 2025-06-17](https://sipbs-compbiol.github.io/2025-06-16-strathclyde/)"
+    theme: [default, includes/custom.scss]
 ---
 
 ```{r}
@@ -16,6 +17,12 @@ library(tidyverse)
 ```
 
 # 0. What are we doing?
+
+::: footer
+
+[Lesson: R for Reproducible Scientific Analysis](https://swcarpentry.github.io/r-novice-gapminder/index.html)
+
+:::
 
 ## Learning Questions
 
