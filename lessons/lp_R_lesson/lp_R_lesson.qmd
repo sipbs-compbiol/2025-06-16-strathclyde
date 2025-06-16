@@ -1,8 +1,11 @@
 ---
-title: "Data Structures and Data Frames"
+title: "Data Structures, Data Frames, and Tidy Data"
 format:
   revealjs:
     embed-resources: true
+    preview-links: true
+    logo: "images/sipbs_compbio.png"
+    footer: "[R for Reproducible Scientific Analysis 2025-06-17](https://sipbs-compbiol.github.io/2025-06-16-strathclyde/)"
 ---
 
 ```{r}
@@ -12,19 +15,26 @@ library(kableExtra)
 library(tidyverse)
 ```
 
+# 0. What are we doing?
+
 ## Learning Questions
 
 - How can I read data in `R`?
 - What are the basic data types in `R`?
-- How do I represent categorical information in `R`?
+- How can I manipulate a data frame?
+- How can I manipulate data frames without repeating myself?
 
 ## Learning Objectives
 
 - To be able to identify the five (5) main data types in `R`
 - To explore data frames (and see how they are built from `R` data types)
 - To be able to ask `R` about the type and structure of an object
+- To be able to use the six main data frame manipulation ‘verbs’ with pipes in `dplyr`.
+- To understand the concepts of ‘longer’ and ‘wider’ data frame formats and be able to convert between them with `tidyr`.
 
-## Data Types and Structures in `R` {.scrollable}
+# 1. Data Types
+
+## Data Types and Structures in `R`
 
 - `R` is mostly used for data analysis
 - `R` has special *types* and *structures* to help you work with data
@@ -40,8 +50,6 @@ library(tidyverse)
 ::: { .callout-tip }
 **Understanding data types, their uses, and how they relate to your own data is key to successful analysis with `R`**
 :::
-
-# 1. Data Types
 
 ## What Data Types Do You Expect?
 
@@ -198,7 +206,7 @@ Add your suggestions of data types at:
 ::: { .callout-caution }
 ## Where to find the data
 
-- [https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv](https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv)
+- [https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv](https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv){preview-link="false"}
 - Link available on the Etherpad ([https://pad.carpentries.org/2025-06-16-strathclyde](https://pad.carpentries.org/2025-06-16-strathclyde))
 :::
 
@@ -489,12 +497,12 @@ kable(df1)
 ```
 
 ::: { .callout-note }
+## USE CHALLENGE SECTION ON ETHERPAD
+
 - Rows=OBERVATIONS, Columns=VARIABLES
 - Rows=OBERVATIONS, Columns=NEITHER
 - Rows=NEITHER, Columns=VARIABLES
 - Rows=NEITHER, Columns=NEITHER
-
-**USE CHALLENGE SECTION ON ETHERPAD**
 :::
 
 ## A Tidy Dataset (1)
@@ -567,6 +575,14 @@ kable(df3)
 :::
 
 ## `gapminder` Wide Dataset
+
+::: { .callout-caution }
+## Where to find the data
+
+- [https://swcarpentry.github.io/r-novice-gapminder/data/gapminder_wide.csv](https://swcarpentry.github.io/r-novice-gapminder/data/gapminder_wide.csv){preview-link="false"}
+- Link available on the Etherpad ([https://pad.carpentries.org/2025-06-16-strathclyde](https://pad.carpentries.org/2025-06-16-strathclyde))
+:::
+
 
 ::: { .callout-important }
 ## INTERACTIVE DEMO
