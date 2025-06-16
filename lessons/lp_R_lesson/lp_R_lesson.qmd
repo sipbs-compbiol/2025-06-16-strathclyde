@@ -1,9 +1,12 @@
 ---
 title: "Data Structures, Data Frames, and Tidy Data"
+title-slide-attributes:
+  data-background-color: "#658d1b"
 format:
   revealjs:
     embed-resources: true
     preview-links: true
+    mainfont: "Helvetica"
     logo: "images/sipbs_compbio.png"
     footer: "[R for Reproducible Scientific Analysis 2025-06-17](https://sipbs-compbiol.github.io/2025-06-16-strathclyde/)"
     theme: [default, includes/custom.scss]
