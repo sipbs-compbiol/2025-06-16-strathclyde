@@ -44,7 +44,7 @@
 - **`R` is very powerful when dealing with tabular data**
   
 - **INTERACTIVE DEMO**
-- **SWITCH TO THE CONSOLE** 
+- **SWITCH TO THE CONSOLE**
 
 - Let's start by making a toy dataset.
 - We'll eventually save this in your `data/` directory, with the name `feline-data.csv`
@@ -60,7 +60,7 @@ cats <- data.frame(coat = c("calico", "black", "tabby"),
 ```
 
 - We can now save the content of the variable `cats` as a CSV (comma-separated variable) file.
-  - We use the `write.csv()` function 
+  - We use the `write.csv()` function
   - It is useful to call argument names explicitly so that the code is more readable
 
 ```R
@@ -93,13 +93,13 @@ cats
 ```
 
 - **THINK ABOUT THE DATA TYPES** Are they all the same?
-    - **NO** `coat` is text; `weight` is some real value (in kg or pounds, maybe), and `likes_string` looks like it should be `TRUE`/`FALSE` but is represented as 1s and 0s
-    - **DOES IT MAKE SENSE TO WORK WITH EACH OF THESE ELEMENTS OF DATA AS IF THEY'RE THE SAME THING?** (No)
+  - **NO** `coat` is text; `weight` is some real value (in kg or pounds, maybe), and `likes_string` looks like it should be `TRUE`/`FALSE` but is represented as 1s and 0s
+  - **DOES IT MAKE SENSE TO WORK WITH EACH OF THESE ELEMENTS OF DATA AS IF THEY'RE THE SAME THING?** (No)
 
 - Let's explore our dataset
 - **EXTRACT A COLUMN FROM A TABLE**
-    - Use `$` notation in the console
-    - **NOTE THE AUTOCOMPLETION**
+  - Use `$` notation in the console
+  - **NOTE THE AUTOCOMPLETION**
 
 ```R
 > cats$weight
@@ -109,7 +109,7 @@ cats
 ```
 
 - **WHAT DID `R` RETURN?**
- - A *vector* (1D ordered collection) of numbers or character strings
+  - A *vector* (1D ordered collection) of numbers or character strings
 - **WE CAN OPERATE ON THESE *VECTORS***
   - *Vectors* are an important concept, and `R` is largely built so that operations on vectors are central to data analysis.
 
@@ -152,10 +152,10 @@ Error in cats$weight + cats$coat :
 ## What Data Types Do You Expect?
 
 - **ASK THE STUDENTS**
-    - What data types would you expect to see?
-    - What data types do you think you would **WANT OR NEED**, from your own experience?
+  - What data types would you expect to see?
+  - What data types do you think you would **WANT OR NEED**, from your own experience?
 - **SPEND A COUPLE OF MINUTES ON THIS**
-    - The difference between a *data type* and a *data structure*
+  - The difference between a *data type* and a *data structure*
 
 ----------
 
@@ -243,7 +243,7 @@ Error in cats2$weight + 2 : non-numeric argument to binary operator
 
 ----------
 
-## A Quick Note About Dataframes
+## A Quick Note About Dataframes
 
 - Any column in a dataframe can contain only one datatype.
 - Initially, the datatype of `cats$weight` was `double`
@@ -255,12 +255,12 @@ Error in cats2$weight + 2 : non-numeric argument to binary operator
 
 ```R
 > str(cats)
-'data.frame':	3 obs. of  3 variables:
+'data.frame': 3 obs. of  3 variables:
  $ coat        : chr  "calico" "black" "tabby"
  $ weight      : num  2.1 5 3.2
  $ likes_catnip: int  1 0 1
 > str(cats2)
-'data.frame':	4 obs. of  3 variables:
+'data.frame': 4 obs. of  3 variables:
  $ coat        : chr  "calico" "black" "tabby" "tabby"
  $ weight      : chr  "2.1" "5" "3.2" "2.3 or 2.4"
  $ likes_catnip: num  1 0 1 1
@@ -320,7 +320,7 @@ Error in cats2$weight + 2 : non-numeric argument to binary operator
 
 ----------
 
-## Coercion
+## Coercion (1)
 
 - **INTERACTIVE DEMO**
 
@@ -363,7 +363,7 @@ Error in cats2$weight + 2 : non-numeric argument to binary operator
 
 ----------
 
-## Coercion
+## Coercion (2)
 
 - *Coercion* is what happens when you **CONVERT ONE DATA TYPE INTO ANOTHER**
 - If `R` thinks it needs to, it will **COERCE DATA IMPLICITLY** without telling you
@@ -415,7 +415,7 @@ Error in cats2$weight + 2 : non-numeric argument to binary operator
 2  black    5.0        FALSE
 3  tabby    3.2         TRUE
 > str(cats)
-'data.frame':	3 obs. of  3 variables:
+'data.frame': 3 obs. of  3 variables:
  $ coat        : chr  "calico" "black" "tabby"
  $ weight      : num  2.1 5 3.2
  $ likes_catnip: logi  TRUE FALSE TRUE
@@ -555,14 +555,14 @@ List of 2
 
 - **DEMO IN SCRIPT**
 - **DOWNLOAD DATA**
-    - Use the link from the Etherpad document
-    - Place the file in `data/`
+  - Use the link from the Etherpad document
+  - Place the file in `data/`
 - **CREATE A NEW SCRIPT**
-    - Call it `gapminder`
-    - Add the code
-    - Use `read.table`
-    - The data is in CSV format
-    - We need to provide a data source (**here, a file**), the separator character, and whether there's a header row
+  - Call it `gapminder`
+  - Add the code
+  - Use `read.table`
+  - The data is in CSV format
+  - We need to provide a data source (**here, a file**), the separator character, and whether there's a header row
 
 ```R
 # Load gapminder data from a local file
@@ -571,8 +571,8 @@ gapminder <- read.table("data/gapminder_data.csv", sep=",", header=TRUE)
 
 - **RUN THE SCRIPT** (use `Source`)
 - **CHECK THE DATA IN THE `Environment` TAB**
-    - Click on `gapminder` in `Evironment` tab.
-    - **NOTE COLUMNS**
+  - Click on `gapminder` in `Environment` tab.
+  - **NOTE COLUMNS**
 
 ----------
 
@@ -580,16 +580,16 @@ gapminder <- read.table("data/gapminder_data.csv", sep=",", header=TRUE)
 
 - Now we've loaded our data, let's take a look at it
 - **DEMO IN CONSOLE**
-    - 1704 rows, 6 columns
-    - Investigate types of columns
-    - **POINT OUT THAT THE TYPE OF A COLUMN IS INTEGER IF IT'S A FACTOR**
-    - **LENGTH OF A DATAFRAME IS THE NUMBER OF COLUMNS**
+  - 1704 rows, 6 columns
+  - Investigate types of columns
+  - **POINT OUT THAT THE TYPE OF A COLUMN IS INTEGER IF IT'S A FACTOR**
+  - **LENGTH OF A DATAFRAME IS THE NUMBER OF COLUMNS**
 
 - It's always useful to get an initial understanding of your data with the `str()` function.
 
 ```R
 > str(gapminder)
-'data.frame':	1704 obs. of  6 variables:
+'data.frame': 1704 obs. of  6 variables:
  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
@@ -685,7 +685,7 @@ gapminder <- read.table("data/gapminder_data.csv", sep=",", header=TRUE)
 
 ----------
 
-## Learning Objectives
+## Learning Objectives (Data Frames)
 
 - You're going to **learn to manipulate `data.frame`s with the six *verbs* of `dplyr`**
 
@@ -718,25 +718,25 @@ gapminder <- read.table("data/gapminder_data.csv", sep=",", header=TRUE)
 - We have a **dataset with several groups in a variable** (column `x`)
   - For example, each patient in our messy data might be a "group"
 - We **want to perform the same operation on each group, independently** - take a mean of `y` for each group, for example
-    - So we **SPLIT** the data into groups, on `x`
-    - Then we **APPLY** the operation (take the mean for each group)
-    - Then we **COMBINE** the results into a new table
+  - So we **SPLIT** the data into groups, on `x`
+  - Then we **APPLY** the operation (take the mean for each group)
+  - Then we **COMBINE** the results into a new table
 
 ----------
 
 ## `select()` - Interactive Demo**
 
 - **DEMO IN CONSOLE**
-    - Import `dplyr`
+  - Import `dplyr`
 
 ```R
 > library(dplyr)
 ```
 
 - The `select()` *verb* **SELECTS COLUMNS**
-    - **DEMO IN CONSOLE**
-    - If we wanted to select only year, country and GDP data from `gapminder`
-    - Specify: **data, then columns**
+  - **DEMO IN CONSOLE**
+  - If we wanted to select only year, country and GDP data from `gapminder`
+  - Specify: **data, then columns**
 
 ```R
 > head(select(gapminder, year, country, gdpPercap))
@@ -750,9 +750,9 @@ gapminder <- read.table("data/gapminder_data.csv", sep=",", header=TRUE)
 ```
 
 - Here, we **applied a function**, but we can also **'PIPE' DATA FROM ONE VERB TO ANOTHER**
-    - These work **like pipes in the shell**
-    - **SPECIAL PIPE SYMBOL: `%>%`**
-    - Specify **only columns**
+  - These work **like pipes in the shell**
+  - **SPECIAL PIPE SYMBOL: `%>%`**
+  - Specify **only columns**
 
 ```R
 > gapminder %>% select(year, country, gdpPercap) %>% head()
@@ -770,7 +770,7 @@ gapminder <- read.table("data/gapminder_data.csv", sep=",", header=TRUE)
 ## `filter()`
 
 - `filter()` selects rows on the basis of some condition, or combination of conditions
-    - We can **use it as a function, with *pipes***
+  - We can **use it as a function, with *pipes***
 
 - **DEMO IN CONSOLE**
 
@@ -786,9 +786,9 @@ gapminder <- read.table("data/gapminder_data.csv", sep=",", header=TRUE)
 ```
 
 - **DEMO IN SCRIPT** (`gapminder.R`)
-    - One **advantage of pipes** is that they make chaining *verbs* together **MORE READABLE**
-    - **END THE LINES WITH THE PIPE SYMBOL** so `R` knows that there's a continuation
-    - `Run` the lines and **check the output** in `Environment`
+  - One **advantage of pipes** is that they make chaining *verbs* together **MORE READABLE**
+  - **END THE LINES WITH THE PIPE SYMBOL** so `R` knows that there's a continuation
+  - `Run` the lines and **check the output** in `Environment`
 
 ```R
 # Select gdpPercap by country and year, only for Europe
@@ -796,6 +796,7 @@ eurodata <- gapminder %>%
               filter(continent == "Europe") %>%
               select(year, country, gdpPercap)
 ```
+
 ----------
 
 ## Challenge
@@ -847,7 +848,7 @@ eurodata <- gapminder %>%
 - Here, we've split the original table into three groups, and now **CREATE A NEW VARIABLE `mean_b` THAT IS FILLED BY CALCULATING THE MEAN OF `b`**
 
 - **DEMO IN SCRIPT**
-    - We use the same principle to **calculate mean GDP per continent**
+  - We use the same principle to **calculate mean GDP per continent**
 
 ```R
 > # Produce table of mean GDP by continent
@@ -967,7 +968,7 @@ gdp_bycontinents_byyear <- gapminder %>%
 
 ----------
 
-## `ifelse()`
+## `ifelse()`
 
 - **`ifelse()` IS A FILTER THAT CAN BE USED WITH MUTATE TO CALCULATES NEW VARIABLES (COLUMNS) ON THE BASIS OF EXISTING COLUMNS ONLY IF SOME CONDITION IS MET**
 - **DEMO IN SCRIPT**
@@ -995,11 +996,11 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 
 ----------
 
-## Tidy Data
+## Tidy Data
 
 ----------
 
-## Why Tidy Data?
+## Why Tidy Data?
 
 - Data cleaning/processing is **not just a first step** - it must be repeated many time over the course of an analysis
   - new data, new ideas, etc. turn up as you're working
@@ -1010,7 +1011,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 
 ----------
 
-## An Untidy Dataset (1)
+## An Untidy Dataset (1)
 
 - Here's a dataset like you might receive it from a colleague
 
@@ -1026,7 +1027,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 
 ----------
 
-## An Untidy Dataset (2)
+## An Untidy Dataset (2)
 
 - So we've transposed the rows and columns of the table
 - The **data is the same**
@@ -1042,7 +1043,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 
 ----------
 
-## Data Semantics
+## Data Semantics
 
 - We need to define three terms
 
@@ -1057,16 +1058,16 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 
 ----------
 
-## Challenge (2min)
+## Challenge (2min)
 
- - So for our first messy dataset, how would you describe the rows and columns of the table?
-   - Are they observations, or variables, or neither?
+- So for our first messy dataset, how would you describe the rows and columns of the table?
+  - Are they observations, or variables, or neither?
 
 - **THE ROWS AND COLUMNS IN THE MESSY DATA ARE NEITHER OBSERVATIONS NOR VARIABLES**
 
 ----------
 
-## A Tidy Dataset (1)
+## A Tidy Dataset (1)
 
 - The dataset contains 18 values:
   - six observations of three variables
@@ -1090,7 +1091,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 
 ----------
 
-## Tidy Data
+## Tidy Data (2)
 
 - Tidy data is a **STANDARD** way of structuring a dataset, but it is not the only way, or always the best way
   - It does make it easy to extract the variables you need
@@ -1113,8 +1114,8 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
   - This intermediate form can be preferable; there is no advantage to having a single "observation" column, here
   
 - **IN THE CONSOLE**
-    - Each column in the `gapminder` dataset is a variable
-    - Each row is a set of values: one per variable, comprising a single observation for a combination of country and year
+  - Each column in the `gapminder` dataset is a variable
+  - Each row is a set of values: one per variable, comprising a single observation for a combination of country and year
 - **WE CAN USE DPLYR DATA METHODS ON THIS DATASET**
 
 ```r
@@ -1130,7 +1131,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 
 ----------
 
-## Long v Wide
+## Long v Wide
 
 - We often refer to datasets as being "long" or "wide"
 - **LONG datasets have one row per observation, and one column per variable**
@@ -1153,7 +1154,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 ```R
 > gap_wide <- read.csv("data/gapminder_wide.csv", stringsAsFactors = FALSE)
 > str(gap_wide)
-'data.frame':	142 obs. of  38 variables:
+'data.frame': 142 obs. of  38 variables:
  $ continent     : chr  "Africa" "Africa" "Africa" "Africa" ...
  $ country       : chr  "Algeria" "Angola" "Benin" "Botswana" ...
  $ gdpPercap_1952: num  2449 3521 1063 851 543 ...
