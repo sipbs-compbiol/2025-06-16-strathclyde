@@ -33,7 +33,7 @@ library(tidyverse)
 
 ## Learning Objectives
 
-- To be able to identify the five (5) main data types in `R`
+- To be able to identify the main data types in `R`
 - To explore data frames (and see how they are built from `R` data types)
 - To be able to ask `R` about the type and structure of an object
 - To be able to use the six main data frame manipulation ‘verbs’ with pipes in `dplyr`.
@@ -53,16 +53,26 @@ library(tidyverse)
 - `R` has special *types* and *structures* to help you work with data
 - Much of the focus in `R` is on tabular data (*data frames*) 
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## Interactive Demo
 
-- toy dataset <br />
-- `feline-data.csv`
+- toy dataset: `feline-data.csv`
 :::
 
-::: { .callout-tip }
-**Understanding data types, their uses, and how they relate to your own data is key to successful analysis with `R`**
+### Code
+
+```{.r}
+cats <- data.frame(coat = c("calico", "black", "tabby"),
+                   weight = c(2.1, 5.0, 3.2),
+                   likes_catnip = c(1, 0, 1))
+```
+
 :::
+
 
 ## What Data Types Do You Expect?
 
@@ -90,33 +100,59 @@ Add your suggestions of data types at:
     * **integer**: `3`, `2L`, `123456`
     * **double** (*decimal*): `3.0`, `-23.45`, `pi`
 3. **character** (*text*): `"a"`, `'SWC'`, `"This is not a string"`
-
-(also `complex` and `raw`)
 :::
+
+::: {.panel-tabset}
+
+### Demo
 
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Inspecting data types
+:::
+
+### Code
+
+```{.r}
+> typeof(1L)
+[1] "integer"
+> typeof(cats$coat)
+[1] "character"
+> typeof("Irn Bru")
+[1] "character"
+```
+
 :::
 
 ## A Quick Note About Dataframes
 
 ::: { .callout-tip }
-## Columns in dataframes
-
-- A column in a dataframe can contain only one data type
+## A column in a dataframe can contain only one data type
 :::
 
 - Adding a character string (`2.3 or 2.4`) to the column of `double`s changed its data type from `double` to `character`.
 
-::: { .callout-note }
-## Coercion: a preview
+::: {.panel-tabset}
 
-- We can always represent a number (e.g. `2.1`) as a string (e.g. `"2.1"`)
-- We can't always represent a string (e.g. `"or"`) as a number
-:::
+### Demo
 
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Coercion in dataframes
+:::
+
+### Code
+
+```{.r}
+> str(cats2)
+'data.frame':	4 obs. of  3 variables:
+ $ coat        : chr  "calico" "black" "tabby" "tabby"
+ $ weight      : chr  "2.1" "5" "3.2" "2.3 or 2.4"
+ $ likes_catnip: num  1 0 1 1
+```
+
 :::
 
 # 2. Data Structures
@@ -133,26 +169,56 @@ Add your suggestions of data types at:
 - An _ordered collection_ of data
 - Can contain only a single datatype
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## INTERACTIVE DEMO
 
 - Understanding vectors
 :::
 
+### Code
+
+```{.r}
+> x <- c(10, 12, 45, 33)
+> x
+[1] 10 12 45 33
+```
+
+:::
+
 ## Coercion
+
+::: {.panel-tabset}
+
+### Demo
 
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- A quiz
+:::
+
+### Code
+
+```{.r}
+> quiz_vector <- c(2,6,'3')
+> typeof(quiz_vector)
+```
+
 :::
 
 . . .
 
 ::: { .callout-caution }
-## Type coercion
-
-- We need to be aware of datatypes and how `R` interprets them
-- Otherwise we can meet some surprises
+## We need to be aware of datatypes and how `R` interprets them, otherwise we can meet some surprises
 :::
+
+::: {.panel-tabset}
+
+### Demo
 
 ::: { .callout-important }
 ## INTERACTIVE DEMO
@@ -160,16 +226,22 @@ Add your suggestions of data types at:
 - Vector coercion
 :::
 
+### Code
+
+```{.r}
+> coercion_vector <- c('a', TRUE)
+> coercion_vector
+[1] "a"    "TRUE"
+```
+
+:::
+
 ## Coercion
 
-- `R` will coerce vectors *implicitly* to make them atomic
-
 ::: { .callout-tip }
-## Coercion hierarchy
+## Implicit coercion hierarchy
 
 `logical` $\rightarrow$ `integer` $\rightarrow$ `double` $\rightarrow$ `complex` $\rightarrow$ `character`
-
-- can coerce manually with `as.<type_name>()`
 :::
 
 ::: { .callout-warning}
@@ -178,16 +250,48 @@ Add your suggestions of data types at:
 **If there are formatting problems with your data, you might not have the type you expect when you import into `R`**
 :::
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Manual coercion
+:::
+
+### Code
+
+```{.r}
+[1] 10 12 45 33
+> as.character(x)
+[1] "10" "12" "45" "33"
+> as.complex(x)
+[1] 10+0i 12+0i 45+0i 33+0i
+```
+
 :::
 
 ## Lists
 
 - `list`s are like *vectors*, but can hold *any combination of datatype*
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Working with lists
+:::
+
+### Code
+
+```{.r}
+l <- list(1, 'a', TRUE, seq(2, 5))
+```
+
 :::
 
 ::: { .callout-tip }
@@ -208,25 +312,36 @@ Add your suggestions of data types at:
 
 - The `cats` data is a `data.frame`
 
+::: {.panel-tabset}
+
+### Demo
+
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Data frame data structures
+:::
+
+### Code
+
+```{.r}
+> typeof(cats)
+[1] "list"
+> cats[[2]]
+[1] 2.1 5.0 3.2
+```
+
 :::
 
 . . . 
 
 ::: { .callout-note }
-## What is a data frame?
-
-**A data frame is a special _named list_ of _vectors_ with the same length**
+## A data frame is a special _named list_ of _vectors_ with the same length
 
 - It's _like_ a spreadsheet, but each column must have a given type, and all columns must be the same length.
 :::
 
 ## Load Episode Data
-
-::: { .callout-important }
-## INTERACTIVE DEMO
-:::
 
 ::: { .callout-caution }
 ## Where to find the data
@@ -236,9 +351,26 @@ Add your suggestions of data types at:
 :::
 
 ::: { .callout-tip }
-## Where to save the data
+## Save the data to the `data` subfolder (where you put `feline-data.csv`)
+:::
 
-Save the data to the `data` subfolder (where you put `feline-data.csv`)
+
+::: {.panel-tabset}
+
+### Demo
+
+::: { .callout-important }
+## INTERACTIVE DEMO
+
+- Load `gapminder` data
+:::
+
+### Code
+
+```{.r}
+gapminder <- read.table("data/gapminder_data.csv", sep=",", header=TRUE)
+```
+
 :::
 
 ## Investigating `gapminder`
@@ -682,17 +814,28 @@ kable(df3)
 ::: { .callout-tip }
 ## Tidy data is a standard way of structuring a dataset
 
-- makes it easy to extract needed variables
-- well suited to `R` (supports vectorisation)
-:::
-
-::: { .callout-caution }
 1. Each **VARIABLE** forms a column
 2. Each **OBSERVATION** forms a row
+
+makes it easy to extract needed variables, and well suited to `R` (supports vectorisation)
 :::
+
+::: {.panel-tabset}
+
+### Demo
 
 ::: { .callout-important }
 ## INTERACTIVE DEMO
+
+- Inspect `gapminder` data
+:::
+
+### Code
+
+```{.r}
+head(gapminder)
+```
+
 :::
 
 ## Long v Wide
