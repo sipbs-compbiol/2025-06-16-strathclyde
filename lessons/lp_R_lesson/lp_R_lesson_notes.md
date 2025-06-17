@@ -810,7 +810,7 @@ eurodata <- gapminder %>%
 [1] 624
 ```
 
-![images/red_green_sticky.png](images/red_green_sticky.png)
+![](images/red_green_sticky.png)
 
 ----------
 
@@ -893,7 +893,7 @@ avg_lifexp_country <- gapminder %>%
 1 Iceland        76.5
 ```
 
-![images/red_green_sticky.png](images/red_green_sticky.png)
+![](images/red_green_sticky.png)
 
 ----------
 
@@ -1308,4 +1308,4 @@ gap_long %>% group_by(continent, obs_type) %>%
    summarize(means=mean(obs_values))
 ```
 
-![images/red_green_sticky.png](images/red_green_sticky.png)
+![](images/red_green_sticky.png)
