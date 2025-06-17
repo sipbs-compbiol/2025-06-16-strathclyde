@@ -134,7 +134,7 @@ Add your suggestions of data types at:
 ## A column in a dataframe can contain only one data type
 :::
 
-- Adding a character string (`2.3 or 2.4`) to the column of `double`s changed its data type from `double` to `character`.
+- Adding a character string (`"2.3 or 2.4"`) to the column of `double`s changed its data type from `double` to `character`.
 
 ::: {.panel-tabset}
 
