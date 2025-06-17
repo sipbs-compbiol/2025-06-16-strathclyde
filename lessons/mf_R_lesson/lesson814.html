@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>lesson814</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="lesson814_files/libs/clipboard/clipboard.min.js"></script>
+<script src="lesson814_files/libs/quarto-html/quarto.js"></script>
+<script src="lesson814_files/libs/quarto-html/popper.min.js"></script>
+<script src="lesson814_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="lesson814_files/libs/quarto-html/anchor.min.js"></script>
+<link href="lesson814_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="lesson814_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="lesson814_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="lesson814_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="lesson814_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">lesson814</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="lesson-8---using-ggplot2" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-8---using-ggplot2">Lesson 8 - using ggplot2</h2>
+<section id="slide-2" class="level3">
+<h3 class="anchored" data-anchor-id="slide-2">Slide 2</h3>
+<ul>
+<li>Make sure you have ggplot2 installed and the gapminder dataset we downloaded earlier</li>
+<li>Any housekeeping or other questions</li>
+</ul>
+</section>
+<section id="slide-3" class="level3">
+<h3 class="anchored" data-anchor-id="slide-3">Slide 3</h3>
+<p>What is ggplot2 and why should we use it?</p>
+<ul>
+<li>The “gg” in “ggplot2” is short for “grammar of graphics”, it is based on the idea of a layered grammar that you can use to build data visualisations.</li>
+<li>It provides us with a powerful and flexible way of exploring and plotting our data, and it makes it relatively quick and easy for us to produce readable and beautiful plots</li>
+<li>It has all of the broader advantages of working in R discussed earlier - it makes it easy to reproduce or repeat analyses, has a large open-source community, easily accessible help files and tutorials, etc.</li>
+</ul>
+</section>
+<section id="slide-4" class="level3">
+<h3 class="anchored" data-anchor-id="slide-4">Slide 4</h3>
+<p>What are the basics we need to know, to plot some data? Remember the key elements of a scientific figure - we need to represent data, in some way - in this case, using a line graph, in a plot defined by axes. Ideally the axes should have clear and precise labels, including units, and the figure will have a title and a legend. The details may differ, depending on the particular type of plot you are creating, but the key point is that you want to clearly present your data in a way that your audience will understand it.</p>
+</section>
+<section id="slide-5" class="level3">
+<h3 class="anchored" data-anchor-id="slide-5">Slide 5</h3>
+<p>Some tips before we get started:</p>
+<ul>
+<li>When it comes to your own data – think about what is the best way to plot it (and why)</li>
+<li>Keep in mind the conventions in your field (read broadly, look at the ways that other people visualise similar data)</li>
+<li>Don’t forget the principles previously discussed (e.g., version control, keeping data read-only, etc.)</li>
+</ul>
+</section>
+<section id="slide-6" class="level3">
+<h3 class="anchored" data-anchor-id="slide-6">Slide 6</h3>
+<p>Keep in mind the principles of good data visualisation - what you want to plot and how your reader will view the resulting figure you make.</p>
+<p>You are in control of the way you present your data - don’t necessarily feel that you need to use a fancy new chart type or do something complicated just because you can.</p>
+<p>Using ggplot2 will help you to use a lot of different types of plots, make sure you are always choosing the best plot for your data/the message you want to convey.</p>
+</section>
+<section id="slide-7" class="level3">
+<h3 class="anchored" data-anchor-id="slide-7">Slide 7</h3>
+<p>At its core, what ggplot2 does, is lets us use layers to build data visualisations. We need to have at least a dataset, a way of mapping that dataset onto the plot, and at least one graphical layer. It becomes very easy to add layers onto a plot to modify the output - many of the layers have sensible defaults, but you can change them as necessary to produce your desired result.</p>
+</section>
+<section id="slide-8" class="level3">
+<h3 class="anchored" data-anchor-id="slide-8">Slide 8</h3>
+<p>Some of the key concepts you will need to know to start using ggplot2 are geometry and aesthetics.</p>
+<p><code>Geom</code>s (short for geometries) are the fundamental building blocks for a plot - e.g., scatterplots, line graphs, box and whisker plots, etc.</p>
+<p>Aesthetics are how the data appear visually - including what the position of a datapoint is on the x and y planes of your plot, or aesthetic elements like the colour, size and shape of the points.</p>
+<p>Note that aesthetics can either be arbitrary (I can colour all the points on a graph blue), or they can be mapped to some feature on your data (I can colour all the points based on membership in some group).</p>
+</section>
+<section id="slide-9" class="level3">
+<h3 class="anchored" data-anchor-id="slide-9">Slide 9</h3>
+<ul>
+<li>The basic process you need to follow to make a visualisation using ggplot2 is:
+<ul>
+<li>Load the ggplot2 package</li>
+<li>Build up the command to construct a desired plot, specifying the data, mapping, and geom</li>
+<li>Add/edit layers as necessary by adding arguments to your command (this step can be iterative)</li>
+</ul></li>
+</ul>
+<p>Overall,</p>
+<ul>
+<li>Try to keep your code tidy and readable
+<ul>
+<li>break up long lines where helpful</li>
+<li>use comments where helpful</li>
+</ul></li>
+<li>Don’t be afraid to use a cheatsheet/Google</li>
+<li>Don’t be afraid to experiment</li>
+<li>Remember to design your plots for accessibility (most of the defaults will be sensible, but still need to keep accessibility in mind as you make design choices - colour, font size, etc.)</li>
+</ul>
+</section>
+</section>
+<section id="live-demo" class="level2">
+<h2 class="anchored" data-anchor-id="live-demo">Live demo</h2>
+<section id="basic-plots-and-layers" class="level3">
+<h3 class="anchored" data-anchor-id="basic-plots-and-layers">Basic plots and layers</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Create a new R script to save your analyses - give it a sensible name and save it somewhere sensible. e.g., GapminderAnalysis17062025.R in an "analyses" folder</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#Load necessary libraries </span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(ggplot2) </span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># If you have not already done so, load the gapminder data into a variable called gapminder</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>gapminder <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"gapminder_data.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Arguments added to the ggplot function are global options (apply to all layers on the plot). So if we begin by calling <code>ggplot</code> and specify the data (gapminder), this information will be inherited by all subsequent layers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder) <span class="co"># Call the ggplot function and specify our gapminder dataset. Note, this will only create a blank plot - we haven't actually specified anything about the plot itself</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We have specified the data, but we need to tell <code>ggplot2</code> what to actually plot. To do so, we need to connect (map) variables in the data to the aesthetic properties of the figure, using the <code>aes</code> (short for aesthetics) function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="co"># Add a mapping aes to our ggplot function - this will create a plot with gdpPercap on the x axis, and lifeExp on the y-axis (note, we still haven't specified anything about how to plot the data)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We then have to tell <code>ggplot</code> something about how we want to visually represent the data. We can add a new layer using one of the <code>geom</code> functions. In this case we’ll use <code>geom_point()</code> (but you’ll learn about many other <code>geom</code>s as you learn <code>ggplot</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span>   </span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_point</span>() <span class="co"># this adds a geom (in this case, a scatterplot) to our plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Challenge 1. How can we use ggplot to show how life expectancy has changed over time?</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click to see the answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Remember, you can check the structure of the gapminder dataset if you don’t remember what the columns are called - for example, using <code>head(gapminder)</code>. This will show you that there’s a column called <code>year</code>. You can then change your aes mapping, so that the year is displayed on the x-axis (instead of gdpPercap), so:</p>
+<p><code>ggplot(data = gapminder, mapping = aes(x = year, y = lifeExp)) + geom_point()</code></p>
+</div>
+</div>
+</div>
+</section>
+<section id="using-groups-and-colours" class="level3">
+<h3 class="anchored" data-anchor-id="using-groups-and-colours">Using Groups and Colours</h3>
+<p><code>aes</code> can be used to change other aesthetic values for the plot - for example, the color, size, and shape of points, or the type and width of lines.</p>
+<p>For example, we can colour the points in our plot based on continent:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp, <span class="at">color=</span>continent)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_point</span>() <span class="co"># plots life expectancy by year as a scatterplot, and colours the points by continent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can change the type of plot we make, by changing the <code>geom</code> we use. Here we are looking at life expectancy over time, so it might be sensible to use a line graph (the points are connected over time).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp, <span class="at">color=</span>continent)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_line</span>() <span class="co"># plots life expectancy by year, colouring the lines and points by continent, as a line graph</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Why does this look so strange? Well, we have a lot of different values for each continent, so it makes the line jump around a lot. We can fix this by separating the data out by country (one line each). We do this by adding a <code>group</code> aesthetic (<code>group=country</code>). (Remember, if we do this in our initial ggplot2 command, it will be inherited in all the subsequent layers.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp, <span class="at">group=</span>country, <span class="at">color=</span>continent)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="co"># plots life expectancy by year, grouped by country and coloured by continent, as a line graph</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note that we can very easily combine different plots (layers), and that these will be printed on top of one another in the order specified (here, the points will be printed on top of the line graph - if you wanted the opposite, you would have to reverse the order of the layers in your code.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>lifeExp, <span class="at">group=</span>country, <span class="at">color=</span>continent)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="modifying-axes" class="level3">
+<h3 class="anchored" data-anchor-id="modifying-axes">Modifying axes</h3>
+<p>One way that we commonly want to adjust the way our data is plotted, is to change the x- or y- axis (the scale itself, or the limits of the axes).</p>
+<p>We can change the limits of the axis by adding a layer with <code>scale_y_continuous</code> as in the below example - here I’ve set it to some sensible values for ages (between 0 and 100).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>lifeExp, <span class="at">group=</span>country, <span class="at">color=</span>continent)) <span class="sc">+</span> </span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>)) <span class="co">#set limits on the y-axis using scale_y_continuous</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Or, if we were interested in looking only at certain years in our dataset, we could specify the limits of the x-axis using <code>scale_x_continuous</code>. (Note, this will show you an error message, informing you that some of your data aren’t being shown because they are outside the scale range.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>year, <span class="at">y=</span>lifeExp, <span class="at">group=</span>country, <span class="at">color=</span>continent)) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1970</span>, <span class="dv">2000</span>)) <span class="co">#set limits on the x-axis using scale_x_continuous (between 1970 and 2000)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 852 rows containing missing values or values outside the scale range
+(`geom_line()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Or, for our previous example (the scatterplot of gdpPercap vs lifeExp), we might want to change the scale to a logarithmic scale (this can help to visualise these data more clearly). (Note we can also change the transparency of the dots using <code>alpha</code> which also helps when you have many points plotted on top of one another.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span>   </span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">geom_point</span>() <span class="co">#same plot as previously - scatterplot of gdpPercap vs lifeExp</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="co">#modifies the transparency of the points; note that alpha takes values from 0 (more transparent) to 1 (more opaque)</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">scale_x_log10</span>() <span class="co">#converts the x-axis to a logarithmic scale</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot11-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Always be cautious when changing the scale on a plot - you must make sure that you don’t end up misrepresenting your data or misleading the reader.</p>
+</section>
+<section id="facet-plots" class="level3">
+<h3 class="anchored" data-anchor-id="facet-plots">Facet Plots</h3>
+<p>Sometimes we want to split our data across several different plots - sometimes because it makes it easier to visualise, sometimes because we are exploring our data and find it easiest to do this by creating these <strong>facet plots</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>americas <span class="ot">&lt;-</span> gapminder[gapminder<span class="sc">$</span>continent <span class="sc">==</span> <span class="st">"Americas"</span>,] <span class="co">#subset data from the Americas</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="co"># build up ggplot command, pointing at the subsetted data(americas) and mapping x=year and y=lifeExp</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co"># we will use facet_wrap to generate individual plots for each country</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="fu">ggplot</span>(<span class="at">data =</span> americas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span>  <span class="fu">facet_wrap</span>( <span class="sc">~</span> country) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># note that the labels on the x-axis are a little difficult to read - we can rotate them by adding a theme)</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">ggplot</span>(<span class="at">data =</span> americas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span>  <span class="fu">facet_wrap</span>( <span class="sc">~</span> country) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot12-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="labels" class="level3">
+<h3 class="anchored" data-anchor-id="labels">Labels</h3>
+<p>Remember, one of the key elements in making a plot (especially a plot that you want to use for publication), is ensuring that the elements in the plot are correctly and helpfully labelled. We can add or modify text labels using the <code>labs</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> americas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>( <span class="sc">~</span> country) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">labs</span>(</span>
+<span id="cb16-4"><a href="#cb16-4"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,              <span class="co"># x axis title</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>    <span class="at">y =</span> <span class="st">"Life expectancy"</span>,   <span class="co"># y axis title</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>    <span class="at">title =</span> <span class="st">"Figure 1"</span>,      <span class="co"># main title of figure</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="themes-and-design-choices" class="level3">
+<h3 class="anchored" data-anchor-id="themes-and-design-choices">Themes and Design Choices</h3>
+<p>There are many other ways that you may wish to customize your plots using ggplot2. One very easy way to change the look of a plot is to use <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">themes</a> - for example, theme_dark(), theme_minimal(), theme_classic(), etc. Don’t be afraid to experiment with changing different themes and trying out different design choices - it is easy to modify (and unmodify) your plots as you go.</p>
+<p>One thing you can do to make modifying your plots iteratively easier, is to save the results of the ggplot2 command to a variable - and then you can add onto that variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">#save the results of the last command to a variable called plot</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> americas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> lifeExp)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>( <span class="sc">~</span> country) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-5"><a href="#cb17-5"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,              <span class="co"># x axis title</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a>    <span class="at">y =</span> <span class="st">"Life expectancy"</span>,   <span class="co"># y axis title</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a>    <span class="at">title =</span> <span class="st">"Figure 1"</span>,      <span class="co"># main title of figure</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>))</span>
+<span id="cb17-10"><a href="#cb17-10"></a></span>
+<span id="cb17-11"><a href="#cb17-11"></a><span class="co"># Add a classic theme to our plot</span></span>
+<span id="cb17-12"><a href="#cb17-12"></a>plot <span class="ot">&lt;-</span> plot <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb17-14"><a href="#cb17-14"></a></span>
+<span id="cb17-15"><a href="#cb17-15"></a><span class="fu">print</span>(plot) <span class="co"># print the plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We also might want to modify individual parts of the plot (instead of using theme to change the overall appearance all at once). For example, we might want to make the plot more readable at a distance - if we wanted to make a plot for a PowerPoint presentation, for example.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>plot <span class="ot">&lt;-</span> plot <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="co"># increase the width of the lines</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span><span class="dv">14</span>)) <span class="sc">+</span> <span class="co"># increase the font size</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>))</span>
+<span id="cb18-5"><a href="#cb18-5"></a></span>
+<span id="cb18-6"><a href="#cb18-6"></a><span class="fu">print</span>(plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="lesson814_files/figure-html/ggplot15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="saving-your-work" class="level3">
+<h3 class="anchored" data-anchor-id="saving-your-work">Saving your work</h3>
+<p>Of course you will want to export your plots - you can do this using <code>ggsave()</code>. By default, this will export the most recent plot used, but you can also specify a particular plot (by using variables to save the plots in your environment, as we have just seen.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">ggsave</span>(<span class="st">"results/plot1.png"</span>) <span class="co"># will save the most recent plot as a file named plot1.png (is this a good file name? why or why not?)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Saving 7 x 5 in image</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"results/lifeExp.png"</span>, <span class="at">plot =</span> plot, <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">10</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">units =</span> <span class="st">"cm"</span>) <span class="co"># will save the specified plot ("plot") as lifeExp.png, with the specified height, width, and dpi</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="slide-11---lesson-8-key-points" class="level3">
+<h3 class="anchored" data-anchor-id="slide-11---lesson-8-key-points">Slide 11 - Lesson 8 Key Points</h3>
+</section>
+</section>
+<section id="lesson-14---reproducible-reports-with-knitr" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-14---reproducible-reports-with-knitr">Lesson 14 - Reproducible Reports with knitr</h2>
+<section id="slide-13" class="level3">
+<h3 class="anchored" data-anchor-id="slide-13">Slide 13</h3>
+<p>Why use R markdown documents and knitr to produce reports?</p>
+<p>It is a lot easier than writing in Word, and copying/importing your outputs from ggplot2 or other R Studio functions into your document, then saving as .pdf, submitting to the journal, etc.</p>
+<p>It makes it much easier to keep your code and output together, so you can see exactly what code generated which figure.</p>
+<p>It makes it really easy to share your work online, and in different formats.</p>
+<p>You may find the <a href="https://posit.co/blog/the-r-markdown-cheat-sheet/">RMarkdown cheat sheet</a> helpful.</p>
+</section>
+<section id="live-demo-1" class="level3">
+<h3 class="anchored" data-anchor-id="live-demo-1">Live demo</h3>
+<ol type="1">
+<li>Create a new R markdown document</li>
+<li>Edit the header to specify title, author, date, and output e.g.,</li>
+</ol>
+<p>title: “Initial R Markdown document” author: “Karl Broman” date: “April 23, 2015” output: html_document (inside the — symbols denoting a YAML header)</p>
+<ol start="3" type="1">
+<li><p>Note that in the document, there are code chunks (which knitr will execute).</p></li>
+<li><p>Writing marked-up text:</p></li>
+</ol>
+<ul>
+<li>bold with double-asterisks</li>
+<li>italics with underscores</li>
+<li>code-type font with backticks</li>
+<li>headers using #s</li>
+</ul>
+<ol start="5" type="1">
+<li><p>Compiling the R markdown document using the “Knit” button. You can also compile to .pdf and other formats (but compiling to PDF may require an additional package like <code>tinytex</code>.)</p></li>
+<li><p>Using code chunks Remember to give each code chunk a unique name Note, the initial document gives some illustrative code chunks with options like <code>include</code> and <code>echo</code> - you can modify the way that a code chunk behaves by specifying either specific options for that chunk, or global options for all the chunks in your document.</p></li>
+</ol>
+</section>
+<section id="slide-14---challenge-2" class="level3">
+<h3 class="anchored" data-anchor-id="slide-14---challenge-2">Slide 14 - challenge 2</h3>
+</section>
+<section id="slide-15---lesson-14-key-points" class="level3">
+<h3 class="anchored" data-anchor-id="slide-15---lesson-14-key-points">Slide 15 - lesson 14 key points</h3>
+<p>This has been a very brief intro to using knitr, but you will learn more as you actually use it and figure out how to set different formatting and output options - don’t forget the cheatsheet!</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

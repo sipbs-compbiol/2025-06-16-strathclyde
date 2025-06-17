@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Lesson 1-3 - Notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="lesson1-3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="lesson1-3_files/libs/quarto-html/quarto.js"></script>
+<script src="lesson1-3_files/libs/quarto-html/popper.min.js"></script>
+<script src="lesson1-3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="lesson1-3_files/libs/quarto-html/anchor.min.js"></script>
+<link href="lesson1-3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="lesson1-3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="lesson1-3_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="lesson1-3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="lesson1-3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lesson 1-3 - Notes</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="lesson-1.-introduction-to-r-and-r-studio" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-1.-introduction-to-r-and-r-studio">Lesson 1. Introduction to R and R Studio</h2>
+<section id="slide-1" class="level3">
+<h3 class="anchored" data-anchor-id="slide-1">Slide 1</h3>
+<ul>
+<li>Do you have the latest version of R and R Studio installed?</li>
+<li>Housekeeping notes</li>
+</ul>
+</section>
+<section id="slide-2" class="level3">
+<h3 class="anchored" data-anchor-id="slide-2">Slide 2</h3>
+<p>Why use R and R Studio?</p>
+<ul>
+<li>You probably have some data that you want to analyse (could be any type of data).</li>
+<li>The raw data by themselves may not tell you very much - you likely want to do some sort of analysis, perhaps some statistics, or some type of visualisation. Data on its own doesn’t mean much unless it is accurately interpreted and clearly communicated to the correct audience.</li>
+<li>There are many different tools you can use to analyse your data - how do we choose the most appropriate tool? why should we choose R?</li>
+</ul>
+<p>Some of the advantages to using R/R Studio:</p>
+<ul>
+<li>Powerful statistical tool (can easily do most of the analyses that you’ll want to do)</li>
+<li>Documentation and reproducibility (can write scripts to document your work, and other scientists can then reproduce what you have done)</li>
+<li>Free and open-source (extensive community support and availability of “packages”)</li>
+</ul>
+</section>
+<section id="slide-3" class="level3">
+<h3 class="anchored" data-anchor-id="slide-3">Slide 3</h3>
+<p>A note on terminology - R (the programming language) versus R Studio (the integrated development environment or IDE).</p>
+</section>
+<section id="slide-4-live-demo" class="level3">
+<h3 class="anchored" data-anchor-id="slide-4-live-demo">Slide 4: Live demo:</h3>
+<section id="introduction-to-the-r-studio-console" class="level4">
+<h4 class="anchored" data-anchor-id="introduction-to-the-r-studio-console">Introduction to the R Studio console</h4>
+<ol type="1">
+<li>Open R studio</li>
+</ol>
+<p>You will see 3 panes: Console/Terminal/Jobs, Environment/History/Connections/Tutorial, and Files/Plots/Packages/Help/Viewer/Presentation. You can change between panes and resize them to suit your needs. (Later on, when you are working with scripts, you will see 4 panes.)</p>
+<ol start="2" type="1">
+<li>Familiarising ourselves with the console</li>
+</ol>
+<p>You can use the ‘&gt;’ prompt in the console to type commands and press “Enter” to execute them.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you see a “+” at the prompt in the console, this indicates that you have put in an incomplete command, and R Studio is waiting for you to complete it. You can hit “Esc” to cancel a command and this should restore the “+” prompt.</p>
+</div>
+</div>
+<p><strong>Commands you can run include things like:</strong></p>
+<ul>
+<li>Performing basic mathematical operations</li>
+<li>Using different functions</li>
+<li>Managing your R Studio environment</li>
+<li>And much more!</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We will be working in the console for now, but you can also use these commands in R scripts, and you will see later how this can be very useful for your work.</p>
+</div>
+</div>
+</section>
+<section id="basic-mathematical-operations" class="level4">
+<h4 class="anchored" data-anchor-id="basic-mathematical-operations">Basic mathematical operations</h4>
+<p>R can carry out basic mathematical operations (just like a calculator or Excel or many other software). It will do so using the rules that normally apply to maths [parentheses; exponents; multiply; divide; add; subtract].</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 101</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You want to make your code as readable as possible.</p>
+<p>Use parentheses as necessary (to change from the default order of evaluation, or if needed to make your code clearer for a reader).</p>
+<p>Use <strong>comments</strong> (with the # notation) to explain your code. You may not remember what you were trying to do, when you come back to look at your own code - and you want other people to be able to read and use your code too!</p>
+<p>Ue scientific notation where necessary (Very large or very small numbers can be hard for humans to read.)</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#Demonstrate the order of operations</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> <span class="dv">2</span> <span class="co"># This will multiply 5 *2 first, following maths rules</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>(<span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span>) <span class="sc">*</span> <span class="dv">2</span> <span class="co"># This will execute the expression inside the parentheses first</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">#Demonstrate how to use parentheses and comments</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> <span class="dv">2</span> <span class="sc">^</span> <span class="dv">2</span>       <span class="co"># This is clear, if you remember the rules</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 23</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>(<span class="dv">3</span> <span class="sc">+</span> (<span class="dv">5</span> <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">^</span> <span class="dv">2</span>))) <span class="co"># This uses parentheses, but is hard to read</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 23</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">^</span> <span class="dv">2</span>)     <span class="co"># This uses parentheses in a way that might help you remember the rules</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 23</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">#Format numbers readably</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="dv">2</span><span class="sc">/</span><span class="dv">10000</span> <span class="co"># Large numbers are hard to read</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2e-04</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fl">2e-04</span> <span class="co"># We can format numbers using scientific notation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2e-04</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Remember, e is shorthand for “multiplied by 10^XX”</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="fl">5e3</span> <span class="co"># e can be used with positive numbers too</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5000</code></pre>
+</div>
+</div>
+</section>
+<section id="assigning-and-using-variables" class="level4">
+<h4 class="anchored" data-anchor-id="assigning-and-using-variables">Assigning and using variables</h4>
+<p>Sometimes we will want to store values or information for reuse later on in our code. We can do this by using variables. You can assign a value to a variable using the operator <code>&lt;-</code> or <code>=</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should be consistent - use the same assignment operator regularly through your code. (This makes your code much easier to read.)</p>
+<p>Also note, you do not want to confuse the assignment operator <code>=</code> with the comparison operator <code>==</code> (which is used to test whether two values or variables are equal to one another).</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">40</span> <span class="co"># Assign a variable called x to the value 1/40</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>What do you expect to happen when you enter the command above into the console?</p>
+<p>What actually happens, and why?</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click to see the answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You will not see the result of the calculation printed in the console. Instead, you’ll see the value for x listed in your environment tab. R Studio is storing the result of the calculation for you (in this case, a <a href="https://en.wikipedia.org/wiki/Floating-point_arithmetic">floating point number</a>) - but you haven’t actually asked it to print out x, so it won’t.</p>
+<p>You can enter a variable into the console, and it will print out the value of that variable - or you can use a function, <code>print()</code> to print the value of the variable.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note, you can reassign a variable, and this will update the value.</p>
+<p>The right hand side of the assignment can be any valid R expression, and it will be fully evaluated before the assignment occurs.</p>
+</div>
+</div>
+<p>You can also assign vectors<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to variables and functions. This is quite useful and will come in handy later.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span> <span class="co"># using the : operator to generate a sequence of numbers 1-5, when are then assigned to the variable x</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">1</span> <span class="co"># using the : operator in the reverse direction of above</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="dv">59</span>) <span class="co"># You can also use a function called c() to assign a vector to a function - we will learn more about functions shortly.</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="fu">print</span>(x) <span class="co">#prints the current value of x</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  1  8 59</code></pre>
+</div>
+</div>
+<section id="variable-names" class="level5">
+<h5 class="anchored" data-anchor-id="variable-names">Variable names</h5>
+<p>You want to be mindful about choosing names for variables. Good variable names are short and readable (corresponding to their function in the code). While there is nothing that stops me from naming a variable that tracks the growth rate of my bacteria, as something like <code>apples</code> or <code>rainbow</code> or any other valid variable name - it will be easier for anyone who reads my code, or for me in the future, to understand the variable if this variable is named <code>GrowthRate</code>.</p>
+<p>You can make long variable names more readable by using periods, underscores, or camelcase: periods.between.words, underscores_between_words, camelCaseToSeparateWords (again, be consistent).</p>
+<p><strong>Rules for naming variables:</strong></p>
+<ul>
+<li><p>They can contain letters, numbers, underscores, periods</p></li>
+<li><p>They cannot contain spaces</p></li>
+<li><p>They must start with a letter, or a period followed by a letter. (Variables beginning with a period are hidden variables.)</p></li>
+<li><p>They cannot start with a number or an underscore</p></li>
+</ul>
+</section>
+</section>
+<section id="using-basic-functions" class="level4">
+<h4 class="anchored" data-anchor-id="using-basic-functions">Using basic functions</h4>
+<p><u>Functions</u> are groups of organised instructions that will carry out a specific task. They can be built-in (part of base R), provided by packages, or written by you.</p>
+<p>Many functions take one or more <u>arguments</u> (which tell the function how to carry out its task.</p>
+<p>Functions can be simple mathematical calculations (e.g., logarithms, trigonometry functions), or they can be used to help manage your environment in R.</p>
+<div class="sourceCode" id="cb22" data-echo="false" data-code-overflow="wrap"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">#Using functions</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">log</span>(<span class="dv">1</span>)  <span class="co"># Natural logarithm</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="fu">getwd</span>() <span class="co"># Returns an absolute filepath</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="fu">ls</span>() <span class="co"># Lists all the variables and functions stored in the global environment (your working R session)</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="fu">ls</span>(<span class="at">all.names=</span><span class="cn">TRUE</span>) <span class="co"># This argument alters the behaviour of the function so that it lists hidden variables and functions as well</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can use the autocomplete function in R to help you remember the names of functions, or you can look them up (Google or help pages). We will talk more about how to get help in R later.</p>
+</div>
+</div>
+<p>As part of managing your environment, you might want to delete objects (either a specific object, or all the objects in your environment).</p>
+<div class="sourceCode" id="maths6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="maths6-1"><a href="#maths6-1"></a><span class="fu">rm</span>() <span class="co"># This is a function that allows you to delete objects from your environment - you need to pass an argument to it, to tell it what to delete</span></span>
+<span id="maths6-2"><a href="#maths6-2"></a><span class="fu">rm</span>(x) <span class="co"># You can delete a specific variable (x)</span></span>
+<span id="maths6-3"><a href="#maths6-3"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()) <span class="co"># You can pass the results of the ls() function to the rm() function - this will delete everything in your environment</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note how we combined two functions above - this can be a very powerful tool when you are working in R. Anything in the innermost parentheses will be evaluated first when you combine functions like this.</p>
+<p>Note that when you are assigning values to arguments by name, you must use the <code>=</code> operator (NOT <code>&lt;-</code>). You will get an error message, or possibly unintended side effects, if you use <code>&lt;-</code>.</p>
+</div>
+</div>
+</section>
+<section id="using-r-packages" class="level4">
+<h4 class="anchored" data-anchor-id="using-r-packages">Using R packages</h4>
+<p>In many cases you will want to expand beyond the functions available in base R. One of the ways of doing this, is by adding a <u>package</u> - these extend the R language and can be downloaded via a repository like CRAN.</p>
+<p>You can manage packages in the console, or using the “Packages” pane.</p>
+<div class="sourceCode" id="maths7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="maths7-1"><a href="#maths7-1"></a><span class="fu">installed.packages</span>() <span class="co"># Shows what packages are installed</span></span>
+<span id="maths7-2"><a href="#maths7-2"></a><span class="fu">install.packages</span>(<span class="st">"packagename"</span>) <span class="co"># Installs a new package, where packagename is the name of the package (must be in quotes)</span></span>
+<span id="maths7-3"><a href="#maths7-3"></a><span class="fu">update.packages</span>() <span class="co"># Updates installed packages</span></span>
+<span id="maths7-4"><a href="#maths7-4"></a><span class="fu">remove.packages</span>(<span class="st">"packagename"</span>) <span class="co"># Removes a package, where packagename is the name of the package</span></span>
+<span id="maths7-5"><a href="#maths7-5"></a><span class="fu">library</span>(packagename) <span class="co"># Loads the package, packagename, for use - note, no quote marks</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We will see in later lessons, how we can use the functions available in different packages, like ggplot2.</p>
+</section>
+<section id="challenges" class="level4">
+<h4 class="anchored" data-anchor-id="challenges">Challenges</h4>
+<p>Slides 6-11</p>
+</section>
+<section id="slide-12---lesson-1-key-points" class="level4">
+<h4 class="anchored" data-anchor-id="slide-12---lesson-1-key-points">Slide 12 - Lesson 1 key points</h4>
+</section>
+</section>
+</section>
+<section id="lesson-2.-project-management-with-r-studio" class="level2">
+<h2 class="anchored" data-anchor-id="lesson-2.-project-management-with-r-studio">Lesson 2. Project Management with R Studio</h2>
+<section id="slide-13" class="level3">
+<h3 class="anchored" data-anchor-id="slide-13">Slide 13</h3>
+<p>Housekeeping notes:</p>
+</section>
+<section id="slide-14" class="level3">
+<h3 class="anchored" data-anchor-id="slide-14">Slide 14</h3>
+<p>If we don’t manage our projects effectively and efficiently, we make our lives harder than they need to be. We don’t want to waste a lot of time searching for the right file - or worse, using the wrong file.</p>
+<p>Ethically speaking, we have an obligation to work with data in particular ways, to maintain good scientific practices and ensure the integrity of our data.</p>
+<p>Also, as scientists, we very often work collaboratively - so we need to use a project management system that works with our colleagues, and that they can understand and use effectively too. We also usually need to upload our data, and the scripts used to generate our analyses, as supplementary information when we submit manuscripts. Reviewers need to see that you have analysed your data correctly.</p>
+</section>
+<section id="slide-15" class="level3">
+<h3 class="anchored" data-anchor-id="slide-15">Slide 15</h3>
+<p>Unfortunately, even if we start out with good intentions, sometimes scientific projects look something like this comic. What is wrong with the system shown here?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click to see some of the problems with this data structure
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Project structure is unclear: this is a “data” folder inside a “research” folder - but “research” is quite a vague folder name. Is this one project, or are there several projects commingled here?</p></li>
+<li><p>The “data_date_description.dat” filenames have some issues:</p>
+<ul>
+<li><p>“data” is a vague start to the file names - it would be better to be more precise about the type of data. A more informative file name would help the user find what they are looking for more quickly.</p></li>
+<li><p>The file names contain value judgements (“huh??”, “WTF”, “crap”) - this is mixing the raw data with the analysis/interpretation of the data, and should be avoided</p></li>
+<li><p>The file names contain nonstandard characters, which is probably best avoided</p></li>
+</ul></li>
+<li><p>There is a mixture of different kinds of files - this folder is named “data”, but it also contains analysis, a thesis outline, and notes from a meeting. This makes it harder to find the files when you need them.</p></li>
+<li><p>The subfolder named “JUNK…” does not have an informative name</p></li>
+<li><p>The folder is missing any sort of README.txt file describing the data, how they were generated, and any associated metadata</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="slide-16" class="level3">
+<h3 class="anchored" data-anchor-id="slide-16">Slide 16</h3>
+<p>What features or design elements make a project layout good or not so good?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Every project is different, and there are many different sensible ways to organise most projects. It is important that you choose an organisational system that works for you, and for the project.</p>
+</div>
+</div>
+</section>
+<section id="slides-17-19" class="level3">
+<h3 class="anchored" data-anchor-id="slides-17-19">Slides 17-19</h3>
+<p>Some tips for best practices</p>
+<ul>
+<li><p>Preserve the original data, and make sure that you can easily distinguish between the original data and modified forms of the data.</p>
+<ul>
+<li><p>Original data (and sometimes, cleaned data) should be treated as read-only</p></li>
+<li><p>Any data you generate (your output) should be treated as disposable (you should be able to regenerate it from the original/cleaned data using your scripts)</p></li>
+</ul></li>
+<li><p>Organise your project in a way that makes it easy for you to find things, and to relate the output (e.g., figures or tables) to the original data and the code used to generate them</p></li>
+<li><p>Organise your projects in such a way that they are readable and shareable with other people (including your colleagues, manuscript reviewers, or your future self)</p></li>
+<li><p>Separate the definition of a function from its application - as you put reusable chunks of code into functions, you might store these in separate folders, so the reusable functions can be used across different analyses and projects, and the analysis scripts are stored in their own directory.</p></li>
+<li><p>Follow the Good Enough Practices for Scientific Computing:</p>
+<ul>
+<li><p>Put each project in its own directory, which is named after the project.</p></li>
+<li><p>Put text documents associated with the project in the <code>doc</code> directory.</p></li>
+<li><p>Put raw data and metadata in the <code>data</code> directory, and files generated during cleanup and analysis in a <code>results</code> directory.</p></li>
+<li><p>Put source for the project’s scripts and programs in the <code>src</code> directory, and programs brought in from elsewhere or compiled locally in the <code>bin</code> directory.</p></li>
+<li><p>Name all files to reflect their content or function.</p></li>
+</ul></li>
+<li><p>Include a descriptive README.txt file in each folder, containing a clear description of the folder’s contents (this is useful for your future self, who doesn’t remember what you were doing, or for collaborators - who aren’t psychic and can’t read your mind)</p></li>
+<li><p>Use version control to manage your projects</p></li>
+<li><p>Consider FAIR principles (Findable, Accessible, Interoperable, and Reusable) principles from the beginning when planning your projects</p>
+<h3 id="slide-18-live-demo" class="anchored">Slide 18: Live demo</h3>
+<h4 id="create-a-new-project" class="anchored">Create a new project</h4>
+<p><strong>Challenge #1: We’re going to create a new project in RStudio:</strong></p>
+<ol type="1">
+<li><p>Click the “File” menu button, then “New Project”.</p></li>
+<li><p>Click “New Directory”.</p></li>
+<li><p>Click “New Project”.</p></li>
+<li><p>Type in the name of the directory to store your project, e.g.&nbsp;“my_project”.</p></li>
+<li><p>If available, select the checkbox for “Create a git repository.”</p></li>
+<li><p>Click the “Create Project” button.</p>
+<p><strong>Challenge 2: Opening an RStudio project through the file system</strong></p>
+<ol type="1">
+<li><p>Exit RStudio.</p></li>
+<li><p>Navigate to the directory where you created a project in Challenge 1.</p></li>
+<li><p>Double click on the <code>.Rproj</code> file in that directory.</p></li>
+</ol></li>
+</ol>
+<h4 id="save-your-data-into-the-project" class="anchored">Save your data into the project</h4>
+<p>Download the gapminder data from <a href="https://swcarpentry.github.io/r-novice-gapminder/data/gapminder_data.csv">this link to a csv file</a>.</p>
+<ol type="1">
+<li><p>Download the file (right mouse click on the link above -&gt; “Save link as” / “Save file as”, or click on the link and after the page loads, press Ctrl+S or choose File -&gt; “Save page as”)</p></li>
+<li><p>Make sure it’s saved under the name <code>gapminder_data.csv</code></p></li>
+<li><p>Save the file in the <code>data/</code> folder within your project.</p></li>
+</ol>
+<p>We will load and inspect these data later.</p>
+<p>Commit your changes with a short informative commit message.</p>
+<h4 id="change-your-working-directory" class="anchored">Change your working directory</h4></li>
+</ul>
+<p>You can check the current working directory with the <code>getwd()</code> command, or by using the menus in RStudio.</p>
+<ol type="1">
+<li><p>In the console, type <code>getwd()</code> (“wd” is short for “working directory”) and hit Enter.</p></li>
+<li><p>In the Files pane, double click on the <code>data</code> folder to open it (or navigate to any other folder you wish). To get the Files pane back to the current working directory, click “More” and then select “Go To Working Directory”.</p></li>
+</ol>
+<p>You can change the working directory with <code>setwd()</code>, or by using RStudio menus.</p>
+<ol type="1">
+<li><p>In the console, type <code>setwd("data")</code> and hit Enter. Type <code>getwd()</code> and hit Enter to see the new working directory.</p></li>
+<li><p>In the menus at the top of the RStudio window, click the “Session” menu button, and then select “Set Working Directory” and then “Choose Directory”. Next, in the windows navigator that opens, navigate back to the project directory, and click “Open”. Note that a <code>setwd</code> command will automatically appear in the console.</p></li>
+</ol>
+<p>More information about using version control with R studio: <a href="https://swcarpentry.github.io/git-novice/14-supplemental-rstudio.html" class="uri">https://swcarpentry.github.io/git-novice/14-supplemental-rstudio.html</a></p>
+</section>
+<section id="slide-21---lesson-2-key-points" class="level3">
+<h3 class="anchored" data-anchor-id="slide-21---lesson-2-key-points">Slide 21 - Lesson 2 Key Points</h3>
+</section>
+<section id="lesson-3.-seeking-help" class="level3">
+<h3 class="anchored" data-anchor-id="lesson-3.-seeking-help">Lesson 3. Seeking help</h3>
+</section>
+<section id="slide-22" class="level3">
+<h3 class="anchored" data-anchor-id="slide-22">Slide 22</h3>
+<p>Housekeeping and Intro</p>
+</section>
+<section id="slide-23---sources-of-help" class="level3">
+<h3 class="anchored" data-anchor-id="slide-23---sources-of-help">Slide 23 - sources of help</h3>
+<p>Getting help within R itself - help files and vignettes</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co">#you can use ?function_name or help(function_name) to get help with a specific function</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="fu">help</span>(write.table)</span>
+<span id="cb23-3"><a href="#cb23-3"></a>?<span class="fu">write.table</span>()</span>
+<span id="cb23-4"><a href="#cb23-4"></a>?<span class="fu">write.csv</span>()</span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="co">#you can do a fuzzy search with ??function_name if you remember part of the function name</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="slide-24---using-llms-caveat-emptor" class="level3">
+<h3 class="anchored" data-anchor-id="slide-24---using-llms-caveat-emptor">Slide 24 - using LLMs (caveat emptor)</h3>
+<p>LLMs <em>can</em> be very helpful when writing code - or they can be completely wrong and unhelpful. The best way to make them more helpful is to know a fair bit about coding yourself so that you have better judgement about their output.</p>
+</section>
+<section id="slide-25---lesson-3-key-points" class="level3">
+<h3 class="anchored" data-anchor-id="slide-25---lesson-3-key-points">Slide 25 - Lesson 3 Key Points</h3>
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>A set of values, all of the same data type, in a certain order<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
